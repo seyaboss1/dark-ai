@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: dark-ai
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server/proxy.js
+    envVars:
+      - key: GROQ_KEY
+        sync: false
+      - key: HF_KEY
+        sync: false

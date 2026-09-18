@@ -1,0 +1,12 @@
+{
+  "name": "dark-ai",
+  "version": "16.0.0",
+  "description": "DARK AI — Multilingual AI Assistant",
+  "main": "server/proxy.js",
+  "scripts": {
+    "start": "node server/proxy.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

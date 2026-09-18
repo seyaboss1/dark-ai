@@ -2,4 +2,10 @@ node_modules/
 .hf_key
 *.tgz
 *.save
+favicon.ico
+index.html.save
+node_modules/
+.hf_key
+*.tgz
+*.save
 .DS_Store

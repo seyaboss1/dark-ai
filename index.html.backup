@@ -1134,7 +1134,7 @@
   </div>
 </div>
 
-<div class="
+<div class="toast" id="toast"></div>
 
 <script>
   // ============================================================
@@ -2540,4 +2540,4 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-·ãç, -·
   init();
 </script>
 </body>
-</html>toast" id="toast"></div>
+</html>

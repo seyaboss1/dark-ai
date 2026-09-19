@@ -1235,7 +1235,13 @@
     <h2>👑 ADMIN PANEL</h2>
     <h3>📊 Statistics</h3>
     <div class="stats-grid" id="adminStats"></div>
-    <h3>📢 Advertisements</h3>
+    <h3>🔗 Quick Actions</h3>
+<div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:0.5rem; margin-bottom:1rem;">
+  <button class="sidebar-btn" id="viewSiteBtn" type="button">🌐 View Site</button>
+  <button class="sidebar-btn" id="exportDataBtn" type="button">💾 Export Data</button>
+  <button class="sidebar-btn" id="importDataBtn" type="button">📥 Import Data</button>
+  <button class="sidebar-btn" id="resetStatsBtn" type="button">📊 Reset Stats</button>
+</div><h3>📢 Advertisements</h3>
     <div id="adList" style="margin-top: 0.5rem;"></div>
     <button class="sidebar-btn" id="addAdBtn" type="button" style="margin-top: 0.5rem;">＋ Add New Ad</button>
     <div class="modal-actions">
@@ -2321,7 +2327,7 @@
     const box = $('authBox');
     if (currentUser) {
       const name = currentUser.username || currentUser.email || 'User';
-      const email = currentUser.email || '';
+      const email = currentUser.email || currentUser.username || '';
       box.innerHTML =
         '<div class="signed-info">✓ Signed in as <br><b>' + escapeHtml(name) + '</b><br>' +
         '<small style="font-size:0.72rem;color:var(--muted);font-weight:400">' + escapeHtml(email) + '</small>' +
@@ -2344,13 +2350,19 @@
   }
 
   async function updateAuthUI() {
-    try {
+  // Track user
+try { trackUser(name); } catch(e) {}  try {
       const signed = await puter.auth.isSignedIn();
       if (signed) {
         currentUser = await puter.auth.getUser();
         const name = currentUser.username || currentUser.email || 'User';
         const email = currentUser.email || '';
-        isAdmin = (email.toLowerCase() === ADMIN_EMAIL.toLowerCase());
+        const _email = (email || '').toLowerCase();
+const _name = (name || '').toLowerCase();
+isAdmin = ADMIN_USERS.some(function(u) {
+  const lu = u.toLowerCase();
+  return _email === lu || _name === lu;
+});
 
         const badge = $('authBadge');
         badge.style.display = 'flex';
@@ -2432,7 +2444,104 @@
     container.appendChild(card);
   }
 
-  function openAdmin() {
+  /* ============================================================
+   ADMIN EXTRA FEATURES
+   ============================================================ */
+function viewSite() {
+  window.open(location.origin, '_blank');
+}
+
+function exportAllData() {
+  const data = {
+    threads: threads,
+    ads: ads,
+    settings: {
+      lang: preferredLang,
+      size: preferredSize,
+      quality: preferredQuality,
+      theme: theme,
+      autoSpeak: autoSpeak
+    },
+    exportDate: new Date().toISOString()
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'dark-ai-backup-' + Date.now() + '.json';
+  a.click();
+  toast('✅ Data exported');
+}
+
+function importData() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const data = JSON.parse(ev.target.result);
+        if (data.threads) {
+          threads = data.threads;
+          localStorage.setItem('dark-threads', JSON.stringify(threads));
+        }
+        if (data.ads) {
+          ads = data.ads;
+          localStorage.setItem('dark-ads', JSON.stringify(ads));
+        }
+        if (data.settings) {
+          if (data.settings.lang) preferredLang = data.settings.lang;
+          if (data.settings.size) preferredSize = data.settings.size;
+          if (data.settings.quality) preferredQuality = data.settings.quality;
+          if (data.settings.theme) {
+            theme = data.settings.theme;
+            applyTheme();
+          }
+        }
+        renderThreads();
+        rebuildUI();
+        toast('✅ Data imported successfully');
+      } catch (err) {
+        toast('❌ Invalid file: ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+function resetStats() {
+  if (!confirm('Reset all statistics?')) return;
+  localStorage.removeItem('dark-msg-counter');
+  localStorage.setItem('dark-total-users', '1');
+  messageCounter = 0;
+  toast('✅ Statistics reset');
+  openAdmin();
+}
+
+function renderRecentUsers() {
+  const list = $('recentUsersList');
+  if (!list) return;
+  const users = JSON.parse(localStorage.getItem('dark-recent-users') || '[]');
+  if (users.length === 0) {
+    list.innerHTML = '<p style="color:var(--muted);text-align:center;">No users tracked yet</p>';
+    return;
+  }
+  list.innerHTML = users.slice(-10).reverse().map(u => `
+    <div style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid var(--border);">
+      <span>${escapeHtml(u.name || 'Anonymous')}</span>
+      <span style="color:var(--muted);font-size:0.75rem;">${new Date(u.time).toLocaleDateString()}</span>
+    </div>
+  `).join('');
+}
+
+function trackUser(name) {
+  const users = JSON.parse(localStorage.getItem('dark-recent-users') || '[]');
+  users.push({ name, time: Date.now() });
+  localStorage.setItem('dark-recent-users', JSON.stringify(users.slice(-50)));
+}function openAdmin() {
     if (!isAdmin) return;
     const statsEl = $('adminStats');
     statsEl.innerHTML = '';
@@ -2744,7 +2853,18 @@
   $('adminModal').onclick = (e) => {
     if (e.target === $('adminModal')) $('adminModal').classList.remove('show');
   };
-  $('addAdBtn').onclick = () => openAdEditor(-1);
+  // Admin quick actions
+const viewSiteBtn = $('viewSiteBtn');
+if (viewSiteBtn) viewSiteBtn.onclick = viewSite;
+
+const exportDataBtn = $('exportDataBtn');
+if (exportDataBtn) exportDataBtn.onclick = exportAllData;
+
+const importDataBtn = $('importDataBtn');
+if (importDataBtn) importDataBtn.onclick = importData;
+
+const resetStatsBtn = $('resetStatsBtn');
+if (resetStatsBtn) resetStatsBtn.onclick = resetStats;$('addAdBtn').onclick = () => openAdEditor(-1);
   $('adEditCancel').onclick = () => $('adEditModal').classList.remove('show');
   $('adEditSave').onclick = saveAdFromEditor;
   $('adEditModal').onclick = (e) => {

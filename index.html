@@ -250,7 +250,6 @@
     -webkit-text-fill-color: transparent;
   }
   .chat-head-title small { font-size: 0.7rem; color: var(--muted); }
-  .chat-tools { display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; }
   .chat-body {
     flex: 1; overflow-y: auto; padding: 1.4rem 1.2rem;
     display: flex; flex-direction: column; gap: 0.9rem;
@@ -355,48 +354,26 @@
   }
   .msg.ai pre:hover .code-copy { opacity: 1; }
   .code-copy:hover { background: var(--accent); color: white; }
-
-  /* PROMPT BOX */
   .prompt-box {
-    margin-top: 1rem;
-    background: var(--bg-3);
-    border: 1px solid var(--border-2);
-    border-radius: 14px;
+    margin-top: 1rem; background: var(--bg-3);
+    border: 1px solid var(--border-2); border-radius: 14px;
     padding: 1rem;
   }
   .prompt-text {
-    font-size: 0.82rem;
-    line-height: 1.6;
-    color: var(--fg);
-    background: var(--bg-2);
-    padding: 0.75rem;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    margin-bottom: 0.75rem;
-    max-height: 150px;
-    overflow-y: auto;
-    font-family: 'JetBrains Mono', monospace;
-    white-space: pre-wrap;
-    word-break: break-word;
+    font-size: 0.82rem; line-height: 1.6; color: var(--fg);
+    background: var(--bg-2); padding: 0.75rem;
+    border-radius: 10px; border: 1px solid var(--border);
+    margin-bottom: 0.75rem; max-height: 150px;
+    overflow-y: auto; font-family: 'JetBrains Mono', monospace;
+    white-space: pre-wrap; word-break: break-word;
   }
-  .prompt-actions {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
+  .prompt-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
   .prompt-btn {
-    flex: 1;
-    min-width: 120px;
-    background: transparent;
-    border: 1px solid var(--border-2);
-    color: var(--accent);
-    padding: 0.7rem 1rem;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 0.82rem;
-    cursor: pointer;
-    font-family: inherit;
-    transition: all .25s;
+    flex: 1; min-width: 120px;
+    background: transparent; border: 1px solid var(--border-2);
+    color: var(--accent); padding: 0.7rem 1rem;
+    border-radius: 10px; font-weight: 700; font-size: 0.82rem;
+    cursor: pointer; font-family: inherit; transition: all .25s;
   }
   .prompt-btn:hover {
     border-color: var(--accent);
@@ -407,15 +384,8 @@
     background: linear-gradient(135deg, var(--accent), var(--accent-2));
     color: white; border-color: transparent;
   }
-  .prompt-btn.primary:hover {
-    box-shadow: var(--glow);
-    transform: translateY(-2px);
-  }
-  .prompt-btn.done {
-    background: rgba(16,185,129,0.15);
-    color: var(--ok); border-color: var(--ok);
-  }
-
+  .prompt-btn.primary:hover { box-shadow: var(--glow); transform: translateY(-2px); }
+  .prompt-btn.done { background: rgba(16,185,129,0.15); color: var(--ok); border-color: var(--ok); }
   .msg.typing {
     display: inline-flex; align-items: center; gap: 4px;
     padding: 0.8rem 1.1rem; min-width: 60px;
@@ -449,19 +419,14 @@
     font-size: 0.72rem; padding: 0.3rem 0.6rem;
     border-radius: 999px;
     display: inline-flex; align-items: center; gap: 0.3rem;
-    transition: all .25s;
-    font-family: inherit; font-weight: 600;
+    transition: all .25s; font-family: inherit; font-weight: 600;
     -webkit-tap-highlight-color: transparent;
   }
   .msg-action:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+    border-color: var(--accent); color: var(--accent);
     transform: translateY(-1px);
   }
-  .msg-action.done {
-    color: var(--ok); border-color: var(--ok);
-    background: rgba(16,185,129,0.1);
-  }
+  .msg-action.done { color: var(--ok); border-color: var(--ok); background: rgba(16,185,129,0.1); }
   .msg-image, .msg-video {
     background: var(--bg-2) !important;
     border: 1px solid var(--border-2) !important;
@@ -474,9 +439,9 @@
     transition: transform .25s;
   }
   .msg-image img:hover { transform: scale(1.02); }
-  .msg-video img {
+  .msg-video video {
     max-width: 100%; width: 100%;
-    border-radius: 12px; display: block; cursor: pointer;
+    border-radius: 12px; display: block; background: #000;
   }
   .img-progress {
     display: flex; align-items: center; gap: 0.5rem;
@@ -556,9 +521,7 @@
     color: var(--muted); margin-bottom: 0.4rem;
     margin-top: 1rem; font-weight: 600;
   }
-  .modal input[type="text"],
-  .modal input[type="number"],
-  .modal textarea {
+  .modal input[type="text"], .modal input[type="number"], .modal textarea {
     width: 100%;
     background: var(--bg-3); border: 1px solid var(--border-2);
     border-radius: 12px; padding: 0.75rem 0.9rem;
@@ -580,7 +543,6 @@
     font-weight: 700; font-size: 0.83rem;
     cursor: pointer; font-family: inherit;
     border: 1px solid transparent;
-    -webkit-tap-highlight-color: transparent;
     transition: all .2s;
   }
   .modal-actions .cancel {
@@ -592,7 +554,7 @@
     background: linear-gradient(135deg, var(--accent), var(--accent-2));
     color: white;
   }
-  .modal-actions .save:hover { box-shadow: var(--glow); transform: translateY(-1px); }
+  .modal-actions .save:hover { box-shadow: var(--glow); }
   .voice-row { display: flex; align-items: center; gap: 0.6rem; padding: 0.7rem 0; font-size: 0.85rem; }
   .toggle {
     position: relative;
@@ -658,34 +620,9 @@
     color: white; box-shadow: var(--glow);
   }
   .size-opt small { font-size: 0.68rem; opacity: 0.8; }
-  .model-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 0.5rem; margin-top: 0.5rem;
-  }
-  .model-opt {
-    background: var(--bg-3);
-    border: 1px solid var(--border-2);
-    border-radius: 10px;
-    padding: 0.65rem 0.8rem;
-    cursor: pointer; font-family: inherit;
-    color: var(--fg); text-align: left;
-    font-size: 0.8rem;
-    transition: all .2s;
-    display: flex; flex-direction: column; gap: 0.2rem;
-  }
-  .model-opt:hover { border-color: var(--accent); }
-  .model-opt.active {
-    border-color: var(--accent);
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    color: white; box-shadow: var(--glow);
-  }
-  .model-opt .m-name { font-weight: 700; }
-  .model-opt .m-desc { font-size: 0.68rem; opacity: 0.75; }
   .profile-header {
     display: flex; align-items: center; gap: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem; border-bottom: 1px solid var(--border);
   }
   .profile-avatar {
     width: 60px; height: 60px; border-radius: 50%;
@@ -768,7 +705,6 @@
     border-radius: 24px;
     padding: 2rem; text-align: center;
     box-shadow: 0 0 80px rgba(79,70,229,0.5);
-    animation: slideIn .4s;
     position: relative;
   }
   .ad-badge {
@@ -810,11 +746,9 @@
   }
   .ad-skip:disabled { opacity: 0.4; cursor: not-allowed; }
   .auth-box {
-    background: var(--bg-3);
-    border: 1px solid var(--border-2);
-    border-radius: 12px;
-    padding: 1rem; text-align: center;
-    margin-top: 0.5rem;
+    background: var(--bg-3); border: 1px solid var(--border-2);
+    border-radius: 12px; padding: 1rem;
+    text-align: center; margin-top: 0.5rem;
   }
   .auth-box p { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.7rem; }
   .auth-box button {
@@ -835,6 +769,116 @@
     font-size: 0.85rem; font-weight: 700;
     margin-bottom: 0.7rem; color: var(--fg);
   }
+
+  /* ============================================================
+     TERMINAL
+     ============================================================ */
+  .term-modal {
+    position: fixed; inset: 0;
+    background: rgba(5,8,16,0.95);
+    backdrop-filter: blur(20px);
+    z-index: 2000; display: none;
+    flex-direction: column; padding: 1rem;
+  }
+  .term-modal.show { display: flex; }
+  .term-header {
+    display: flex; gap: 0.75rem; padding: 0.75rem 1rem;
+    background: var(--bg-3); border: 1px solid var(--border-2);
+    border-radius: 12px 12px 0 0; flex-wrap: wrap; align-items: center;
+  }
+  .term-title {
+    font-size: 1rem; font-weight: 800; letter-spacing: 2px;
+    color: var(--accent); flex: 1;
+  }
+  .term-tools { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .term-tool {
+    background: transparent; border: 1px solid var(--border-2);
+    color: var(--accent); padding: 0.5rem 0.9rem;
+    border-radius: 8px; font-size: 0.78rem; font-weight: 700;
+    cursor: pointer; font-family: inherit; transition: all .2s;
+    display: inline-flex; align-items: center; gap: 0.3rem;
+  }
+  .term-tool:hover { border-color: var(--accent); background: rgba(79,70,229,0.1); }
+  .term-tool.primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: white; border-color: transparent;
+  }
+  .term-tool.danger { color: var(--err); border-color: rgba(225,29,72,0.3); }
+  .term-tool.danger:hover { background: var(--err); color: white; }
+  .term-body {
+    flex: 1; display: flex; gap: 1rem; margin-top: 1rem; min-height: 0;
+  }
+  .term-sidebar {
+    width: 240px; background: var(--bg-2);
+    border: 1px solid var(--border-2); border-radius: 12px;
+    padding: 0.75rem; overflow-y: auto;
+  }
+  .term-sidebar h4 {
+    font-size: 0.7rem; font-weight: 800; letter-spacing: 1.5px;
+    color: var(--muted); text-transform: uppercase;
+    margin: 0.75rem 0 0.35rem; padding: 0 0.4rem;
+  }
+  .term-file {
+    padding: 0.6rem 0.75rem; border-radius: 8px;
+    cursor: pointer; font-size: 0.82rem;
+    display: flex; align-items: center; gap: 0.5rem;
+    transition: all .2s; border: 1px solid transparent;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .term-file:hover { background: var(--bg-3); border-color: var(--border-2); }
+  .term-file.active {
+    background: rgba(79,70,229,0.15);
+    border-color: var(--accent); color: var(--accent);
+  }
+  .term-file .ico { font-size: 1rem; }
+  .term-file .name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .term-file .del {
+    opacity: 0; background: transparent; border: none;
+    color: var(--err); cursor: pointer; font-size: 0.9rem;
+    padding: 0 0.3rem;
+  }
+  .term-file:hover .del { opacity: 1; }
+  .term-editor {
+    flex: 1; background: var(--bg-2);
+    border: 1px solid var(--border-2); border-radius: 12px;
+    display: flex; flex-direction: column; min-width: 0;
+  }
+  .term-editor-head {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.6rem 1rem; background: var(--bg-3);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem; color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .term-editor-head .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--err); }
+  .term-editor-head .dot:nth-child(2) { background: var(--warn); }
+  .term-editor-head .dot:nth-child(3) { background: var(--ok); }
+  .term-editor-head .filename {
+    margin-left: auto; color: var(--accent); font-weight: 700;
+  }
+  .term-textarea {
+    flex: 1; background: var(--bg-2); color: var(--fg);
+    border: none; outline: none; padding: 1rem;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.85rem; line-height: 1.6;
+    resize: none; tab-size: 2; min-height: 0;
+  }
+  .term-status {
+    padding: 0.5rem 1rem; background: var(--bg-3);
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem; color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+  .term-status .ok { color: var(--ok); }
+  .term-status .warn { color: var(--warn); }
+  .term-status .err { color: var(--err); }
+
+  @media (max-width: 768px) {
+    .term-body { flex-direction: column; }
+    .term-sidebar { width: 100%; max-height: 200px; }
+  }
+
   .toast {
     position: fixed; bottom: 90px; left: 50%;
     transform: translateX(-50%) translateY(90px);
@@ -961,28 +1005,22 @@
 <div class="modal-bg" id="settingsModal">
   <div class="modal">
     <h2>⚙ SETTINGS</h2>
-
     <h3>👤 Account</h3>
     <div class="auth-box" id="authBox"></div>
-
     <label>Preferred Reply Language</label>
     <div class="lang-grid" id="langGrid"></div>
-
     <label>Image Size</label>
     <div class="size-grid" id="sizeGrid"></div>
-
     <h3>Voice & Audio</h3>
     <div class="voice-row">
       <div class="toggle" id="autoSpeakToggle"></div>
       <span>Auto-speak AI replies</span>
     </div>
-
     <h3>Appearance</h3>
     <div class="voice-row">
       <div class="toggle" id="themeToggle"></div>
       <span>Dark mode</span>
     </div>
-
     <div class="modal-actions">
       <button class="cancel" id="settingsCancel" type="button">Cancel</button>
       <button class="save" id="settingsSave" type="button">Save</button>
@@ -1011,19 +1049,13 @@
 <div class="modal-bg" id="adminModal">
   <div class="modal" style="max-width: 640px;">
     <h2>👑 ADMIN PANEL</h2>
-
-    <h3>⚙ System Prompt</h3>
-    <label>DARK's personality (editable by admin only)</label>
-    <textarea id="adminSystemPrompt" placeholder="You are DARK..."></textarea>
-    <button class="sidebar-btn" id="saveSystemPromptBtn" type="button" style="margin-top:0.5rem;">💾 Save System Prompt</button>
-
+    <h3>🖥️ DARK Terminal</h3>
+    <button class="sidebar-btn admin" id="openTerminalBtn" type="button" style="width:100%;margin-bottom:1rem;">🖥️ Open DARK Terminal</button>
     <h3>📊 Statistics</h3>
     <div class="stats-grid" id="adminStats"></div>
-
     <h3>📢 Advertisements</h3>
     <div id="adList" style="margin-top: 0.5rem;"></div>
     <button class="sidebar-btn" id="addAdBtn" type="button" style="margin-top: 0.5rem;">＋ Add New Ad</button>
-
     <div class="modal-actions">
       <button class="cancel" id="adminClose" type="button">Close</button>
     </div>
@@ -1063,11 +1095,50 @@
   </div>
 </div>
 
+<div class="term-modal" id="termModal">
+  <div class="term-header">
+    <div class="term-title">🖥️ DARK TERMINAL</div>
+    <div class="term-tools">
+      <button class="term-tool primary" id="termSave" type="button">💾 Save</button>
+      <button class="term-tool" id="termPreview" type="button">👁 Preview</button>
+      <button class="term-tool" id="termNew" type="button">＋ New</button>
+      <button class="term-tool" id="termExport" type="button">⬇ Export</button>
+      <button class="term-tool" id="termImport" type="button">⬆ Import</button>
+      <button class="term-tool" id="termApply" type="button">⚡ Apply</button>
+      <button class="term-tool danger" id="termReset" type="button">↻ Reset</button>
+      <button class="term-tool danger" id="termClose" type="button">✕ Close</button>
+    </div>
+  </div>
+  <div class="term-body">
+    <div class="term-sidebar">
+      <h4>📁 Custom Files</h4>
+      <div id="termFiles"></div>
+      <h4>⚙ System</h4>
+      <div class="term-file" data-file="__prompt__"><span class="ico">🧠</span><span class="name">system-prompt.txt</span></div>
+      <div class="term-file" data-file="__styles__"><span class="ico">🎨</span><span class="name">custom-styles.css</span></div>
+      <div class="term-file" data-file="__scripts__"><span class="ico">💻</span><span class="name">custom-scripts.js</span></div>
+      <div class="term-file" data-file="__home__"><span class="ico">🏠</span><span class="name">home-content.html</span></div>
+    </div>
+    <div class="term-editor">
+      <div class="term-editor-head">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="filename" id="termCurrentFile">system-prompt.txt</span>
+      </div>
+      <textarea class="term-textarea" id="termEditor" spellcheck="false" placeholder="Type your code here..."></textarea>
+      <div class="term-status">
+        <span id="termStatusText" class="ok">Ready</span>
+        <span id="termStatusLines">Lines: 0</span>
+        <span id="termStatusChars">Chars: 0</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
   // ============================================================
-  // DARK AI v17.0
+  // DARK AI v18.0
   // ============================================================
   const PROXY_URL = '/chat';
   const ADMIN_USERS = ['seyaboss1', 'seyaboss1@gmail.com', 'creative_mountain_405049'];
@@ -1106,8 +1177,8 @@ When user requests a video, respond ONLY in this format:
 [VIDEO_PROMPT]detailed video description[/VIDEO_PROMPT]
 Then ONE short line: "Click the button below to generate 👇"
 
-NEVER include the phrase "generate image of" or "How to generate it" in your reply.
-NEVER include markdown formatting like **Prompt:** or italics.
+NEVER include "generate image of" or "How to generate it" in your reply.
+NEVER include markdown like **Prompt:** or italics.
 NEVER give instructions — just output the wrapped prompt.
 
 Example:
@@ -1174,9 +1245,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     return null;
   }
 
-  function buildSystemPrompt() {
-    return systemPrompt;
-  }
+  function buildSystemPrompt() { return systemPrompt; }
 
   function speak(text) {
     if (!window.speechSynthesis) return;
@@ -1380,12 +1449,35 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const col = document.createElement('div');
     col.className = 'msg-col';
 
-    const imgMatch = text.match(/\[IMAGE_PROMPT\]([\s\S]*?)\[\/IMAGE_PROMPT\]/);
-    const vidMatch = text.match(/\[VIDEO_PROMPT\]([\s\S]*?)\[\/VIDEO_PROMPT\]/);
+    let imgMatch = text.match(/\[IMAGE_PROMPT\]([\s\S]*?)\[\/IMAGE_PROMPT\]/);
+    let vidMatch = text.match(/\[VIDEO_PROMPT\]([\s\S]*?)\[\/VIDEO_PROMPT\]/);
+
+    // Fallback: detect intent
+    if (!imgMatch && !vidMatch) {
+      const lower = text.toLowerCase();
+      const isVideo = /فيديو|video|متحرك|animated/.test(lower) && !/صورة|image|photo/.test(lower);
+      const isImage = /صورة|صور|image|photo|رسم/.test(lower) && !isVideo;
+      const hasGenBtn = /click the button below|اضغط الزر|👇/.test(lower);
+
+      if (hasGenBtn && (isVideo || isImage)) {
+        let desc = text.replace(/Click the button below.*/i, '')
+                       .replace(/اضغط الزر.*/i, '')
+                       .replace(/\*\*/g, '')
+                       .replace(/\*/g, '')
+                       .trim();
+        const lines = desc.split('\n').map(l => l.trim()).filter(Boolean);
+        desc = lines[0] || desc;
+        if (isVideo) vidMatch = [desc, desc];
+        else imgMatch = [desc, desc];
+      }
+    }
 
     if (imgMatch) {
-      const prompt = imgMatch[1].trim();
-      const cleanText = text.replace(imgMatch[0], '').trim();
+      const prompt = (imgMatch[1] || imgMatch[0]).trim();
+      const cleanText = text.replace(/\[IMAGE_PROMPT\][\s\S]*?\[\/IMAGE_PROMPT\]/g, '')
+                           .replace(/Click the button below.*/gi, '')
+                           .replace(/اضغط الزر.*/gi, '')
+                           .trim();
       const m = document.createElement('div');
       m.className = 'msg ai';
       m.innerHTML = renderMarkdown(cleanText || 'Ready to generate your image:');
@@ -1430,8 +1522,11 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     }
 
     if (vidMatch) {
-      const prompt = vidMatch[1].trim();
-      const cleanText = text.replace(vidMatch[0], '').trim();
+      const prompt = (vidMatch[1] || vidMatch[0]).trim();
+      const cleanText = text.replace(/\[VIDEO_PROMPT\][\s\S]*?\[\/VIDEO_PROMPT\]/g, '')
+                           .replace(/Click the button below.*/gi, '')
+                           .replace(/اضغط الزر.*/gi, '')
+                           .trim();
       const m = document.createElement('div');
       m.className = 'msg ai';
       m.innerHTML = renderMarkdown(cleanText || 'Ready to generate your video:');
@@ -1503,7 +1598,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     if (!t) return;
     busy = true;
     $('sendBtn').disabled = true;
-
     renderUserMsg('🎨 ' + userPrompt);
     $('chatInput').value = '';
 
@@ -1511,7 +1605,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     if (!/(?:8k|4k|detailed|cinematic|masterpiece|hyperrealistic|ultra)/i.test(prompt)) {
       prompt += ', highly detailed, cinematic, 8k, sharp focus';
     }
-
     t.messages.push({ role: 'user', content: '[Image] ' + prompt });
     saveThreads();
 
@@ -1545,8 +1638,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
 
       wrap.innerHTML = '';
       const img = document.createElement('img');
-      img.src = url;
-      img.alt = prompt;
+      img.src = url; img.alt = prompt;
       img.onclick = () => window.open(url, '_blank');
       wrap.appendChild(img);
 
@@ -1596,10 +1688,8 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     if (!t) return;
     busy = true;
     $('sendBtn').disabled = true;
-
     renderUserMsg('🎬 ' + userPrompt);
     $('chatInput').value = '';
-
     let prompt = userPrompt.trim();
     t.messages.push({ role: 'user', content: '[Video] ' + prompt });
     saveThreads();
@@ -1620,9 +1710,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       if (!window.puter || !puter.ai || !puter.ai.txt2vid) {
         throw new Error('Video generator not available. Sign in to Puter first.');
       }
-
       const videoElement = await puter.ai.txt2vid(prompt);
-
       wrap.innerHTML = '';
       videoElement.controls = true;
       videoElement.loop = true;
@@ -1963,7 +2051,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
 
   function openAdmin() {
     if (!isAdmin) return;
-    $('adminSystemPrompt').value = systemPrompt;
     const statsEl = $('adminStats');
     statsEl.innerHTML = '';
     const totalUsers = parseInt(localStorage.getItem('dark-total-users') || '1');
@@ -2114,9 +2201,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   }
 
   function openSettings() {
-    buildLangGrid();
-    buildSizeGrid();
-    renderAuthBox();
+    buildLangGrid(); buildSizeGrid(); renderAuthBox();
     $('autoSpeakToggle').classList.toggle('on', autoSpeak);
     $('themeToggle').classList.toggle('on', theme === 'dark');
     $('settingsModal').classList.add('show');
@@ -2131,12 +2216,260 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     toast('Settings saved');
   }
 
+  // ============================================================
+  // TERMINAL
+  // ============================================================
+  let termCurrentFile = '__prompt__';
+  let termCustomFiles = JSON.parse(localStorage.getItem('dark-term-files') || '{}');
+  let termDirty = false;
+
+  function getTermContent(key) {
+    if (key === '__prompt__') return systemPrompt || DEFAULT_SYSTEM_PROMPT;
+    if (key === '__styles__') return localStorage.getItem('dark-custom-styles') || '/* Custom CSS here */\n\n';
+    if (key === '__scripts__') return localStorage.getItem('dark-custom-scripts') || '// Custom JS here\n\n';
+    if (key === '__home__') return localStorage.getItem('dark-custom-home') || '<div style="text-align:center;padding:2rem;">\n  <h2>Welcome to DARK AI</h2>\n  <p>Customize this from Terminal</p>\n</div>';
+    return termCustomFiles[key]?.content || '';
+  }
+
+  function setTermContent(key, content) {
+    if (key === '__prompt__') {
+      systemPrompt = content;
+      localStorage.setItem('dark-prompt', content);
+      Object.values(threads).forEach(t => {
+        if (t.messages[0]?.role === 'system') t.messages[0].content = content;
+      });
+      saveThreads();
+    } else if (key === '__styles__') localStorage.setItem('dark-custom-styles', content);
+    else if (key === '__scripts__') localStorage.setItem('dark-custom-scripts', content);
+    else if (key === '__home__') localStorage.setItem('dark-custom-home', content);
+    else {
+      if (!termCustomFiles[key]) termCustomFiles[key] = {};
+      termCustomFiles[key].content = content;
+      localStorage.setItem('dark-term-files', JSON.stringify(termCustomFiles));
+    }
+  }
+
+  function getFileIcon(name) {
+    if (name.endsWith('.html')) return '📄';
+    if (name.endsWith('.css')) return '🎨';
+    if (name.endsWith('.js')) return '💻';
+    if (name.endsWith('.json')) return '📋';
+    if (name.endsWith('.md')) return '📝';
+    return '📃';
+  }
+
+  function renderTermFiles() {
+    const c = $('termFiles');
+    c.innerHTML = '';
+    const keys = Object.keys(termCustomFiles);
+    if (keys.length === 0) {
+      c.innerHTML = '<p style="color:var(--muted);font-size:0.78rem;text-align:center;padding:0.5rem;">No custom files</p>';
+      return;
+    }
+    keys.forEach(key => {
+      const file = termCustomFiles[key];
+      const el = document.createElement('div');
+      el.className = 'term-file' + (key === termCurrentFile ? ' active' : '');
+      el.dataset.file = key;
+      el.innerHTML = '<span class="ico">' + getFileIcon(file.name) + '</span>' +
+        '<span class="name">' + escapeHtml(file.name) + '</span>' +
+        '<button class="del" title="Delete">×</button>';
+      el.onclick = (e) => { if (!e.target.classList.contains('del')) openTermFile(key); };
+      el.querySelector('.del').onclick = (e) => {
+        e.stopPropagation();
+        if (confirm('Delete ' + file.name + '?')) {
+          delete termCustomFiles[key];
+          localStorage.setItem('dark-term-files', JSON.stringify(termCustomFiles));
+          if (termCurrentFile === key) openTermFile('__prompt__');
+          renderTermFiles();
+          toast('File deleted');
+        }
+      };
+      c.appendChild(el);
+    });
+  }
+
+  function openTermFile(key) {
+    if (termDirty && !confirm('Discard unsaved changes?')) return;
+    termCurrentFile = key;
+    $('termEditor').value = getTermContent(key);
+    $('termCurrentFile').textContent = key.startsWith('__')
+      ? key.replace(/__/g, '').replace(/_/g, '-') + '.txt'
+      : (termCustomFiles[key]?.name || key);
+    updateTermStatus();
+    termDirty = false;
+    renderTermFiles();
+    document.querySelectorAll('.term-file').forEach(f => {
+      f.classList.toggle('active', f.dataset.file === key);
+    });
+  }
+
+  function updateTermStatus() {
+    const v = $('termEditor').value;
+    $('termStatusLines').textContent = 'Lines: ' + (v.split('\n').length);
+    $('termStatusChars').textContent = 'Chars: ' + v.length;
+  }
+
+  function openTerminal() {
+    $('termModal').classList.add('show');
+    openTermFile('__prompt__');
+    renderTermFiles();
+    $('termStatusText').textContent = 'Ready';
+    $('termStatusText').className = 'ok';
+  }
+
+  function closeTerminal() {
+    if (termDirty && !confirm('Unsaved changes. Close anyway?')) return;
+    $('termModal').classList.remove('show');
+  }
+
+  function saveTermFile() {
+    setTermContent(termCurrentFile, $('termEditor').value);
+    termDirty = false;
+    $('termStatusText').textContent = '✓ Saved at ' + new Date().toLocaleTimeString();
+    $('termStatusText').className = 'ok';
+    toast('✓ Saved');
+  }
+
+  function newTermFile() {
+    const name = prompt('File name (with extension):\nExample: about.html');
+    if (!name) return;
+    const key = 'file_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+    let template = '';
+    if (name.endsWith('.html')) template = '<!DOCTYPE html>\n<html>\n<head>\n  <title>New Page</title>\n</head>\n<body>\n  <h1>Hello</h1>\n</body>\n</html>';
+    else if (name.endsWith('.css')) template = '/* CSS */\n\n';
+    else if (name.endsWith('.js')) template = '// JS\n\n';
+    else if (name.endsWith('.json')) template = '{\n  "key": "value"\n}';
+    termCustomFiles[key] = { name, content: template };
+    localStorage.setItem('dark-term-files', JSON.stringify(termCustomFiles));
+    renderTermFiles();
+    openTermFile(key);
+    toast('✓ File created');
+  }
+
+  function applyCustomCSS() {
+    const css = localStorage.getItem('dark-custom-styles') || '';
+    let el = document.getElementById('dark-custom-css');
+    if (!el) { el = document.createElement('style'); el.id = 'dark-custom-css'; document.head.appendChild(el); }
+    el.textContent = css;
+  }
+
+  function applyCustomJS() {
+    const js = localStorage.getItem('dark-custom-scripts') || '';
+    if (!js.trim()) return;
+    try {
+      let el = document.getElementById('dark-custom-js');
+      if (el) el.remove();
+      el = document.createElement('script');
+      el.id = 'dark-custom-js';
+      el.textContent = js;
+      document.body.appendChild(el);
+    } catch (e) { toast('JS error: ' + e.message); }
+  }
+
+  function exportTermData() {
+    const data = {
+      version: '1.0', timestamp: Date.now(),
+      systemPrompt, customStyles: localStorage.getItem('dark-custom-styles') || '',
+      customScripts: localStorage.getItem('dark-custom-scripts') || '',
+      customHome: localStorage.getItem('dark-custom-home') || '',
+      customFiles: termCustomFiles
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'dark-terminal-' + Date.now() + '.json';
+    a.click();
+    toast('✓ Exported');
+  }
+
+  function importTermData() {
+    const input = document.createElement('input');
+    input.type = 'file'; input.accept = '.json';
+    input.onchange = (e) => {
+      const file = e.target.files[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        try {
+          const data = JSON.parse(ev.target.result);
+          if (data.systemPrompt) { systemPrompt = data.systemPrompt; localStorage.setItem('dark-prompt', systemPrompt); }
+          if (data.customStyles) localStorage.setItem('dark-custom-styles', data.customStyles);
+          if (data.customScripts) localStorage.setItem('dark-custom-scripts', data.customScripts);
+          if (data.customHome) localStorage.setItem('dark-custom-home', data.customHome);
+          if (data.customFiles) { termCustomFiles = data.customFiles; localStorage.setItem('dark-term-files', JSON.stringify(termCustomFiles)); }
+          renderTermFiles(); openTermFile(termCurrentFile);
+          applyCustomCSS(); applyCustomJS();
+          toast('✓ Imported');
+        } catch (err) { toast('Invalid file'); }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  }
+
+  function resetTermData() {
+    if (!confirm('⚠️ Delete ALL custom data?')) return;
+    if (!confirm('Really sure?')) return;
+    localStorage.removeItem('dark-prompt');
+    localStorage.removeItem('dark-custom-styles');
+    localStorage.removeItem('dark-custom-scripts');
+    localStorage.removeItem('dark-custom-home');
+    localStorage.removeItem('dark-term-files');
+    systemPrompt = DEFAULT_SYSTEM_PROMPT;
+    termCustomFiles = {};
+    openTermFile('__prompt__');
+    renderTermFiles();
+    toast('✓ Reset complete');
+  }
+
+  function previewTerm() {
+    const win = window.open('', '_blank');
+    win.document.write($('termEditor').value);
+    win.document.close();
+  }
+
+  $('termEditor').addEventListener('input', () => {
+    termDirty = true; updateTermStatus();
+    $('termStatusText').textContent = '● Unsaved';
+    $('termStatusText').className = 'warn';
+  });
+
+  $('termEditor').addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); saveTermFile(); }
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const s = e.target.selectionStart, en = e.target.selectionEnd;
+      e.target.value = e.target.value.substring(0, s) + '  ' + e.target.value.substring(en);
+      e.target.selectionStart = e.target.selectionEnd = s + 2;
+    }
+  });
+
+  $('termSave').onclick = saveTermFile;
+  $('termClose').onclick = closeTerminal;
+  $('termNew').onclick = newTermFile;
+  $('termExport').onclick = exportTermData;
+  $('termImport').onclick = importTermData;
+  $('termReset').onclick = resetTermData;
+  $('termPreview').onclick = previewTerm;
+  $('termApply').onclick = () => { applyCustomCSS(); applyCustomJS(); toast('✓ Applied'); };
+
+  document.querySelectorAll('.term-file[data-file]').forEach(el => {
+    if (el.dataset.file.startsWith('__')) el.onclick = () => openTermFile(el.dataset.file);
+  });
+
+  $('openTerminalBtn').onclick = () => {
+    $('adminModal').classList.remove('show');
+    setTimeout(openTerminal, 300);
+  };
+
+  // ============================================================
+  // EVENT LISTENERS
+  // ============================================================
   function handleSend(e) {
     if (e) { e.preventDefault(); e.stopPropagation(); }
     if (busy) { if (abortController) abortController.abort(); return; }
     sendMsg();
   }
-
   $('sendBtn').addEventListener('click', handleSend, false);
   $('sendBtn').addEventListener('touchend', (e) => { e.preventDefault(); handleSend(e); }, { passive: false });
   $('chatInput').addEventListener('keydown', e => {
@@ -2152,8 +2485,8 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   $('searchBox').oninput = (e) => { searchQuery = e.target.value.trim().toLowerCase(); renderThreads(); };
   $('exportAllBtn').onclick = () => {
     const all = Object.values(threads).map(t => {
-      const visible = t.messages.filter(m => m.role !== 'system');
-      return '# ' + t.title + '\n\n' + visible.map(m => '**' + (m.role === 'user' ? 'You' : 'DARK') + ':**\n\n' + m.content).join('\n\n');
+      const v = t.messages.filter(m => m.role !== 'system');
+      return '# ' + t.title + '\n\n' + v.map(m => '**' + (m.role === 'user' ? 'You' : 'DARK') + ':**\n\n' + m.content).join('\n\n');
     }).join('\n\n---\n\n---\n\n');
     const blob = new Blob([all], { type: 'text/markdown;charset=utf-8' });
     const a = document.createElement('a');
@@ -2184,17 +2517,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     $('adFullscreen').classList.remove('show');
   };
   $('authBadge').onclick = () => { if (currentUser) openProfile(); };
-  $('saveSystemPromptBtn').onclick = () => {
-    const val = $('adminSystemPrompt').value.trim();
-    if (!val) { toast('Prompt cannot be empty'); return; }
-    systemPrompt = val;
-    localStorage.setItem('dark-prompt', systemPrompt);
-    Object.values(threads).forEach(t => {
-      if (t.messages[0]?.role === 'system') t.messages[0].content = systemPrompt;
-    });
-    saveThreads();
-    toast('✅ System prompt saved');
-  };
 
   async function init() {
     loadThreads();
@@ -2203,6 +2525,8 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     try { await updateAuthUI(); } catch (e) {}
     renderThreads();
     rebuildUI();
+    applyCustomCSS();
+    applyCustomJS();
     try {
       const h = await fetch(PROXY_URL, {
         method: 'POST',

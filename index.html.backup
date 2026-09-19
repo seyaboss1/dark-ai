@@ -347,7 +347,69 @@
     padding: 0.15rem 0.4rem; border-radius: 5px;
     font-family: 'JetBrains Mono', monospace; font-size: 0.85em;
   }
-  .msg.ai pre {
+  /* Prompt Box */
+.prompt-box {
+  margin-top: 1rem;
+  background: var(--bg-3);
+  border: 1px solid var(--border-2);
+  border-radius: 14px;
+  padding: 1rem;
+}
+.prompt-text {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--fg);
+  background: var(--bg-2);
+  padding: 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 0.75rem;
+  max-height: 150px;
+  overflow-y: auto;
+  font-family: 'JetBrains Mono', monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.prompt-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.prompt-btn {
+  flex: 1;
+  min-width: 120px;
+  background: transparent;
+  border: 1px solid var(--border-2);
+  color: var(--accent);
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .25s;
+  letter-spacing: 0.5px;
+}
+.prompt-btn:hover {
+  border-color: var(--accent);
+  background: rgba(79,70,229,0.08);
+  transform: translateY(-1px);
+}
+.prompt-btn.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  border-color: transparent;
+}
+.prompt-btn.primary:hover {
+  box-shadow: var(--glow);
+  transform: translateY(-2px);
+}
+.prompt-btn.done {
+  background: rgba(16,185,129,0.15);
+  color: var(--ok);
+  border-color: var(--ok);
+}
+.msg.ai pre {
     background: var(--code-bg); border: 1px solid var(--border-2);
     border-radius: 10px; padding: 0.85rem 1rem;
     overflow-x: auto; margin: 0.55rem 0; position: relative;
@@ -1669,6 +1731,23 @@
   }
 
   function buildMeta(text, tokens) {
+  const meta = document.createElement('div');
+  meta.className = 'msg-meta';
+
+  const copyBtn = document.createElement('button');
+  copyBtn.type = 'button'; copyBtn.className = 'msg-action';
+  copyBtn.innerHTML = '<span>📋</span><span>Copy</span>';
+  copyBtn.onclick = () => {
+    navigator.clipboard.writeText(text).then(() => {
+      copyBtn.classList.add('done');
+      copyBtn.innerHTML = '<span>✓</span><span>Copied</span>';
+      setTimeout(() => {
+        copyBtn.classList.remove('done');
+        copyBtn.innerHTML = '<span>📋</span><span>Copy</span>';
+      }, 1600);
+    });
+  };
+  meta.appendChild(copyBtn);
     const meta = document.createElement('div');
     meta.className = 'msg-meta';
 
@@ -1717,7 +1796,121 @@
     return meta;
   }
 
-  function renderAiMsg(text, tokens) {
+    function renderAiMsg(text, tokens) {
+  hideWelcome();
+  const row = document.createElement('div');
+  row.className = 'msg-row ai';
+  const col = document.createElement('div');
+  col.className = 'msg-col';
+
+  // Detect special prompts
+  const imgMatch = text.match(/\[IMAGE_PROMPT\]([\s\S]*?)\[\/IMAGE_PROMPT\]/);
+  const vidMatch = text.match(/\[VIDEO_PROMPT\]([\s\S]*?)\[\/VIDEO_PROMPT\]/);
+
+  if (imgMatch) {
+    const prompt = imgMatch[1].trim();
+    const cleanText = text.replace(imgMatch[0], '').trim();
+    const m = document.createElement('div');
+    m.className = 'msg ai';
+    m.innerHTML = renderMarkdown(cleanText || 'Ready to generate your image:');
+
+    const box = document.createElement('div');
+    box.className = 'prompt-box';
+    box.innerHTML = '<div class="prompt-text">' + escapeHtml(prompt) + '</div>';
+
+    const actions = document.createElement('div');
+    actions.className = 'prompt-actions';
+
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'prompt-btn';
+    copyBtn.innerHTML = '📋 Copy Prompt';
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(prompt).then(() => {
+        copyBtn.innerHTML = '✓ Copied';
+        copyBtn.classList.add('done');
+        setTimeout(() => {
+          copyBtn.innerHTML = '📋 Copy Prompt';
+          copyBtn.classList.remove('done');
+        }, 1500);
+      });
+    };
+    actions.appendChild(copyBtn);
+
+    const genBtn = document.createElement('button');
+    genBtn.className = 'prompt-btn primary';
+    genBtn.innerHTML = '🎨 Generate Image';
+    genBtn.onclick = () => generateImage(prompt);
+    actions.appendChild(genBtn);
+
+    box.appendChild(actions);
+    m.appendChild(box);
+
+    // Add metadata
+    col.appendChild(m);
+    const meta = buildMeta(text, tokens);
+    col.appendChild(meta);
+    row.appendChild(col);
+    $('chatBody').appendChild(row);
+    scrollBottom();
+    return;
+  }
+
+  if (vidMatch) {
+    const prompt = vidMatch[1].trim();
+    const cleanText = text.replace(vidMatch[0], '').trim();
+    const m = document.createElement('div');
+    m.className = 'msg ai';
+    m.innerHTML = renderMarkdown(cleanText || 'Ready to generate your video:');
+
+    const box = document.createElement('div');
+    box.className = 'prompt-box';
+    box.innerHTML = '<div class="prompt-text">' + escapeHtml(prompt) + '</div>';
+
+    const actions = document.createElement('div');
+    actions.className = 'prompt-actions';
+
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'prompt-btn';
+    copyBtn.innerHTML = '📋 Copy Prompt';
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(prompt).then(() => {
+        copyBtn.innerHTML = '✓ Copied';
+        copyBtn.classList.add('done');
+        setTimeout(() => {
+          copyBtn.innerHTML = '📋 Copy Prompt';
+          copyBtn.classList.remove('done');
+        }, 1500);
+      });
+    };
+    actions.appendChild(copyBtn);
+
+    const genBtn = document.createElement('button');
+    genBtn.className = 'prompt-btn primary';
+    genBtn.innerHTML = '🎬 Generate Video';
+    genBtn.onclick = () => generateVideo(prompt);
+    actions.appendChild(genBtn);
+
+    box.appendChild(actions);
+    m.appendChild(box);
+
+    col.appendChild(m);
+    col.appendChild(buildMeta(text, tokens));
+    row.appendChild(col);
+    $('chatBody').appendChild(row);
+    scrollBottom();
+    return;
+  }
+
+  // Normal message
+  const m = document.createElement('div');
+  m.className = 'msg ai';
+  m.innerHTML = renderMarkdown(text);
+  col.appendChild(m);
+  col.appendChild(buildMeta(text, tokens));
+  row.appendChild(col);
+  $('chatBody').appendChild(row);
+  scrollBottom();
+}
     hideWelcome();
     const row = document.createElement('div');
     row.className = 'msg-row ai';

@@ -106,20 +106,109 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .chat-head-title b{font-size:.95rem;font-weight:900;letter-spacing:2px;background:var(--grad-3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .chat-head-title small{font-size:.72rem;color:var(--muted)}
 .chat-body{flex:1;overflow-y:auto;padding:1.5rem 1.3rem;display:flex;flex-direction:column;gap:1rem;scroll-behavior:smooth;min-height:0}
+
+/* ============================================================
+   WELCOME (3D PROFESSIONAL)
+   ============================================================ */
 .welcome{text-align:center;padding:2rem 1rem 1rem}
-.welcome-icon{width:76px;height:76px;margin:0 auto 1.25rem;border-radius:22px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:2rem;color:#fff;box-shadow:0 20px 50px rgba(99,102,241,.4);animation:floatY 3s ease-in-out infinite}
+.welcome-icon{width:76px;height:76px;margin:0 auto 1.25rem;border-radius:22px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:2rem;color:#fff;box-shadow:0 20px 50px rgba(99,102,241,.4);animation:floatY 3s ease-in-out infinite;position:relative}
+.welcome-icon::before{content:'';position:absolute;inset:-10px;border-radius:32px;border:2px solid var(--accent);opacity:.3;animation:voiceRing 3s ease-out infinite;pointer-events:none}
+.welcome-icon::after{content:'';position:absolute;inset:-10px;border-radius:32px;border:2px solid var(--accent-2);opacity:.3;animation:voiceRing 3s ease-out infinite;animation-delay:1.5s;pointer-events:none}
 @keyframes floatY{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-10px) rotate(3deg)}}
 .welcome h1{font-size:clamp(1.5rem,4.5vw,2.3rem);font-weight:900;letter-spacing:-.02em;margin-bottom:.6rem;line-height:1.15}
 .welcome h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent));background-size:300% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;animation:gradShift 6s linear infinite}
 @keyframes gradShift{to{background-position:300% center}}
 .welcome p{color:var(--muted);max-width:480px;margin:0 auto;font-size:.95rem;line-height:1.65}
-.quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem;max-width:640px;margin:1.5rem auto 0;padding:0 .5rem}
-.quick-card{background:var(--bg-2);border:1px solid var(--border-2);border-radius:var(--r-sm);padding:.8rem .9rem;cursor:pointer;text-align:left;font-family:inherit;color:var(--fg);transition:all .25s;display:flex;align-items:center;gap:.6rem}
-.quick-card:hover{border-color:var(--accent);background:var(--bg-3);transform:translateY(-3px);box-shadow:var(--glow)}
-.quick-card .qc-emoji{font-size:1.2rem;flex-shrink:0}
-.quick-card .qc-text{display:flex;flex-direction:column;gap:.05rem;min-width:0}
-.quick-card .qc-title{font-size:.83rem;font-weight:700}
-.quick-card .qc-desc{font-size:.7rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ============================================================
+   3D PROFESSIONAL QUICK CARDS
+   ============================================================ */
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.85rem;max-width:720px;margin:1.8rem auto 0;padding:0 .5rem;perspective:1200px}
+.quick-card{
+  position:relative;
+  background:linear-gradient(135deg,rgba(255,255,255,.9),rgba(255,255,255,.7));
+  border:1px solid var(--border-2);
+  border-radius:18px;
+  padding:1.1rem 1rem;
+  cursor:pointer;
+  text-align:left;
+  font-family:inherit;
+  color:var(--fg);
+  transition:all .4s cubic-bezier(.4,0,.2,1);
+  display:flex;align-items:center;gap:.85rem;
+  transform-style:preserve-3d;
+  overflow:hidden;
+  isolation:isolate;
+  box-shadow:0 4px 12px rgba(15,23,51,.06),0 1px 3px rgba(15,23,51,.04);
+}
+[data-theme="dark"] .quick-card{background:linear-gradient(135deg,rgba(15,23,48,.85),rgba(10,16,32,.7))}
+.quick-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2),var(--accent-3));
+  opacity:0;
+  transition:opacity .4s;
+  z-index:-1;
+}
+.quick-card::after{
+  content:'';position:absolute;inset:-2px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent));
+  background-size:300% auto;
+  opacity:0;
+  transition:opacity .4s;
+  border-radius:20px;
+  z-index:-2;
+  animation:gradShift 3s linear infinite;
+  filter:blur(6px);
+}
+.quick-card:hover{
+  transform:translateY(-6px) scale(1.03) rotateX(-4deg) rotateY(2deg);
+  border-color:transparent;
+  box-shadow:0 20px 50px rgba(99,102,241,.4),0 8px 20px rgba(99,102,241,.25);
+  color:#fff;
+}
+.quick-card:hover::before{opacity:1}
+.quick-card:hover::after{opacity:.7}
+.quick-card:hover .qc-title,
+.quick-card:hover .qc-desc{color:#fff}
+.quick-card:hover .qc-desc{opacity:.85}
+
+.qc-emoji{
+  width:52px;height:52px;
+  border-radius:14px;
+  background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(6,182,212,.15));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;flex-shrink:0;
+  transition:all .4s cubic-bezier(.4,0,.2,1);
+  position:relative;
+  border:1px solid rgba(99,102,241,.15);
+}
+.quick-card:hover .qc-emoji{
+  background:rgba(255,255,255,.22);
+  border-color:rgba(255,255,255,.4);
+  transform:scale(1.15) rotate(-8deg);
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+.qc-text{display:flex;flex-direction:column;gap:.15rem;min-width:0;flex:1}
+.qc-title{font-size:.9rem;font-weight:800;letter-spacing:.2px;transition:color .3s;line-height:1.2}
+.qc-desc{font-size:.72rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .3s;line-height:1.3}
+
+/* Extra shine on hover */
+.quick-card .qc-shine{
+  position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);
+  transition:left .6s ease;
+  pointer-events:none;
+}
+.quick-card:hover .qc-shine{left:150%}
+
+@media (max-width:640px){
+  .quick-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}
+  .quick-card{padding:.85rem .75rem;gap:.65rem}
+  .qc-emoji{width:42px;height:42px;font-size:1.2rem;border-radius:12px}
+  .qc-title{font-size:.8rem}
+  .qc-desc{font-size:.65rem}
+}
+
 .msg-row{display:flex;gap:.5rem;align-items:flex-end;animation:slideIn .35s cubic-bezier(.4,0,.2,1)}
 .msg-row.user{justify-content:flex-end}
 .msg-row.ai{justify-content:flex-start}
@@ -172,30 +261,10 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .msg-image img:hover{transform:scale(1.01)}
 .msg-video video{max-width:100%;width:100%;border-radius:14px;display:block;background:#000}
 
-/* PREP3D — used by BOTH image + video */
-.prep3d{
-  position:relative;overflow:hidden;
-  padding:1.3rem 1.4rem;
-  border-radius:18px;
-  background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(6,182,212,.1),rgba(168,85,247,.12));
-  border:1px solid var(--border-2);
-  margin-top:.6rem;
-  min-width:280px;
-  perspective:800px;
-  isolation:isolate;
-}
-.prep3d::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(circle at 20% 30%,rgba(99,102,241,.3),transparent 45%),radial-gradient(circle at 80% 70%,rgba(168,85,247,.3),transparent 45%);
-  pointer-events:none;z-index:0;
-  animation:prepGlow 3s ease-in-out infinite alternate;
-}
+.prep3d{position:relative;overflow:hidden;padding:1.3rem 1.4rem;border-radius:18px;background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(6,182,212,.1),rgba(168,85,247,.12));border:1px solid var(--border-2);margin-top:.6rem;min-width:280px;perspective:800px;isolation:isolate}
+.prep3d::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 30%,rgba(99,102,241,.3),transparent 45%),radial-gradient(circle at 80% 70%,rgba(168,85,247,.3),transparent 45%);pointer-events:none;z-index:0;animation:prepGlow 3s ease-in-out infinite alternate}
 @keyframes prepGlow{0%{opacity:.6}100%{opacity:1}}
-.prep3d::after{
-  content:'';position:absolute;inset:-50%;
-  background:conic-gradient(from 0deg,transparent 0deg,rgba(99,102,241,.2) 60deg,transparent 120deg,rgba(6,182,212,.2) 180deg,transparent 240deg,rgba(168,85,247,.2) 300deg,transparent 360deg);
-  animation:prepRotate 6s linear infinite;pointer-events:none;z-index:0;
-}
+.prep3d::after{content:'';position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent 0deg,rgba(99,102,241,.2) 60deg,transparent 120deg,rgba(6,182,212,.2) 180deg,transparent 240deg,rgba(168,85,247,.2) 300deg,transparent 360deg);animation:prepRotate 6s linear infinite;pointer-events:none;z-index:0}
 @keyframes prepRotate{to{transform:rotate(360deg)}}
 .prep3d-inner{position:relative;z-index:2;display:flex;align-items:center;gap:1rem}
 .prep3d-scene{width:64px;height:64px;display:flex;align-items:center;justify-content:center;perspective:600px;flex-shrink:0}
@@ -486,7 +555,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   .icon-tool{width:38px;height:38px}
   .icon-tool svg{width:16px;height:16px}
   .welcome-icon{width:62px;height:62px;font-size:1.7rem}
-  .quick-grid{grid-template-columns:repeat(2,1fr);gap:.45rem}
   .send-btn{height:50px;padding:0 1.2rem;font-size:.72rem}
   .sa-hero{padding:1rem}
   .sa-hero-title{font-size:1.05rem;letter-spacing:2px}
@@ -597,7 +665,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   </div>
 </div>
 
-<!-- IMAGE VIEWER -->
 <div class="viewer-modal" id="viewerModal">
   <button class="viewer-close" id="viewerClose" type="button">✕</button>
   <img id="viewerImg" src="" alt="" />
@@ -608,7 +675,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   </div>
 </div>
 
-<!-- AUTH MODAL -->
 <div class="modal-bg" id="authModal">
   <div class="modal auth-modal">
     <div class="auth-modal-logo">◆</div>
@@ -632,7 +698,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   </div>
 </div>
 
-<!-- SETTINGS -->
 <div class="modal-bg" id="settingsModal">
   <div class="modal">
     <h2>⚙ SETTINGS</h2>
@@ -655,7 +720,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   </div>
 </div>
 
-<!-- PROFILE -->
 <div class="modal-bg" id="profileModal">
   <div class="modal">
     <h2>👤 PROFILE</h2>
@@ -675,7 +739,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   </div>
 </div>
 
-<!-- AD EDITOR -->
 <div class="modal-bg" id="adEditModal">
   <div class="modal">
     <h2 id="adEditTitle">📢 NEW AD</h2>
@@ -718,7 +781,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   </div>
 </div>
 
-<!-- FULLSCREEN AD -->
 <div class="ad-fullscreen" id="adFullscreen">
   <div class="ad-content">
     <div class="ad-topbar">
@@ -741,7 +803,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   </div>
 </div>
 
-<!-- SUPER ADMIN -->
 <div class="super-panel" id="superPanel">
   <div class="sa-hero">
     <div class="sa-crown">👑</div>
@@ -877,7 +938,7 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 
 <script>
 /* ============================================================
-   DARK AI v28 — WORLD-CLASS EDITION
+   DARK AI v29 — 3D PROFESSIONAL EDITION
    ============================================================ */
 (function () {
   'use strict';
@@ -907,10 +968,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
     { code:'hd',        name:'HD',     dim:'1920×1080', w:1920, h:1080 }
   ];
 
-  /* ============================================================
-     WORLD-CLASS SYSTEM PROMPT
-     Designed to make AI produce hyper-realistic, complete prompts
-     ============================================================ */
   const DEFAULT_SYSTEM_PROMPT = `You are DARK, an elite multilingual AI assistant with native fluency in Arabic, English, and Amharic. You are also a world-class prompt engineer specialized in hyper-realistic AI image and video generation.
 
 ═══════════════════════════════════════════
@@ -947,8 +1004,12 @@ REAL-WORLD EXAMPLE (write your prompts like this):
 [IMAGE_PROMPT]Photorealistic close-up portrait of a 30-year-old Middle Eastern man with olive skin, dark curly hair, sharp jawline, 3-day stubble, deep brown eyes reflecting soft window light, wearing a charcoal linen shirt, standing in a warm-lit café, textured wood background, cinematic 85mm f/1.4 lens, shallow depth of field, golden hour rim light on his left cheek, visible skin pores, subtle sweat on temple, hair detail, HDR, National Geographic editorial style, ultra-detailed 8K, shot on Sony A7R IV[/IMAGE_PROMPT]
 Click the button below to generate 👇
 
-For Cristiano Ronaldo:
+For Cristiano Ronaldo (IMAGE):
 [IMAGE_PROMPT]Hyperrealistic action shot of Cristiano Ronaldo in his current Al-Nassr kit, sprinting on green stadium pitch at golden hour, intense focused eyes, defined jawline, sweat droplets on tan skin, veins on muscular forearms, motion-blurred grass, packed stadium blurred behind him with blazing floodlights, dramatic backlighting, cinematic teal-and-orange grading, shot on Canon EOS R5 with 200mm telephoto at f/2.8, ultra-detailed 8K HDR, editorial sports photography, sharp focus on face, bokeh background[/IMAGE_PROMPT]
+Click the button below to generate 👇
+
+For Cristiano Ronaldo (VIDEO):
+[VIDEO_PROMPT]Hyper-realistic 10-second cinematic video of Cristiano Ronaldo in his current Al-Nassr kit, sprinting across a stadium pitch at sunset, dynamic camera tracking from side to front, dust kicking up from his cleats, sweat glistening on his face, dramatic backlighting from stadium floodlights, packed crowd blurred in the background, slow-motion highlights of footwork at 120fps, cinematic teal-and-orange color grade, shallow depth of field, shot on RED Komodo with anamorphic lens, ultra-detailed 8K HDR, editorial sports cinematography[/VIDEO_PROMPT]
 Click the button below to generate 👇
 
 ═══════════════════════════════════════════
@@ -975,7 +1036,7 @@ AMHARIC RULES
 ═══════════════════════════════════════════
 SOV word order, correct verb conjugations, definite articles (-ው, -ዋ, -ዎቹ), prepositions (በ-, ለ-, ከ-, ወደ-). NEVER mix with English.
 
-Remember: your image prompts must read like a professional photographer's detailed brief — not a lazy one-liner. Quality over brevity ALWAYS.`;
+Remember: your image AND video prompts must read like a professional photographer's or cinematographer's detailed brief — not a lazy one-liner. Quality over brevity ALWAYS.`;
 
   const QUICK_PROMPTS = [
     { emoji:'👤', title:'Who are you', desc:'Learn about DARK', prompt:'Who are you?' },
@@ -1114,7 +1175,7 @@ Remember: your image prompts must read like a professional photographer's detail
     if (!confettiEnabled) return;
     const container = $('confettiContainer');
     const colors = ['#6366f1','#06b6d4','#a855f7','#fbbf24','#10b981','#e11d48','#f472b6'];
-    const shapes = ['■','●','▲','◆','★'];
+    const shapes = ['■','●','▲','◆','★','$','$'];
     for (let i = 0; i < 80; i++) {
       const piece = document.createElement('div');
       piece.className = 'confetti-piece';
@@ -1404,53 +1465,96 @@ Remember: your image prompts must read like a professional photographer's detail
     return meta;
   }
 
+  /* ============================================================
+     BETTER DETECTION: handles cases where AI doesn't use tags
+     ============================================================ */
+  function extractPromptAndType(text) {
+    // 1) Standard tags
+    let imgMatch = text.match(/\[IMAGE_PROMPT\]([\s\S]*?)\[\/IMAGE_PROMPT\]/);
+    let vidMatch = text.match(/\[VIDEO_PROMPT\]([\s\S]*?)\[\/VIDEO_PROMPT\]/);
+    if (imgMatch) return { type: 'image', prompt: imgMatch[1].trim() };
+    if (vidMatch) return { type: 'video', prompt: vidMatch[1].trim() };
+
+    // 2) Fallback: AI wrote a prompt followed by "Click the button below"
+    const hasGenBtn = /click the button below|اضغط الزر|👇/i.test(text);
+    if (!hasGenBtn) return null;
+
+    const lower = text.toLowerCase();
+    const hasVideoWord = /\b(video|animated|animation|clip|movie|motion|fps|slow-motion|slow motion|scene|footage|render|متحرك|فيديو|حركة|أنيميشن)\b/.test(lower);
+    const hasImageWord = /\b(image|photo|picture|portrait|painting|render|shot|drawing|art|صورة|صور|رسم|بورتريه|لوحة)\b/.test(lower);
+
+    // Extract the main descriptive paragraph (everything before "Click the button below")
+    let body = text
+      .replace(/\[IMAGE_PROMPT\][\s\S]*?\[\/IMAGE_PROMPT\]/g, '')
+      .replace(/\[VIDEO_PROMPT\][\s\S]*?\[\/VIDEO_PROMPT\]/g, '')
+      .replace(/Click the button below.*/gi, '')
+      .replace(/اضغط الزر.*/gi, '')
+      .replace(/\*\*/g, '')
+      .replace(/\*/g, '')
+      .trim();
+
+    if (!body || body.length < 15) return null;
+
+    // Prefer video if video keywords dominate
+    let type = 'image';
+    if (hasVideoWord && !hasImageWord) type = 'video';
+    else if (hasVideoWord && hasImageWord) {
+      // Both present — check which has more emphasis
+      const videoCount = (lower.match(/\b(video|animated|animation|clip|movie|motion|fps|slow|scene|footage|متحرك|فيديو|حركة)\b/g) || []).length;
+      const imageCount = (lower.match(/\b(image|photo|picture|portrait|painting|shot|drawing|صورة|رسم|بورتريه)\b/g) || []).length;
+      type = videoCount >= imageCount ? 'video' : 'image';
+    }
+
+    // Use only the first big paragraph as prompt
+    const lines = body.split('\n').map(l => l.trim()).filter(Boolean);
+    let prompt = lines[0] || body;
+    // If first line is too short, join a few lines
+    if (prompt.length < 30 && lines.length > 1) {
+      prompt = lines.slice(0, 3).join(' ');
+    }
+    return { type, prompt };
+  }
+
   function renderAiMsg(text, tokens, originalPrompt) {
     hideWelcome();
     const row = document.createElement('div');
     row.className = 'msg-row ai';
     const col = document.createElement('div');
     col.className = 'msg-col';
-    let imgMatch = text.match(/\[IMAGE_PROMPT\]([\s\S]*?)\[\/IMAGE_PROMPT\]/);
-    let vidMatch = text.match(/\[VIDEO_PROMPT\]([\s\S]*?)\[\/VIDEO_PROMPT\]/);
-    if (!imgMatch && !vidMatch) {
-      const lower = text.toLowerCase();
-      const isVideo = /فيديو|video|متحرك|animated/.test(lower) && !/صورة|image|photo/.test(lower);
-      const isImage = /صورة|صور|image|photo|رسم/.test(lower) && !isVideo;
-      const hasGenBtn = /click the button below|اضغط الزر|👇/.test(lower);
-      if (hasGenBtn && (isVideo || isImage)) {
-        let desc = text.replace(/Click the button below.*/i, '').replace(/اضغط الزر.*/i, '').replace(/\*\*/g,'').replace(/\*/g,'').trim();
-        const lines = desc.split('\n').map(l => l.trim()).filter(Boolean);
-        desc = lines[0] || desc;
-        if (isVideo) vidMatch = [desc, desc];
-        else imgMatch = [desc, desc];
-      }
-    }
-    if (imgMatch) return handleImagePrompt(text, imgMatch[1], 'image', tokens, col, row, originalPrompt);
-    if (vidMatch) return handleImagePrompt(text, vidMatch[1], 'video', tokens, col, row, originalPrompt);
+
+    const extracted = extractPromptAndType(text);
+    if (extracted) return handleImagePrompt(text, extracted.prompt, extracted.type, tokens, col, row, originalPrompt);
+
     const m = document.createElement('div');
     m.className = 'msg ai'; m.innerHTML = renderMarkdown(text);
     col.appendChild(m); col.appendChild(buildMeta(text, tokens, originalPrompt));
     row.appendChild(col); $('chatBody').appendChild(row); scrollBottom();
   }
 
-  /* ============================================================
-     UNIFIED PROMPT HANDLER (Image + Video use same 3D simulation)
-     ============================================================ */
   function handleImagePrompt(text, prompt, type, tokens, col, row, originalPrompt) {
     prompt = (prompt || '').trim();
-    const tagRe = type === 'image' ? /\[IMAGE_PROMPT\][\s\S]*?\[\/IMAGE_PROMPT\]/g : /\[VIDEO_PROMPT\][\s\S]*?\[\/VIDEO_PROMPT\]/g;
-    const clean = text.replace(tagRe, '').replace(/Click the button below.*/gi, '').replace(/اضغط الزر.*/gi, '').trim();
+    const isVideo = type === 'video';
+
+    // Clean the visible text — remove tags and "Click the button" line
+    let clean = text
+      .replace(/\[IMAGE_PROMPT\][\s\S]*?\[\/IMAGE_PROMPT\]/g, '')
+      .replace(/\[VIDEO_PROMPT\][\s\S]*?\[\/VIDEO_PROMPT\]/g, '')
+      .replace(/Click the button below.*/gi, '')
+      .replace(/اضغط الزر.*/gi, '')
+      .trim();
+
+    // Also remove the actual prompt text from the visible message if it leaked
+    if (clean.toLowerCase().includes(prompt.toLowerCase().slice(0, 40))) {
+      clean = clean.replace(prompt, '').trim();
+    }
 
     const m = document.createElement('div');
     m.className = 'msg ai';
-    const cleanHtml = clean ? renderMarkdown(clean) : '';
-    m.innerHTML = cleanHtml;
+    if (clean) m.innerHTML = renderMarkdown(clean);
 
-    // 3D Running Simulation — SAME for both image AND video
-    const isVideo = type === 'video';
     const icons = isVideo ? ['🎬','🎞️','✨','🎨','🎥','🎭'] : ['🧠','🎨','✨','🌈','🔍','🖼️'];
     const titleText = isVideo ? 'DARK AI is preparing your video…' : 'DARK AI is preparing your image…';
-    const subText = isVideo ? 'Rendering frames' : 'Analyzing prompt';
+    const subText = isVideo ? 'Rendering cinematic frames' : 'Analyzing your prompt';
 
     const prep = document.createElement('div');
     prep.className = 'prep3d';
@@ -1896,8 +2000,8 @@ Remember: your image prompts must read like a professional photographer's detail
 
       if (autoSpeak) speak(reply, false);
 
-      // Skip typewriter for media
-      const hasMedia = /\[IMAGE_PROMPT\]/.test(reply) || /\[VIDEO_PROMPT\]/.test(reply);
+      const hasMedia = /\[IMAGE_PROMPT\]|\[VIDEO_PROMPT\]/.test(reply) ||
+                       (/click the button below|اضغط الزر|👇/i.test(reply) && /(image|photo|video|صورة|فيديو|رسم|متحرك)/i.test(reply));
       if (hasMedia) {
         renderAiMsg(reply, tokens, originalPrompt);
       } else {
@@ -1915,7 +2019,6 @@ Remember: your image prompts must read like a professional photographer's detail
     }
   }
 
-  /* FAST typewriter — bigger batches, faster frames */
   async function typewriterRender(fullText, tokens, originalPrompt) {
     hideWelcome();
     const row = document.createElement('div');
@@ -1931,7 +2034,6 @@ Remember: your image prompts must read like a professional photographer's detail
     $('chatBody').appendChild(row);
 
     const len = fullText.length;
-    // Much bigger batches → much faster
     const batchSize = len > 2000 ? 40 : len > 1000 ? 25 : len > 400 ? 15 : 8;
     const frameDelay = len > 2000 ? 6 : len > 1000 ? 10 : len > 400 ? 14 : 18;
 
@@ -2005,12 +2107,19 @@ Remember: your image prompts must read like a professional photographer's detail
     $('chatBody').appendChild(row); scrollBottom();
   }
 
+  /* Enhanced quick grid with 3D shine element */
   function buildQuickGrid(container) {
     container.innerHTML = '';
     QUICK_PROMPTS.forEach(p => {
       const card = document.createElement('button');
       card.type = 'button'; card.className = 'quick-card';
-      card.innerHTML = '<span class="qc-emoji">' + p.emoji + '</span><span class="qc-text"><span class="qc-title">' + p.title + '</span><span class="qc-desc">' + p.desc + '</span></span>';
+      card.innerHTML =
+        '<div class="qc-shine"></div>' +
+        '<span class="qc-emoji">' + p.emoji + '</span>' +
+        '<span class="qc-text">' +
+          '<span class="qc-title">' + p.title + '</span>' +
+          '<span class="qc-desc">' + p.desc + '</span>' +
+        '</span>';
       card.onclick = () => { $('chatInput').value = p.prompt; $('chatInput').focus(); sendMsg(); };
       container.appendChild(card);
     });
@@ -2021,7 +2130,6 @@ Remember: your image prompts must read like a professional photographer's detail
     localStorage.setItem('dark-theme', theme);
   }
 
-  /* SUPER ADMIN: accepts seyaboss1 OR seyaboss1@gmail.com */
   function isSuperAdminCheck(name, email) {
     const _e = (email || '').toLowerCase();
     const _n = (name || '').toLowerCase();
@@ -2555,7 +2663,7 @@ Remember: your image prompts must read like a professional photographer's detail
       toast('✓ Reset');
     };
     $('saExportAll').onclick = () => {
-      const data = { exportDate: new Date().toISOString(), version: '28.0', systemPrompt, learnedRules, threads, ads, users: JSON.parse(localStorage.getItem('dark-users-db') || '{}'), learning: JSON.parse(localStorage.getItem('dark-learn-db') || '{}'), settings: { preferredLang, preferredSize, theme, autoSpeak, autoGenImages, confettiEnabled }, stats: { msgCounter: messageCounter, imageCounter } };
+      const data = { exportDate: new Date().toISOString(), version: '29.0', systemPrompt, learnedRules, threads, ads, users: JSON.parse(localStorage.getItem('dark-users-db') || '{}'), learning: JSON.parse(localStorage.getItem('dark-learn-db') || '{}'), settings: { preferredLang, preferredSize, theme, autoSpeak, autoGenImages, confettiEnabled }, stats: { msgCounter: messageCounter, imageCounter } };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);

@@ -4,15 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
 <title>DARK AI — الذكاء الاصطناعي المتعدد اللغات</title>
-<meta name="description" content="DARK AI: مساعد ذكاء اصطناعي مجاني للمحادثة، الصور، الفيديو والكود." />
 <meta name="theme-color" content="#6366f1" />
 <meta name="google-site-verification" content="wD2Re2jxMSxOV7M00szT88G2ckNg4nEUKXm4uLrcADU" />
 <link rel="icon" type="image/png" href="/logo.png" />
 <script src="https://js.puter.com/v2/"></script>
 <style>
-/* ============================================================
-   DARK AI v24 — SMART EDITION
-   ============================================================ */
 :root{
   --bg:#f6f8ff;--bg-2:#fff;--bg-3:#eef2ff;--surface:rgba(255,255,255,.75);
   --fg:#0f1733;--muted:#6b7499;--accent:#6366f1;--accent-2:#06b6d4;--accent-3:#a855f7;
@@ -39,7 +35,7 @@ body{
   display:flex;flex-direction:column;transition:background .4s,color .4s;overflow:hidden;
 }
 .bg-layer{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
-.blob{position:absolute;border-radius:50%;filter:blur(100px);opacity:.4;animation:blobFloat 24s ease-in-out infinite;will-change:transform}
+.blob{position:absolute;border-radius:50%;filter:blur(100px);opacity:.4;animation:blobFloat 24s ease-in-out infinite}
 .blob-1{width:420px;height:420px;background:var(--accent);top:-140px;left:-140px}
 .blob-2{width:360px;height:360px;background:var(--accent-2);top:35%;right:-160px;animation-delay:-8s}
 .blob-3{width:300px;height:300px;background:var(--accent-3);bottom:-120px;left:30%;animation-delay:-16s}
@@ -59,40 +55,14 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .brand-mark{width:38px;height:38px;border-radius:12px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:#fff;box-shadow:0 8px 24px rgba(99,102,241,.4);animation:brandPulse 3s ease-in-out infinite}
 @keyframes brandPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07);box-shadow:0 12px 32px rgba(99,102,241,.6)}}
 
-/* AUTH BUTTON */
-.auth-btn{
-  display:flex;align-items:center;gap:.5rem;
-  background:var(--grad);color:#fff;border:none;
-  padding:.55rem 1.1rem;border-radius:12px;
-  font-size:.8rem;font-weight:800;font-family:inherit;
-  cursor:pointer;transition:all .25s;
-  box-shadow:0 6px 18px rgba(99,102,241,.35);
-  white-space:nowrap;height:40px;
-}
+.auth-btn{display:flex;align-items:center;gap:.5rem;background:var(--grad);color:#fff;border:none;padding:.55rem 1.1rem;border-radius:12px;font-size:.8rem;font-weight:800;font-family:inherit;cursor:pointer;transition:all .25s;box-shadow:0 6px 18px rgba(99,102,241,.35);white-space:nowrap;height:40px}
 .auth-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(99,102,241,.55)}
 .auth-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.user-chip{
-  display:flex;align-items:center;gap:.5rem;
-  background:var(--bg-3);border:1px solid var(--border-2);
-  padding:.3rem .7rem .3rem .3rem;border-radius:999px;
-  cursor:pointer;transition:all .2s;height:40px;
-  max-width:200px;
-}
-.user-chip:hover{border-color:var(--accent);box-shadow:var(--glow)}
-.user-chip .u-av{
-  width:32px;height:32px;border-radius:50%;
-  background:var(--grad);display:flex;align-items:center;justify-content:center;
-  color:#fff;font-weight:900;font-size:.8rem;flex-shrink:0;
-}
-.user-chip .u-name{
-  font-size:.78rem;font-weight:700;color:var(--fg);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.user-chip.super{
-  background:linear-gradient(135deg,rgba(225,29,72,.15),rgba(251,191,36,.15));
-  border-color:rgba(251,191,36,.5);
-  animation:superPulse 2s ease-in-out infinite;
-}
+.user-chip{display:flex;align-items:center;gap:.5rem;background:var(--bg-3);border:1px solid var(--border-2);padding:.3rem .7rem .3rem .3rem;border-radius:999px;cursor:pointer;transition:all .2s;height:40px;max-width:200px}
+.user-chip:hover{border-color:var(--accent);box-shadow:var(--glow);transform:translateY(-1px)}
+.user-chip .u-av{width:32px;height:32px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:.8rem;flex-shrink:0}
+.user-chip .u-name{font-size:.78rem;font-weight:700;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.user-chip.super{background:linear-gradient(135deg,rgba(225,29,72,.15),rgba(251,191,36,.15));border-color:rgba(251,191,36,.5);animation:superPulse 2s ease-in-out infinite}
 @keyframes superPulse{0%,100%{box-shadow:0 0 8px rgba(251,191,36,.5)}50%{box-shadow:0 0 24px rgba(251,191,36,.9)}}
 
 .icon-tool{width:42px;height:42px;border-radius:13px;background:transparent;border:1px solid var(--border-2);color:var(--accent);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;flex-shrink:0}
@@ -101,8 +71,10 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .icon-tool:hover{border-color:var(--accent);box-shadow:var(--glow);transform:translateY(-2px);color:#fff}
 .icon-tool:hover::before{opacity:1}
 .icon-tool:hover svg{transform:scale(1.15) rotate(-8deg)}
+.icon-tool:active{transform:scale(.95)}
 
-.voice-btn{position:relative;overflow:visible}
+/* VOICE + SPEAKER BUTTONS */
+.voice-btn,.speak-btn{position:relative;overflow:visible}
 .voice-btn.recording{background:var(--grad)!important;color:#fff!important;border-color:transparent!important;animation:voicePulse 1.2s ease-in-out infinite}
 .voice-btn.recording::before{opacity:1}
 .voice-btn.recording::after{content:'';position:absolute;inset:-6px;border-radius:19px;border:2px solid var(--accent);animation:voiceRing 1.4s ease-out infinite;pointer-events:none}
@@ -117,6 +89,19 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 @keyframes voicePulse{0%,100%{box-shadow:0 0 0 0 rgba(99,102,241,.7)}50%{box-shadow:0 0 0 14px rgba(99,102,241,0)}}
 @keyframes voiceRing{0%{transform:scale(.9);opacity:1}100%{transform:scale(1.35);opacity:0}}
 @keyframes waveBar{0%,100%{height:6px}50%{height:20px}}
+
+.speak-btn.speaking{background:var(--grad)!important;color:#fff!important;border-color:transparent!important;animation:speakPulse 1.2s ease-in-out infinite}
+.speak-btn.speaking::before{opacity:1}
+.speak-btn.speaking::after{content:'';position:absolute;inset:-6px;border-radius:19px;border:2px solid var(--accent-2);animation:voiceRing 1.4s ease-out infinite;pointer-events:none}
+.speak-btn .speak-waves{position:absolute;inset:0;display:none;align-items:center;justify-content:center;gap:2px;z-index:2}
+.speak-btn.speaking .speak-waves{display:flex}
+.speak-btn.speaking .speak-waves span{width:3px;height:6px;background:#fff;border-radius:2px;animation:waveBar .7s ease-in-out infinite}
+.speak-btn.speaking .speak-waves span:nth-child(2){animation-delay:.12s}
+.speak-btn.speaking .speak-waves span:nth-child(3){animation-delay:.24s}
+.speak-btn.speaking .speak-waves span:nth-child(4){animation-delay:.36s}
+.speak-btn.speaking .speak-waves span:nth-child(5){animation-delay:.48s}
+.speak-btn.speaking svg{opacity:0}
+@keyframes speakPulse{0%,100%{box-shadow:0 0 0 0 rgba(6,182,212,.7)}50%{box-shadow:0 0 0 14px rgba(6,182,212,0)}}
 
 .layout{flex:1;max-width:1280px;width:100%;margin:0 auto;display:flex;gap:1rem;padding:1rem 1.25rem;overflow:hidden;min-height:0}
 .sidebar{width:270px;flex-shrink:0;background:var(--surface);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border:1px solid var(--border-2);border-radius:var(--r);padding:1rem;display:flex;flex-direction:column;gap:.75rem;overflow:hidden;transition:width .3s ease,opacity .3s}
@@ -141,7 +126,7 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .chat-wrap{flex:1;background:var(--surface);backdrop-filter:blur(26px) saturate(160%);-webkit-backdrop-filter:blur(26px) saturate(160%);border:1px solid var(--border-2);border-radius:26px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:0;position:relative}
 .chat-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent));background-size:200% auto;animation:topShine 3s linear infinite;z-index:2}
 @keyframes topShine{to{background-position:200% center}}
-.chat-head{display:flex;align-items:center;gap:.75rem;padding:1rem 1.3rem;background:linear-gradient(90deg,rgba(99,102,241,.06),transparent);border-bottom:1px solid var(--border);flex-wrap:wrap;flex-shrink:0}
+.chat-head{display:flex;align-items:center;gap:.6rem;padding:1rem 1.3rem;background:linear-gradient(90deg,rgba(99,102,241,.06),transparent);border-bottom:1px solid var(--border);flex-wrap:wrap;flex-shrink:0}
 .status-dot{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 12px var(--ok);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .chat-head-title{display:flex;flex-direction:column;flex:1;min-width:100px}
@@ -193,7 +178,9 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .prompt-actions{display:flex;gap:.5rem;flex-wrap:wrap}
 .prompt-btn{flex:1;min-width:120px;background:transparent;border:1px solid var(--border-2);color:var(--accent);padding:.7rem .9rem;border-radius:11px;font-weight:700;font-size:.8rem;cursor:pointer;font-family:inherit;transition:all .25s}
 .prompt-btn:hover{border-color:var(--accent);background:rgba(99,102,241,.08);transform:translateY(-1px)}
-.prompt-btn.primary{background:var(--grad);color:#fff;border-color:transparent}
+.prompt-btn.primary{background:var(--grad);color:#fff;border-color:transparent;position:relative;overflow:hidden}
+.prompt-btn.primary::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);transform:translateX(-100%);animation:btnShine 2s linear infinite}
+@keyframes btnShine{to{transform:translateX(100%)}}
 .prompt-btn.primary:hover{box-shadow:var(--glow);transform:translateY(-2px)}
 .prompt-btn.done{background:rgba(16,185,129,.15);color:var(--ok);border-color:var(--ok)}
 
@@ -207,151 +194,77 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 
 .msg-meta{display:flex;gap:.4rem;margin-top:.45rem;padding:0 .4rem;font-size:.72rem;color:var(--muted);align-items:center;flex-wrap:wrap;opacity:0;transition:opacity .25s}
 .msg-row:hover .msg-meta{opacity:1}
-.msg-action{background:var(--bg-3);border:1px solid var(--border-2);color:var(--muted);cursor:pointer;font-size:.72rem;padding:.32rem .65rem;border-radius:999px;display:inline-flex;align-items:center;gap:.3rem;transition:all .2s;font-family:inherit;font-weight:600}
-.msg-action:hover{border-color:var(--accent);color:var(--accent)}
+
+/* BEAUTIFUL ACTION BUTTONS with effects */
+.msg-action{background:var(--bg-3);border:1px solid var(--border-2);color:var(--muted);cursor:pointer;font-size:.72rem;padding:.32rem .65rem;border-radius:999px;display:inline-flex;align-items:center;gap:.3rem;transition:all .3s cubic-bezier(.4,0,.2,1);font-family:inherit;font-weight:600;position:relative;overflow:hidden}
+.msg-action:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 16px rgba(99,102,241,.25)}
+.msg-action:active{transform:translateY(0) scale(.95)}
 .msg-action.done{color:var(--ok);border-color:var(--ok);background:rgba(16,185,129,.1)}
-.msg-action.liked{color:#10b981;border-color:#10b981;background:rgba(16,185,129,.15)}
-.msg-action.disliked{color:#e11d48;border-color:#e11d48;background:rgba(225,29,72,.15)}
+
+.msg-action.like-btn:hover{color:#10b981;border-color:#10b981;background:rgba(16,185,129,.08);box-shadow:0 6px 20px rgba(16,185,129,.3)}
+.msg-action.like-btn.liked{color:#fff;border-color:transparent;background:linear-gradient(135deg,#10b981,#059669);box-shadow:0 6px 20px rgba(16,185,129,.5);animation:likePulse .5s ease-out}
+.msg-action.like-btn.liked::after{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle,rgba(16,185,129,.6),transparent 70%);animation:rippleOut .6s ease-out}
+@keyframes likePulse{0%{transform:scale(1)}40%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes rippleOut{0%{transform:scale(0);opacity:1}100%{transform:scale(2.5);opacity:0}}
+
+.msg-action.dislike-btn:hover{color:#e11d48;border-color:#e11d48;background:rgba(225,29,72,.08);box-shadow:0 6px 20px rgba(225,29,72,.3)}
+.msg-action.dislike-btn.disliked{color:#fff;border-color:transparent;background:linear-gradient(135deg,#e11d48,#be123c);box-shadow:0 6px 20px rgba(225,29,72,.5);animation:likePulse .5s ease-out}
+.msg-action.dislike-btn.disliked::after{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle,rgba(225,29,72,.6),transparent 70%);animation:rippleOut .6s ease-out}
+
+.msg-action.copy-btn:hover{color:#6366f1;border-color:#6366f1;background:rgba(99,102,241,.08);box-shadow:0 6px 20px rgba(99,102,241,.3)}
+.msg-action.speak-action-btn:hover{color:#06b6d4;border-color:#06b6d4;background:rgba(6,182,212,.08);box-shadow:0 6px 20px rgba(6,182,212,.3)}
+.msg-action.retry-action-btn:hover{color:#f59e0b;border-color:#f59e0b;background:rgba(245,158,11,.08);box-shadow:0 6px 20px rgba(245,158,11,.3)}
 
 .msg-image,.msg-video{background:var(--bg-2)!important;border:1px solid var(--border-2)!important;padding:.55rem!important;display:flex;flex-direction:column;gap:.55rem;max-width:100%}
 .msg-image img{max-width:100%;width:100%;height:auto;border-radius:14px;display:block;cursor:pointer;transition:transform .3s}
 .msg-image img:hover{transform:scale(1.01)}
 .msg-video video{max-width:100%;width:100%;border-radius:14px;display:block;background:#000}
 
-/* ============================================================
-   ULTRA 3D IMAGE PROGRESS (v24)
-   ============================================================ */
-.u3d-gen{
-  position:relative;overflow:hidden;
-  padding:1.6rem;border-radius:22px;
-  background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(6,182,212,.08),rgba(168,85,247,.1));
-  border:1px solid var(--border-2);
-  min-width:340px;max-width:100%;
-  display:flex;flex-direction:column;gap:1rem;
-  perspective:800px;
-}
-.u3d-gen::before{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(circle at 30% 20%,rgba(99,102,241,.25),transparent 50%),
-    radial-gradient(circle at 70% 80%,rgba(168,85,247,.2),transparent 50%);
-  pointer-events:none;
-}
+/* 3D PROGRESS */
+.u3d-gen{position:relative;overflow:hidden;padding:1.6rem;border-radius:22px;background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(6,182,212,.08),rgba(168,85,247,.1));border:1px solid var(--border-2);min-width:340px;max-width:100%;display:flex;flex-direction:column;gap:1rem;perspective:800px}
+.u3d-gen::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(99,102,241,.25),transparent 50%),radial-gradient(circle at 70% 80%,rgba(168,85,247,.2),transparent 50%);pointer-events:none}
 .u3d-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .u3d-p{position:absolute;width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#06b6d4);box-shadow:0 0 8px currentColor;animation:u3dFloat 3s ease-in-out infinite}
-@keyframes u3dFloat{
-  0%{transform:translate3d(0,100%,0) scale(0);opacity:0}
-  30%{transform:translate3d(0,50%,0) scale(1);opacity:1}
-  100%{transform:translate3d(0,-120%,0) scale(0);opacity:0}
-}
-.u3d-stage{
-  position:relative;z-index:2;
-  height:90px;display:flex;align-items:center;justify-content:center;
-  transform-style:preserve-3d;
-}
-.u3d-cube{
-  width:64px;height:64px;
-  position:relative;
-  transform-style:preserve-3d;
-  animation:u3dRotate 6s linear infinite;
-}
-@keyframes u3dRotate{
-  0%{transform:rotateX(-20deg) rotateY(0deg)}
-  100%{transform:rotateX(-20deg) rotateY(360deg)}
-}
-.u3d-face{
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(99,102,241,.9),rgba(6,182,212,.9));
-  border:2px solid rgba(255,255,255,.4);
-  border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.5rem;
-  box-shadow:0 0 20px rgba(99,102,241,.6) inset;
-  backface-visibility:visible;
-}
+@keyframes u3dFloat{0%{transform:translate3d(0,100%,0) scale(0);opacity:0}30%{transform:translate3d(0,50%,0) scale(1);opacity:1}100%{transform:translate3d(0,-120%,0) scale(0);opacity:0}}
+.u3d-stage{position:relative;z-index:2;height:90px;display:flex;align-items:center;justify-content:center;transform-style:preserve-3d}
+.u3d-cube{width:64px;height:64px;position:relative;transform-style:preserve-3d;animation:u3dRotate 6s linear infinite}
+@keyframes u3dRotate{0%{transform:rotateX(-20deg) rotateY(0deg)}100%{transform:rotateX(-20deg) rotateY(360deg)}}
+.u3d-face{position:absolute;inset:0;background:linear-gradient(135deg,rgba(99,102,241,.9),rgba(6,182,212,.9));border:2px solid rgba(255,255,255,.4);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 0 20px rgba(99,102,241,.6) inset}
 .u3d-face-1{transform:translateZ(32px)}
 .u3d-face-2{transform:rotateY(90deg) translateZ(32px)}
 .u3d-face-3{transform:rotateY(180deg) translateZ(32px)}
 .u3d-face-4{transform:rotateY(-90deg) translateZ(32px)}
 .u3d-face-5{transform:rotateX(90deg) translateZ(32px)}
 .u3d-face-6{transform:rotateX(-90deg) translateZ(32px)}
-
 .u3d-head{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2}
 .u3d-title{font-size:.88rem;font-weight:800;color:var(--fg);display:flex;align-items:center;gap:.5rem}
-.u3d-percent{
-  font-size:2rem;font-weight:900;
-  background:linear-gradient(90deg,#6366f1,#06b6d4,#a855f7,#6366f1);
-  background-size:300% auto;
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  animation:gradShift 2s linear infinite;
-  font-variant-numeric:tabular-nums;letter-spacing:-1px;
-}
-.u3d-bar{
-  width:100%;height:12px;background:rgba(127,127,127,.15);
-  border-radius:999px;overflow:hidden;
-  box-shadow:inset 0 2px 4px rgba(0,0,0,.15);
-  position:relative;z-index:2;
-}
-.u3d-fill{
-  height:100%;width:0%;
-  background:linear-gradient(90deg,#6366f1,#06b6d4,#a855f7,#6366f1);
-  background-size:300% auto;border-radius:999px;
-  transition:width .5s cubic-bezier(.4,0,.2,1);
-  animation:gradShift 2s linear infinite;
-  box-shadow:0 0 20px rgba(99,102,241,.7);
-  position:relative;
-}
+.u3d-percent{font-size:2rem;font-weight:900;background:linear-gradient(90deg,#6366f1,#06b6d4,#a855f7,#6366f1);background-size:300% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:gradShift 2s linear infinite;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+.u3d-bar{width:100%;height:12px;background:rgba(127,127,127,.15);border-radius:999px;overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.15);position:relative;z-index:2}
+.u3d-fill{height:100%;width:0%;background:linear-gradient(90deg,#6366f1,#06b6d4,#a855f7,#6366f1);background-size:300% auto;border-radius:999px;transition:width .5s cubic-bezier(.4,0,.2,1);animation:gradShift 2s linear infinite;box-shadow:0 0 20px rgba(99,102,241,.7);position:relative}
 .u3d-fill::after{content:'';position:absolute;top:0;right:0;bottom:0;width:50px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);animation:shine 1.6s linear infinite}
 @keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
-
-.u3d-step{
-  display:flex;align-items:center;gap:.7rem;
-  padding:.7rem .9rem;
-  background:rgba(255,255,255,.05);
-  border:1px solid var(--border);
-  border-radius:12px;
-  font-size:.82rem;color:var(--fg);font-weight:600;
-  position:relative;z-index:2;
-}
+.u3d-step{display:flex;align-items:center;gap:.7rem;padding:.7rem .9rem;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:12px;font-size:.82rem;color:var(--fg);font-weight:600;position:relative;z-index:2}
 [data-theme="light"] .u3d-step{background:rgba(99,102,241,.06)}
-.u3d-step-icon{
-  width:28px;height:28px;border-radius:9px;
-  background:var(--grad);color:#fff;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.9rem;flex-shrink:0;
-  animation:stepPulse 1.5s ease-in-out infinite;
-}
+.u3d-step-icon{width:28px;height:28px;border-radius:9px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;animation:stepPulse 1.5s ease-in-out infinite}
 @keyframes stepPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-.u3d-stats{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;
-  position:relative;z-index:2;
-}
-.u3d-stat{
-  background:rgba(255,255,255,.05);
-  border:1px solid var(--border);
-  border-radius:10px;padding:.5rem;text-align:center;
-}
+.u3d-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;position:relative;z-index:2}
+.u3d-stat{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:.5rem;text-align:center}
 [data-theme="light"] .u3d-stat{background:rgba(99,102,241,.06)}
 .u3d-stat-val{font-size:.9rem;font-weight:800;color:var(--fg);font-variant-numeric:tabular-nums}
 .u3d-stat-lbl{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-top:.1rem}
 .u3d-stat.accent .u3d-stat-val{color:var(--accent)}
 .u3d-stat.ok .u3d-stat-val{color:var(--ok)}
 
-/* ============================================================
-   CHAT INPUT
-   ============================================================ */
 .chat-input{display:flex;border-top:1px solid var(--border);background:var(--bg-2);flex-shrink:0;align-items:center;gap:.5rem;padding:.65rem .8rem}
 .chat-input input[type="text"]{flex:1;outline:none;padding:.75rem 1rem;color:var(--fg);font-family:inherit;font-size:.9rem;min-width:0;border-radius:14px;background:var(--bg-3);border:1px solid var(--border);transition:all .2s}
 .chat-input input[type="text"]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.15)}
 .chat-input input[type="text"]::placeholder{color:var(--muted)}
-.send-btn{height:54px;padding:0 1.6rem;border-radius:27px;background:var(--grad);border:none;color:#fff;font-weight:800;font-size:.8rem;letter-spacing:2px;cursor:pointer;font-family:inherit;transition:all .25s;white-space:nowrap;flex-shrink:0;box-shadow:0 6px 20px rgba(99,102,241,.35)}
+.send-btn{height:54px;padding:0 1.6rem;border-radius:27px;background:var(--grad);border:none;color:#fff;font-weight:800;font-size:.8rem;letter-spacing:2px;cursor:pointer;font-family:inherit;transition:all .25s;white-space:nowrap;flex-shrink:0;box-shadow:0 6px 20px rgba(99,102,241,.35);position:relative;overflow:hidden}
 .send-btn:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(99,102,241,.5)}
 .send-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.send-btn.stop{background:linear-gradient(135deg,var(--err),#f43f5e)}
+.send-btn.stop{background:linear-gradient(135deg,var(--err),#f43f5e);animation:stopPulse 1s ease-in-out infinite}
+@keyframes stopPulse{0%,100%{box-shadow:0 6px 20px rgba(225,29,72,.4)}50%{box-shadow:0 6px 30px rgba(225,29,72,.8)}}
 
-/* ============================================================
-   MODALS
-   ============================================================ */
 .modal-bg{position:fixed;inset:0;background:rgba(5,8,16,.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem;animation:fadeIn .25s}
 .modal-bg.show{display:flex}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -368,22 +281,15 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .modal-actions .cancel:hover{border-color:var(--err);color:var(--err)}
 .modal-actions .save{background:var(--grad);color:#fff}
 .modal-actions .save:hover{box-shadow:var(--glow)}
+.modal-actions .danger{background:linear-gradient(135deg,var(--err),#f43f5e);color:#fff}
 
-/* AUTH MODAL */
 .auth-modal{max-width:420px;text-align:center}
 .auth-modal-logo{width:70px;height:70px;border-radius:20px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:#fff;margin:0 auto 1rem;box-shadow:0 15px 40px rgba(99,102,241,.45);animation:brandPulse 3s ease-in-out infinite}
 .auth-modal h2{font-size:1.4rem;margin-bottom:.4rem}
 .auth-modal p{color:var(--muted);font-size:.85rem;margin-bottom:1.5rem}
 .auth-providers{display:flex;flex-direction:column;gap:.6rem}
-.auth-provider{
-  display:flex;align-items:center;gap:.8rem;
-  background:var(--bg-3);border:1px solid var(--border-2);
-  padding:.9rem 1.2rem;border-radius:14px;
-  cursor:pointer;font-family:inherit;font-size:.9rem;
-  color:var(--fg);font-weight:700;
-  transition:all .25s;
-}
-.auth-provider:hover{border-color:var(--accent);background:var(--bg-3);transform:translateY(-2px);box-shadow:var(--glow)}
+.auth-provider{display:flex;align-items:center;gap:.8rem;background:var(--bg-3);border:1px solid var(--border-2);padding:.9rem 1.2rem;border-radius:14px;cursor:pointer;font-family:inherit;font-size:.9rem;color:var(--fg);font-weight:700;transition:all .25s}
+.auth-provider:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--glow)}
 .auth-provider svg{width:22px;height:22px;flex-shrink:0}
 .auth-provider .arrow{margin-left:auto;color:var(--muted);font-size:1.1rem;transition:transform .2s}
 .auth-provider:hover .arrow{transform:translateX(4px);color:var(--accent)}
@@ -393,7 +299,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .auth-skip{background:transparent;border:none;color:var(--muted);font-size:.8rem;cursor:pointer;font-family:inherit;margin-top:1rem;padding:.5rem;text-decoration:underline}
 .auth-skip:hover{color:var(--accent)}
 
-/* PROFILE */
 .profile-header{display:flex;align-items:center;gap:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
 .profile-avatar{width:64px;height:64px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.6rem;flex-shrink:0;position:relative;box-shadow:0 12px 30px rgba(99,102,241,.35)}
 .profile-avatar.super{background:linear-gradient(135deg,var(--err),var(--gold));animation:superPulse 2s ease-in-out infinite}
@@ -401,14 +306,13 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .profile-info{display:flex;flex-direction:column;gap:.2rem}
 .profile-name{font-size:1.15rem;font-weight:800}
 .profile-email{font-size:.82rem;color:var(--muted)}
-.profile-role{display:inline-flex;align-items:center;gap:.3rem;background:linear-gradient(135deg,var(--err),var(--gold));color:#fff;padding:.2rem .6rem;border-radius:999px;font-size:.7rem;font-weight:800;margin-top:.3rem;width:fit-content;letter-spacing:.5px}
+.profile-role{display:inline-flex;align-items:center;gap:.3rem;background:linear-gradient(135deg,var(--err),var(--gold));color:#fff;padding:.2rem .6rem;border-radius:999px;font-size:.7rem;font-weight:800;margin-top:.3rem;width:fit-content}
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.7rem;margin-top:1rem}
 .stat-card{background:var(--bg-3);border:1px solid var(--border-2);border-radius:var(--r-sm);padding:1rem .8rem;text-align:center;transition:all .25s}
 .stat-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--glow)}
 .stat-value{font-size:1.6rem;font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .stat-label{font-size:.68rem;color:var(--muted);letter-spacing:.8px;margin-top:.35rem;text-transform:uppercase}
 
-/* SETTINGS */
 .voice-row{display:flex;align-items:center;gap:.7rem;padding:.75rem 0;font-size:.88rem}
 .toggle{position:relative;width:46px;height:26px;background:var(--bg-3);border:1px solid var(--border-2);border-radius:999px;cursor:pointer;transition:all .25s;flex-shrink:0}
 .toggle::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:var(--muted);transition:all .25s}
@@ -425,9 +329,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .size-opt.active{border-color:var(--accent);background:var(--grad);color:#fff}
 .size-opt small{font-size:.68rem;opacity:.85}
 
-/* ============================================================
-   FULLSCREEN AD v24 (Advanced)
-   ============================================================ */
 .ad-fullscreen{position:fixed;inset:0;background:rgba(5,8,16,.98);backdrop-filter:blur(20px);z-index:1000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:1rem}
 .ad-fullscreen.show{display:flex;animation:fadeIn .3s}
 .ad-content{max-width:680px;width:100%;background:var(--bg-2);border:2px solid var(--accent);border-radius:26px;padding:1.5rem;text-align:center;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.6),var(--glow);overflow:hidden}
@@ -447,19 +348,14 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .ad-skip:disabled{opacity:.5;cursor:not-allowed}
 .ad-skip.ready{background:var(--err);color:#fff;animation:pulse 1s ease-in-out infinite}
 
-/* ============================================================
-   SUPER ADMIN v24 — PRO TABBED
-   ============================================================ */
-.super-panel{
-  position:fixed;inset:0;
-  background:
-    radial-gradient(circle at 15% 0%,rgba(99,102,241,.18),transparent 50%),
-    radial-gradient(circle at 85% 100%,rgba(168,85,247,.18),transparent 50%),
-    radial-gradient(circle at 50% 50%,rgba(6,182,212,.08),transparent 70%),
-    rgba(5,6,15,.98);
-  backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);
-  z-index:1500;display:none;flex-direction:column;overflow:hidden;
-}
+/* ADMIN FLOATING BUTTON */
+.admin-float{position:fixed;top:70px;right:16px;z-index:100;background:linear-gradient(135deg,var(--err),var(--gold));color:#fff;border:none;padding:.65rem 1rem;border-radius:14px;font-weight:800;font-size:.78rem;cursor:pointer;font-family:inherit;box-shadow:0 10px 30px rgba(251,191,36,.5);display:none;align-items:center;gap:.4rem;animation:superPulse 2s ease-in-out infinite;transition:all .25s}
+.admin-float.show{display:flex}
+.admin-float:hover{transform:scale(1.05)}
+.admin-float:active{transform:scale(.98)}
+
+/* SUPER ADMIN PANEL */
+.super-panel{position:fixed;inset:0;background:radial-gradient(circle at 15% 0%,rgba(99,102,241,.18),transparent 50%),radial-gradient(circle at 85% 100%,rgba(168,85,247,.18),transparent 50%),radial-gradient(circle at 50% 50%,rgba(6,182,212,.08),transparent 70%),rgba(5,6,15,.98);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);z-index:1500;display:none;flex-direction:column;overflow:hidden}
 .super-panel.show{display:flex;animation:fadeIn .3s}
 .sa-hero{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.6rem;background:linear-gradient(135deg,rgba(225,29,72,.2),rgba(251,191,36,.18),rgba(99,102,241,.2));border-bottom:1px solid rgba(251,191,36,.35);flex-wrap:wrap;position:relative;box-shadow:0 20px 60px rgba(225,29,72,.15)}
 .sa-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--err),var(--gold),var(--accent),var(--err));background-size:200% auto;animation:topShine 3s linear infinite}
@@ -501,7 +397,7 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .sa-section-head{display:flex;align-items:center;gap:.7rem;margin-bottom:.75rem}
 .sa-section-icon{width:38px;height:38px;border-radius:11px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:#fff;box-shadow:0 6px 18px rgba(99,102,241,.35)}
 .sa-section.danger .sa-section-icon{background:linear-gradient(135deg,var(--err),#f43f5e)}
-.sa-section-title{font-size:.98rem;font-weight:800;color:#fff;letter-spacing:.3px}
+.sa-section-title{font-size:.98rem;font-weight:800;color:#fff}
 .sa-section-desc{font-size:.78rem;color:rgba(255,255,255,.5);margin-bottom:1rem;line-height:1.5}
 .sa-btns{display:flex;gap:.5rem;flex-wrap:wrap}
 .sa-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;padding:.65rem 1rem;border-radius:11px;font-weight:700;font-size:.8rem;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;gap:.4rem;flex:1;min-width:120px;justify-content:center}
@@ -554,6 +450,7 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   .sidebar{position:fixed;top:62px;left:0;bottom:0;width:285px;z-index:90;border-radius:0 22px 22px 0;transform:translateX(-100%);transition:transform .3s ease}
   .sidebar.open{transform:translateX(0)}
   .sidebar > *{min-width:0}
+  .admin-float{top:70px;right:12px;padding:.55rem .8rem;font-size:.72rem}
 }
 @media (max-width:640px){
   .nav{padding:.7rem 1rem}
@@ -597,13 +494,9 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
       <button class="icon-tool" id="sidebarToggle" title="Toggle sidebar" type="button">
         <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
-      <a href="index.html" class="brand">
-        <div class="brand-mark">◆</div>
-        DARK
-      </a>
+      <a href="index.html" class="brand"><div class="brand-mark">◆</div>DARK</a>
     </div>
     <div class="nav-actions">
-      <!-- AUTH BUTTON (always visible) -->
       <button class="auth-btn" id="authBtn" type="button">
         <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
         <span id="authBtnText">Sign In</span>
@@ -618,6 +511,9 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
     </div>
   </div>
 </header>
+
+<!-- FLOATING ADMIN BUTTON -->
+<button class="admin-float" id="adminFloat" type="button">👑 Open Admin</button>
 
 <div class="layout">
   <aside class="sidebar" id="sidebar">
@@ -638,6 +534,10 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
           <b>DARK AI</b>
           <small id="chatStatus">Connecting…</small>
         </div>
+        <button class="icon-tool speak-btn" id="speakBtn" title="Read last AI reply" type="button">
+          <svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          <div class="speak-waves"><span></span><span></span><span></span><span></span><span></span></div>
+        </button>
         <button class="icon-tool voice-btn" id="voiceBtn" title="Voice input" type="button">
           <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
           <div class="voice-waves"><span></span><span></span><span></span><span></span><span></span></div>
@@ -670,25 +570,22 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
     <div class="auth-providers">
       <button class="auth-provider google" id="authGoogle" type="button">
         <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-        Continue with Google
-        <span class="arrow">→</span>
+        Continue with Google <span class="arrow">→</span>
       </button>
       <button class="auth-provider github" id="authGithub" type="button">
         <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-        Continue with GitHub
-        <span class="arrow">→</span>
+        Continue with GitHub <span class="arrow">→</span>
       </button>
       <button class="auth-provider email" id="authEmail" type="button">
         <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        Continue with Email
-        <span class="arrow">→</span>
+        Continue with Email <span class="arrow">→</span>
       </button>
     </div>
     <button class="auth-skip" id="authSkip" type="button">Continue as Guest</button>
   </div>
 </div>
 
-<!-- SETTINGS MODAL -->
+<!-- SETTINGS -->
 <div class="modal-bg" id="settingsModal">
   <div class="modal">
     <h2>⚙ SETTINGS</h2>
@@ -698,7 +595,8 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
     <div class="lang-grid" id="langGrid"></div>
     <label>Image Size</label>
     <div class="size-grid" id="sizeGrid"></div>
-    <h3>Voice & Audio</h3>
+    <h3>Behavior</h3>
+    <div class="voice-row"><div class="toggle" id="autoGenToggle"></div><span>Auto-generate images (no button needed)</span></div>
     <div class="voice-row"><div class="toggle" id="autoSpeakToggle"></div><span>Auto-speak AI replies</span></div>
     <h3>Appearance</h3>
     <div class="voice-row"><div class="toggle" id="themeToggle"></div><span>Dark mode</span></div>
@@ -709,7 +607,7 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   </div>
 </div>
 
-<!-- PROFILE MODAL -->
+<!-- PROFILE -->
 <div class="modal-bg" id="profileModal">
   <div class="modal">
     <h2>👤 PROFILE</h2>
@@ -722,9 +620,9 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
       </div>
     </div>
     <div class="stats-grid" id="profileStats"></div>
-    <div class="modal-actions">
+    <div class="modal-actions" id="profileActions">
       <button class="cancel" id="profileClose" type="button">Close</button>
-      <button class="save" id="profileSignOut" type="button">🚪 Sign Out</button>
+      <button class="danger" id="profileSignOut" type="button">🚪 Sign Out</button>
     </div>
   </div>
 </div>
@@ -743,7 +641,7 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
     <input type="text" id="adTitle" placeholder="Special Offer!" />
     <label>Description</label>
     <textarea id="adDesc" placeholder="Visit our store…"></textarea>
-    <label>Media URL (image / gif / video)</label>
+    <label>Media URL</label>
     <input type="text" id="adMedia" placeholder="https://example.com/ad.mp4" />
     <label>CTA Link</label>
     <input type="text" id="adLink" placeholder="https://…" />
@@ -755,11 +653,11 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
         <input type="number" id="adDuration" value="10" min="5" max="60" />
       </div>
       <div>
-        <label>Skip After (5/10/15s)</label>
+        <label>Skip After</label>
         <select id="adSkipAfter">
-          <option value="5">After 5 seconds</option>
-          <option value="10" selected>After 10 seconds</option>
-          <option value="15">After 15 seconds</option>
+          <option value="5">5 seconds</option>
+          <option value="10" selected>10 seconds</option>
+          <option value="15">15 seconds</option>
         </select>
       </div>
     </div>
@@ -795,9 +693,7 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   </div>
 </div>
 
-<!-- ============================================================
-     SUPER ADMIN v24
-     ============================================================ -->
+<!-- SUPER ADMIN -->
 <div class="super-panel" id="superPanel">
   <div class="sa-hero">
     <div class="sa-crown">👑</div>
@@ -812,7 +708,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
     </div>
     <button class="sa-close" id="superClose" type="button">✕ Close</button>
   </div>
-
   <div class="sa-tabs">
     <button class="sa-tab active" data-tab="overview" type="button">📊 Overview</button>
     <button class="sa-tab" data-tab="users" type="button">👥 Users <span class="sa-tab-count" id="saUsersCount">0</span></button>
@@ -822,17 +717,14 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
     <button class="sa-tab" data-tab="data" type="button">💾 Data</button>
     <button class="sa-tab" data-tab="danger" type="button">⚠️ Danger</button>
   </div>
-
   <div class="sa-content">
-
-    <!-- OVERVIEW -->
     <div class="sa-tab-panel active" data-panel="overview">
       <div class="sa-kpis">
         <div class="sa-kpi users"><div class="sa-kpi-icon">👥</div><div class="sa-kpi-value" id="saTotalUsers">0</div><div class="sa-kpi-label">Unique Users</div></div>
         <div class="sa-kpi visits"><div class="sa-kpi-icon">🔁</div><div class="sa-kpi-value" id="saTotalVisits">0</div><div class="sa-kpi-label">Total Visits</div></div>
-        <div class="sa-kpi chats"><div class="sa-kpi-icon">💬</div><div class="sa-kpi-value" id="saTotalChats">0</div><div class="sa-kpi-label">Active Chats</div></div>
+        <div class="sa-kpi chats"><div class="sa-kpi-icon">💬</div><div class="sa-kpi-value" id="saTotalChats">0</div><div class="sa-kpi-label">Chats</div></div>
         <div class="sa-kpi msgs"><div class="sa-kpi-icon">📨</div><div class="sa-kpi-value" id="saTotalMsgs">0</div><div class="sa-kpi-label">Messages</div></div>
-        <div class="sa-kpi ads"><div class="sa-kpi-icon">📢</div><div class="sa-kpi-value" id="saTotalAds">0</div><div class="sa-kpi-label">Active Ads</div></div>
+        <div class="sa-kpi ads"><div class="sa-kpi-icon">📢</div><div class="sa-kpi-value" id="saTotalAds">0</div><div class="sa-kpi-label">Ads</div></div>
       </div>
       <div class="sa-section">
         <div class="sa-section-head"><div class="sa-section-icon">⚡</div><div class="sa-section-title">Quick Actions</div></div>
@@ -842,12 +734,10 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
         </div>
       </div>
     </div>
-
-    <!-- USERS -->
     <div class="sa-tab-panel" data-panel="users">
       <div class="sa-section">
         <div class="sa-section-head"><div class="sa-section-icon">👥</div><div class="sa-section-title">User Tracking</div></div>
-        <div class="sa-section-desc">Every device tracked by fingerprint + IP. See who returned and how many times.</div>
+        <div class="sa-section-desc">Every device tracked by fingerprint + IP.</div>
         <div style="overflow-x:auto">
           <table class="sa-users-table">
             <thead><tr><th>User</th><th>Fingerprint</th><th>IP</th><th>Visits</th><th>First</th><th>Last</th></tr></thead>
@@ -860,8 +750,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
         </div>
       </div>
     </div>
-
-    <!-- ADS -->
     <div class="sa-tab-panel" data-panel="ads">
       <div class="sa-section">
         <div class="sa-section-head"><div class="sa-section-icon">📢</div><div class="sa-section-title">Advertisements</div></div>
@@ -872,12 +760,9 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
         <div id="saAdsList"></div>
       </div>
     </div>
-
-    <!-- AI -->
     <div class="sa-tab-panel" data-panel="ai">
       <div class="sa-section">
         <div class="sa-section-head"><div class="sa-section-icon">🧠</div><div class="sa-section-title">System Prompt</div></div>
-        <div class="sa-section-desc">Defines DARK's personality and behavior for all conversations.</div>
         <div class="sa-form-row">
           <label class="sa-form-label">Prompt</label>
           <textarea id="saPromptArea" class="sa-form-input" style="min-height:220px;font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.6"></textarea>
@@ -888,12 +773,9 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
         </div>
       </div>
     </div>
-
-    <!-- LEARNING -->
     <div class="sa-tab-panel" data-panel="learn">
       <div class="sa-section">
         <div class="sa-section-head"><div class="sa-section-icon">📚</div><div class="sa-section-title">AI Learning Insights</div></div>
-        <div class="sa-section-desc">DARK AI learns from user feedback. Positive patterns reinforce good behavior.</div>
         <div id="saLearnInsights"></div>
         <div class="sa-btns" style="margin-top:1rem">
           <button class="sa-btn primary" id="saApplyLearning" type="button">✨ Apply Learning</button>
@@ -902,18 +784,15 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
       </div>
       <div class="sa-section">
         <div class="sa-section-head"><div class="sa-section-icon">💡</div><div class="sa-section-title">Learned Rules</div></div>
-        <div class="sa-section-desc">These rules are auto-appended to the system prompt.</div>
         <textarea id="saLearnedRules" class="sa-form-input" style="min-height:150px;font-family:'JetBrains Mono',monospace;font-size:.78rem" readonly></textarea>
       </div>
     </div>
-
-    <!-- DATA -->
     <div class="sa-tab-panel" data-panel="data">
       <div class="sa-section">
         <div class="sa-section-head"><div class="sa-section-icon">💾</div><div class="sa-section-title">Backup & Restore</div></div>
         <div class="sa-btns">
-          <button class="sa-btn primary" id="saExportAll" type="button">⬇ Export Full Backup</button>
-          <button class="sa-btn" id="saImportAll" type="button">⬆ Import Backup</button>
+          <button class="sa-btn primary" id="saExportAll" type="button">⬇ Export</button>
+          <button class="sa-btn" id="saImportAll" type="button">⬆ Import</button>
         </div>
       </div>
       <div class="sa-section">
@@ -928,29 +807,20 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
         <div class="sa-section-head"><div class="sa-section-icon">⚡</div><div class="sa-section-title">System</div></div>
         <div class="sa-btns">
           <button class="sa-btn" id="saReload" type="button">🔄 Reload</button>
-          <button class="sa-btn warn" id="saToggleTheme" type="button">🌗 Toggle Theme</button>
+          <button class="sa-btn warn" id="saToggleTheme" type="button">🌗 Theme</button>
         </div>
       </div>
     </div>
-
-    <!-- DANGER -->
     <div class="sa-tab-panel" data-panel="danger">
       <div class="sa-section danger">
         <div class="sa-section-head"><div class="sa-section-icon">🗑</div><div class="sa-section-title">Clear Chats</div></div>
-        <div class="sa-section-desc">Delete all chat threads. Ads and settings remain.</div>
-        <div class="sa-btns">
-          <button class="sa-btn warn" id="saClearChats" type="button">🗑 Clear All Chats</button>
-        </div>
+        <div class="sa-btns"><button class="sa-btn warn" id="saClearChats" type="button">🗑 Clear All Chats</button></div>
       </div>
       <div class="sa-section danger">
         <div class="sa-section-head"><div class="sa-section-icon">💥</div><div class="sa-section-title">Factory Reset</div></div>
-        <div class="sa-section-desc">Erases EVERYTHING permanently.</div>
-        <div class="sa-btns">
-          <button class="sa-btn danger" id="saFactoryReset" type="button">💥 FACTORY RESET</button>
-        </div>
+        <div class="sa-btns"><button class="sa-btn danger" id="saFactoryReset" type="button">💥 FACTORY RESET</button></div>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -958,13 +828,14 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 
 <script>
 /* ============================================================
-   DARK AI v24 — SMART EDITION
+   DARK AI v25 — ULTIMATE EDITION
+   All fixes + new features
    ============================================================ */
 (function () {
   'use strict';
 
   const PROXY_URL = '/chat';
-  const SUPER_ADMIN_USER = 'seyaboss1';  // ← super admin only
+  const SUPER_ADMIN_USER = 'seyaboss1';
 
   const LANGUAGES = [
     { code:'auto', name:'Auto-detect', native:'Auto',     flag:'🌐', tts:'' },
@@ -980,14 +851,12 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
     { code:'ja',   name:'Japanese',    native:'日本語',   flag:'🇯🇵', tts:'ja-JP' },
     { code:'ru',   name:'Russian',     native:'Русский',  flag:'🇷🇺', tts:'ru-RU' }
   ];
-
   const IMAGE_SIZES = [
     { code:'square',    name:'Square', dim:'1024×1024', w:1024, h:1024 },
     { code:'landscape', name:'Wide',   dim:'1280×720',  w:1280, h:720  },
     { code:'portrait',  name:'Tall',   dim:'720×1280',  w:720,  h:1280 },
     { code:'hd',        name:'HD',     dim:'1920×1080', w:1920, h:1080 }
   ];
-
   const DEFAULT_SYSTEM_PROMPT = `You are DARK, an elite multilingual AI assistant with native fluency in Arabic, English, and Amharic.
 
 IMAGE GENERATION:
@@ -1028,9 +897,11 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     { icon:'🖼️', text:'Finalizing your image' }
   ];
 
+  // STATE
   let preferredLang = localStorage.getItem('dark-lang') || 'auto';
   let preferredSize = localStorage.getItem('dark-size') || 'hd';
   let autoSpeak = localStorage.getItem('dark-autospeak') === 'true';
+  let autoGenImages = localStorage.getItem('dark-autogen') !== 'false'; // default ON
   let theme = localStorage.getItem('dark-theme') || 'light';
   let systemPrompt = localStorage.getItem('dark-prompt') || DEFAULT_SYSTEM_PROMPT;
   let learnedRules = localStorage.getItem('dark-learned-rules') || '';
@@ -1040,21 +911,20 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   let activeId = null;
   let busy = false;
   let abortController = null;
+  let typewriterCancelled = false;
   let searchQuery = '';
   let ads = JSON.parse(localStorage.getItem('dark-ads') || '[]');
   let messageCounter = parseInt(localStorage.getItem('dark-msg-counter') || '0', 10);
   let voiceRecognition = null;
   let isRecording = false;
+  let isSpeaking = false;
+  let lastAiReply = '';
   let currentVisit = null;
   let currentFingerprint = null;
 
   const $ = (id) => document.getElementById(id);
+  const escapeHtml = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, c => ({
-      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-    }[c]));
-  }
   function toast(msg) {
     const t = $('toast');
     t.textContent = msg;
@@ -1081,7 +951,9 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     if (/[a-zA-Z]/.test(text)) return 'en';
     return null;
   }
-  function speak(text) {
+
+  // ===== SPEAK =====
+  function speak(text, updateBtn = true) {
     if (!window.speechSynthesis) return;
     speechSynthesis.cancel();
     const clean = text
@@ -1101,9 +973,23 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       if (l && l.tts) langCode = l.tts;
     }
     const u = new SpeechSynthesisUtterance(clean);
-    u.lang = langCode; u.rate = 1.0; u.pitch = 1.0;
+    u.lang = langCode; u.rate = 1.05; u.pitch = 1.0;
+
+    if (updateBtn) {
+      isSpeaking = true;
+      $('speakBtn').classList.add('speaking');
+      u.onend = () => { isSpeaking = false; $('speakBtn').classList.remove('speaking'); };
+      u.onerror = () => { isSpeaking = false; $('speakBtn').classList.remove('speaking'); };
+    }
     speechSynthesis.speak(u);
   }
+
+  function stopSpeaking() {
+    if (window.speechSynthesis) speechSynthesis.cancel();
+    isSpeaking = false;
+    $('speakBtn').classList.remove('speaking');
+  }
+
   function renderMarkdown(text) {
     let html = escapeHtml(text);
     const codeBlocks = [];
@@ -1142,14 +1028,10 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     });
   };
 
-  /* ============================================================
-     LEARNING SYSTEM
-     ============================================================ */
+  // ===== LEARNING =====
   function recordFeedback(messageText, isPositive) {
     const db = JSON.parse(localStorage.getItem('dark-learn-db') || '{"positive":0,"negative":0,"patterns":{}}');
     if (isPositive) db.positive++; else db.negative++;
-
-    // Extract simple pattern: first 60 chars of prompt that led to this response
     const key = messageText.slice(0, 60).toLowerCase().replace(/[^\w\s\u0600-\u06FF]/g, '').trim().slice(0, 40);
     if (key.length > 5) {
       if (!db.patterns[key]) db.patterns[key] = { pos: 0, neg: 0 };
@@ -1157,56 +1039,33 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     }
     localStorage.setItem('dark-learn-db', JSON.stringify(db));
   }
-
   function generateLearnedRules() {
     const db = JSON.parse(localStorage.getItem('dark-learn-db') || '{"positive":0,"negative":0,"patterns":{}}');
     const rules = [];
-
-    // Global quality rule
     const total = db.positive + db.negative;
     if (total >= 5) {
       const ratio = db.positive / total;
-      if (ratio >= 0.8) {
-        rules.push('• Continue with current high-quality response style — users are satisfied.');
-      } else if (ratio <= 0.5) {
-        rules.push('• Be more concise and direct. Users prefer shorter, clearer answers.');
-      }
+      if (ratio >= 0.8) rules.push('• Continue with current high-quality response style — users are satisfied.');
+      else if (ratio <= 0.5) rules.push('• Be more concise and direct. Users prefer shorter, clearer answers.');
     }
-
-    // Top positive patterns
-    const sortedPatterns = Object.entries(db.patterns)
-      .sort((a, b) => (b[1].pos - b[1].neg) - (a[1].pos - a[1].neg))
-      .slice(0, 5);
-
-    const topGood = sortedPatterns.filter(([, v]) => v.pos > v.neg && v.pos >= 2);
-    if (topGood.length > 0) {
-      rules.push('• Topics users often appreciate: ' + topGood.map(([k]) => `"${k}"`).join(', '));
-    }
-
-    // Top negative patterns
-    const topBad = sortedPatterns.filter(([, v]) => v.neg > v.pos && v.neg >= 2);
-    if (topBad.length > 0) {
-      rules.push('• Be extra careful with: ' + topBad.map(([k]) => `"${k}"`).join(', '));
-    }
-
+    const sorted = Object.entries(db.patterns).sort((a, b) => (b[1].pos - b[1].neg) - (a[1].pos - a[1].neg)).slice(0, 5);
+    const topGood = sorted.filter(([, v]) => v.pos > v.neg && v.pos >= 2);
+    if (topGood.length) rules.push('• Topics users often appreciate: ' + topGood.map(([k]) => `"${k}"`).join(', '));
+    const topBad = sorted.filter(([, v]) => v.neg > v.pos && v.neg >= 2);
+    if (topBad.length) rules.push('• Be extra careful with: ' + topBad.map(([k]) => `"${k}"`).join(', '));
     return rules.join('\n');
   }
-
   function applyLearning() {
-    const rules = generateLearnedRules();
-    learnedRules = rules;
-    localStorage.setItem('dark-learned-rules', rules);
-    return rules;
+    learnedRules = generateLearnedRules();
+    localStorage.setItem('dark-learned-rules', learnedRules);
+    return learnedRules;
   }
-
   function getEffectiveSystemPrompt() {
     if (!learnedRules) return systemPrompt;
     return systemPrompt + '\n\nLEARNED BEHAVIOR RULES:\n' + learnedRules;
   }
 
-  /* ============================================================
-     USER TRACKING
-     ============================================================ */
+  // ===== FINGERPRINT & TRACKING =====
   async function getFingerprint() {
     try {
       const canvas = document.createElement('canvas');
@@ -1218,12 +1077,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       ctx.fillStyle = '#fff';
       ctx.fillText('DARK-fp', 4, 6);
       const canvasData = canvas.toDataURL();
-      const data = [
-        navigator.userAgent, navigator.language,
-        screen.width + 'x' + screen.height, screen.colorDepth,
-        new Date().getTimezoneOffset(), navigator.hardwareConcurrency || 0,
-        navigator.platform || '', canvasData
-      ].join('|');
+      const data = [navigator.userAgent, navigator.language, screen.width + 'x' + screen.height, screen.colorDepth, new Date().getTimezoneOffset(), navigator.hardwareConcurrency || 0, navigator.platform || '', canvasData].join('|');
       const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(data));
       return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 16);
     } catch {
@@ -1233,7 +1087,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       return 'fb' + Math.abs(h).toString(16).padStart(14, '0');
     }
   }
-
   async function getIP() {
     try {
       const r = await fetch('https://api.ipify.org?format=json', { cache: 'no-store' });
@@ -1241,23 +1094,13 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       return d.ip || 'unknown';
     } catch { return 'unknown'; }
   }
-
   async function trackVisit() {
     currentFingerprint = await getFingerprint();
     const ip = await getIP();
     const db = JSON.parse(localStorage.getItem('dark-users-db') || '{}');
     const now = Date.now();
-
     if (!db[currentFingerprint]) {
-      db[currentFingerprint] = {
-        fp: currentFingerprint, ip,
-        firstSeen: now, lastSeen: now, visits: 1,
-        userAgent: navigator.userAgent,
-        platform: navigator.platform || 'unknown',
-        screen: screen.width + 'x' + screen.height,
-        language: navigator.language,
-        username: currentUser?.username || 'Guest'
-      };
+      db[currentFingerprint] = { fp: currentFingerprint, ip, firstSeen: now, lastSeen: now, visits: 1, userAgent: navigator.userAgent, platform: navigator.platform || 'unknown', screen: screen.width + 'x' + screen.height, language: navigator.language, username: currentUser?.username || 'Guest' };
     } else {
       db[currentFingerprint].lastSeen = now;
       db[currentFingerprint].visits = (db[currentFingerprint].visits || 0) + 1;
@@ -1269,9 +1112,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     return currentVisit;
   }
 
-  /* ============================================================
-     VOICE INPUT
-     ============================================================ */
+  // ===== VOICE INPUT =====
   function initVoice() {
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SR) { $('voiceBtn').style.display = 'none'; return; }
@@ -1306,9 +1147,19 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     };
   }
 
-  /* ============================================================
-     THREADS
-     ============================================================ */
+  // ===== SPEAKER BUTTON =====
+  function initSpeaker() {
+    $('speakBtn').onclick = () => {
+      if (isSpeaking) {
+        stopSpeaking();
+        return;
+      }
+      if (!lastAiReply) { toast('No AI reply yet'); return; }
+      speak(lastAiReply, true);
+    };
+  }
+
+  // ===== THREADS =====
   function loadThreads() {
     try { threads = JSON.parse(localStorage.getItem('dark-threads') || '{}') || {}; }
     catch { threads = {}; }
@@ -1373,9 +1224,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     });
   }
 
-  /* ============================================================
-     RENDER
-     ============================================================ */
+  // ===== RENDER =====
   function hideWelcome() { const w = $('welcome'); if (w) w.remove(); }
   function scrollBottom() { const cb = $('chatBody'); cb.scrollTop = cb.scrollHeight; }
   function renderUserMsg(text) {
@@ -1394,8 +1243,9 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const meta = document.createElement('div');
     meta.className = 'msg-meta';
 
+    // COPY
     const copyBtn = document.createElement('button');
-    copyBtn.type = 'button'; copyBtn.className = 'msg-action';
+    copyBtn.type = 'button'; copyBtn.className = 'msg-action copy-btn';
     copyBtn.innerHTML = '<span>📋</span><span>Copy</span>';
     copyBtn.onclick = () => {
       const clean = text.replace(/\[IMAGE_PROMPT\]([\s\S]*?)\[\/IMAGE_PROMPT\]/g, '$1')
@@ -1408,17 +1258,18 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     };
     meta.appendChild(copyBtn);
 
+    // SPEAK
     const speakBtn = document.createElement('button');
-    speakBtn.type = 'button'; speakBtn.className = 'msg-action';
+    speakBtn.type = 'button'; speakBtn.className = 'msg-action speak-action-btn';
     speakBtn.innerHTML = '<span>🔊</span><span>Speak</span>';
     speakBtn.onclick = () => speak(text);
     meta.appendChild(speakBtn);
 
-    // LIKE / DISLIKE for learning
+    // LIKE
     const likeBtn = document.createElement('button');
-    likeBtn.type = 'button'; likeBtn.className = 'msg-action';
+    likeBtn.type = 'button'; likeBtn.className = 'msg-action like-btn';
     likeBtn.innerHTML = '<span>👍</span>';
-    likeBtn.title = 'Good response (learns)';
+    likeBtn.title = 'Good response (DARK learns)';
     likeBtn.onclick = () => {
       recordFeedback(originalPrompt || '', true);
       likeBtn.classList.add('liked');
@@ -1427,10 +1278,11 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     };
     meta.appendChild(likeBtn);
 
+    // DISLIKE
     const dislikeBtn = document.createElement('button');
-    dislikeBtn.type = 'button'; dislikeBtn.className = 'msg-action';
+    dislikeBtn.type = 'button'; dislikeBtn.className = 'msg-action dislike-btn';
     dislikeBtn.innerHTML = '<span>👎</span>';
-    dislikeBtn.title = 'Bad response (learns)';
+    dislikeBtn.title = 'Bad response (DARK learns)';
     dislikeBtn.onclick = () => {
       recordFeedback(originalPrompt || '', false);
       dislikeBtn.classList.add('disliked');
@@ -1439,8 +1291,9 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     };
     meta.appendChild(dislikeBtn);
 
+    // RETRY
     const retryBtn = document.createElement('button');
-    retryBtn.type = 'button'; retryBtn.className = 'msg-action';
+    retryBtn.type = 'button'; retryBtn.className = 'msg-action retry-action-btn';
     retryBtn.innerHTML = '<span>↻</span><span>Retry</span>';
     retryBtn.onclick = retryLast;
     meta.appendChild(retryBtn);
@@ -1475,18 +1328,56 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
         else imgMatch = [desc, desc];
       }
     }
-    if (imgMatch) return renderMediaPrompt(text, imgMatch[1], 'image', tokens, col, row, originalPrompt);
-    if (vidMatch) return renderMediaPrompt(text, vidMatch[1], 'video', tokens, col, row, originalPrompt);
+    if (imgMatch) return handleImagePrompt(text, imgMatch[1], 'image', tokens, col, row, originalPrompt);
+    if (vidMatch) return handleImagePrompt(text, vidMatch[1], 'video', tokens, col, row, originalPrompt);
     const m = document.createElement('div');
     m.className = 'msg ai'; m.innerHTML = renderMarkdown(text);
     col.appendChild(m); col.appendChild(buildMeta(text, tokens, originalPrompt));
     row.appendChild(col); $('chatBody').appendChild(row); scrollBottom();
   }
 
-  function renderMediaPrompt(text, prompt, type, tokens, col, row, originalPrompt) {
+  // Auto-generate mode: if image prompt detected, hide button and auto-generate
+  function handleImagePrompt(text, prompt, type, tokens, col, row, originalPrompt) {
     prompt = (prompt || '').trim();
     const tagRe = type === 'image' ? /\[IMAGE_PROMPT\][\s\S]*?\[\/IMAGE_PROMPT\]/g : /\[VIDEO_PROMPT\][\s\S]*?\[\/VIDEO_PROMPT\]/g;
     const clean = text.replace(tagRe, '').replace(/Click the button below.*/gi, '').replace(/اضغط الزر.*/gi, '').trim();
+
+    // If auto-generate is ON and it's an image — just run it immediately
+    if (autoGenImages && type === 'image') {
+      col.appendChild(document.createElement('div')); // anchor
+      row.appendChild(col); $('chatBody').appendChild(row);
+      // trigger generation
+      setTimeout(() => {
+        const generatedRow = document.createElement('div');
+        generatedRow.className = 'msg-row ai';
+        const genCol = document.createElement('div');
+        genCol.className = 'msg-col';
+        generatedRow.appendChild(genCol);
+        // Actually, just call generateImage directly - it appends its own message
+        generateImage(prompt);
+      }, 100);
+      // Still show the button as backup (below)
+      const m = document.createElement('div');
+      m.className = 'msg ai';
+      m.innerHTML = renderMarkdown(clean || '🎨 Generating your image…');
+      col.appendChild(m);
+      const box = document.createElement('div');
+      box.className = 'prompt-box';
+      box.innerHTML = '<div class="prompt-text">' + escapeHtml(prompt) + '</div>';
+      const actions = document.createElement('div');
+      actions.className = 'prompt-actions';
+      const genBtn = document.createElement('button');
+      genBtn.className = 'prompt-btn primary';
+      genBtn.innerHTML = '🔄 Regenerate';
+      genBtn.onclick = () => generateImage(prompt);
+      actions.appendChild(genBtn);
+      box.appendChild(actions);
+      m.appendChild(box);
+      col.appendChild(buildMeta(text, tokens, originalPrompt));
+      return;
+    }
+
+    // Manual mode: show button
     const m = document.createElement('div');
     m.className = 'msg ai';
     m.innerHTML = renderMarkdown(clean || (type === 'image' ? 'Ready to generate your image:' : 'Ready to generate your video:'));
@@ -1495,7 +1386,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     box.innerHTML = '<div class="prompt-text">' + escapeHtml(prompt) + '</div>';
     const actions = document.createElement('div');
     actions.className = 'prompt-actions';
-
     const copyBtn = document.createElement('button');
     copyBtn.className = 'prompt-btn';
     copyBtn.innerHTML = '📋 Copy Prompt';
@@ -1506,7 +1396,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       });
     };
     actions.appendChild(copyBtn);
-
     const genBtn = document.createElement('button');
     genBtn.className = 'prompt-btn primary';
     if (type === 'image') {
@@ -1537,9 +1426,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     return row;
   }
 
-  /* ============================================================
-     3D ULTRA IMAGE GENERATION
-     ============================================================ */
+  // ===== IMAGE GENERATION =====
   async function generateImage(userPrompt) {
     const t = threads[activeId];
     if (!t) return;
@@ -1563,7 +1450,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     wrap.className = 'msg ai msg-image';
 
     const uid = 'p_' + Date.now();
-
     wrap.innerHTML = `
       <div class="u3d-gen">
         <div class="u3d-particles" id="particles-${uid}"></div>
@@ -1592,7 +1478,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
           <div class="u3d-stat"><div class="u3d-stat-val" id="step-${uid}">1/${IMG_STEPS.length}</div><div class="u3d-stat-lbl">Step</div></div>
         </div>
       </div>`;
-
     col.appendChild(wrap); row.appendChild(col);
     $('chatBody').appendChild(row); scrollBottom();
     setStatus('Generating image…');
@@ -1602,7 +1487,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const $sico = $('sico-'+uid), $stxt = $('stxt-'+uid), $step = $('step-'+uid);
     const $particles = $('particles-'+uid);
 
-    // 3D particles
     for (let i = 0; i < 15; i++) {
       const p = document.createElement('div');
       p.className = 'u3d-p';
@@ -1619,25 +1503,21 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const startTime = Date.now();
     let fakeProgress = 0;
     let currentStep = 0;
-    const expectedTime = 22;
+    const expectedTime = 20;
 
     const tick = setInterval(() => {
       const elapsed = (Date.now() - startTime) / 1000;
       $time.textContent = elapsed.toFixed(1) + 's';
-
-      // ETA
       if (fakeProgress > 5) {
         const remaining = Math.max(1, expectedTime * (1 - fakeProgress / 100));
         $eta.textContent = '~' + Math.ceil(remaining) + 's';
       }
-
       if (fakeProgress < 96) {
-        const speed = fakeProgress < 40 ? 3.2 : fakeProgress < 75 ? 1.4 : 0.5;
+        const speed = fakeProgress < 40 ? 3.5 : fakeProgress < 75 ? 1.6 : 0.5;
         fakeProgress = Math.min(fakeProgress + speed, 96);
         $pct.textContent = Math.floor(fakeProgress) + '%';
         $fill.style.width = fakeProgress + '%';
       }
-
       const targetStep = Math.min(Math.floor((fakeProgress / 96) * IMG_STEPS.length), IMG_STEPS.length - 1);
       if (targetStep !== currentStep) {
         currentStep = targetStep;
@@ -1648,7 +1528,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
         $sico.style.transform = 'scale(1.25)';
         setTimeout(() => $sico.style.transform = '', 250);
       }
-    }, 200);
+    }, 180);
 
     try {
       const seed = Math.floor(Math.random() * 1e6);
@@ -1670,7 +1550,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       $stxt.textContent = 'Complete ✨';
       $sico.textContent = '✅';
       $eta.textContent = 'Done';
-      await new Promise(r => setTimeout(r, 350));
+      await new Promise(r => setTimeout(r, 300));
 
       wrap.innerHTML = '';
       const img = document.createElement('img');
@@ -1682,7 +1562,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       meta.className = 'msg-meta'; meta.style.opacity = '1';
 
       const dlBtn = document.createElement('button');
-      dlBtn.type = 'button'; dlBtn.className = 'msg-action';
+      dlBtn.type = 'button'; dlBtn.className = 'msg-action copy-btn';
       dlBtn.innerHTML = '<span>⬇</span><span>Download</span>';
       dlBtn.onclick = async () => {
         try {
@@ -1697,7 +1577,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       meta.appendChild(dlBtn);
 
       const reBtn = document.createElement('button');
-      reBtn.type = 'button'; reBtn.className = 'msg-action';
+      reBtn.type = 'button'; reBtn.className = 'msg-action retry-action-btn';
       reBtn.innerHTML = '<span>🔄</span><span>Regenerate</span>';
       reBtn.onclick = () => generateImage(userPrompt);
       meta.appendChild(reBtn);
@@ -1773,9 +1653,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     }, 100);
 
     try {
-      if (!window.puter || !puter.ai || !puter.ai.txt2vid) {
-        throw new Error('Video generator not available. Sign in to Puter first.');
-      }
+      if (!window.puter || !puter.ai || !puter.ai.txt2vid) throw new Error('Video generator not available. Sign in to Puter first.');
       const videoElement = await puter.ai.txt2vid(prompt);
       clearInterval(tTick);
       wrap.innerHTML = '';
@@ -1786,9 +1664,8 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
 
       const meta = document.createElement('div');
       meta.className = 'msg-meta'; meta.style.opacity = '1';
-
       const dlBtn = document.createElement('button');
-      dlBtn.type = 'button'; dlBtn.className = 'msg-action';
+      dlBtn.type = 'button'; dlBtn.className = 'msg-action copy-btn';
       dlBtn.innerHTML = '<span>⬇</span><span>Download</span>';
       dlBtn.onclick = async () => {
         try {
@@ -1802,13 +1679,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
         } catch { toast('Download failed'); }
       };
       meta.appendChild(dlBtn);
-
-      const reBtn = document.createElement('button');
-      reBtn.type = 'button'; reBtn.className = 'msg-action';
-      reBtn.innerHTML = '<span>🔄</span><span>Regenerate</span>';
-      reBtn.onclick = () => generateVideo(userPrompt);
-      meta.appendChild(reBtn);
-
       col.appendChild(meta);
       t.messages.push({ role:'assistant', content:'[Generated video]' });
       saveThreads();
@@ -1825,9 +1695,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   }
   window.DARK_RETRY_VID = (p) => generateVideo(p);
 
-  /* ============================================================
-     CHAT
-     ============================================================ */
+  // ===== CHAT =====
   async function sendMsg() {
     if (busy) return;
     const text = $('chatInput').value.trim();
@@ -1852,14 +1720,14 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const t = threads[activeId];
     if (!t) return;
     busy = true;
-    $('sendBtn').disabled = true;
+    typewriterCancelled = false;
+    $('sendBtn').disabled = false;
     $('sendBtn').textContent = 'STOP';
     $('sendBtn').classList.add('stop');
     const typing = renderTyping();
     setStatus('Thinking…');
     abortController = new AbortController();
 
-    // Make sure system prompt is fresh with learned rules
     if (t.messages[0]?.role === 'system') {
       t.messages[0].content = getEffectiveSystemPrompt();
     }
@@ -1875,15 +1743,20 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       typing.remove();
       if (!res.ok || data.error) {
         renderAiMsg('⚠️ Error: ' + (data.error?.message || data.error || ('HTTP ' + res.status)));
-        setStatus('Error', false); return;
+        setStatus('Error', false);
+        return;
       }
       const reply = data.choices?.[0]?.message?.content?.trim() || '(empty response)';
       const tokens = data.usage?.total_tokens;
       t.messages.push({ role:'assistant', content:reply });
       await saveThreads();
+      lastAiReply = reply;
+
+      // Speak immediately (parallel with typewriter) if enabled
+      if (autoSpeak) speak(reply, false);
+
       await typewriterRender(reply, tokens, originalPrompt);
       setStatus(tokens ? 'Online • ' + tokens + ' tokens' : 'Online');
-      if (autoSpeak) speak(reply);
     } catch (err) {
       typing.remove();
       if (err.name === 'AbortError') { renderAiMsg('(stopped)'); setStatus('Stopped'); }
@@ -1895,6 +1768,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     }
   }
 
+  // FIXED: Faster typewriter with batching + cancel support
   async function typewriterRender(fullText, tokens, originalPrompt) {
     hideWelcome();
     const row = document.createElement('div');
@@ -1908,12 +1782,26 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     m.appendChild(cursor);
     col.appendChild(m); row.appendChild(col);
     $('chatBody').appendChild(row);
-    const speed = fullText.length > 500 ? 3 : fullText.length > 200 ? 6 : 10;
-    for (let i = 0; i < fullText.length; i++) {
-      m.innerHTML = renderMarkdown(fullText.slice(0, i + 1));
+
+    // BATCH RENDERING: 8 chars per frame
+    const len = fullText.length;
+    const batchSize = len > 1500 ? 20 : len > 800 ? 12 : len > 300 ? 8 : 4;
+    const frameDelay = len > 1500 ? 8 : len > 800 ? 12 : len > 300 ? 18 : 22;
+
+    for (let i = 0; i < len; i += batchSize) {
+      if (typewriterCancelled) {
+        // Instantly finish
+        m.innerHTML = renderMarkdown(fullText);
+        cursor.remove();
+        col.appendChild(buildMeta(fullText, tokens, originalPrompt));
+        scrollBottom();
+        return;
+      }
+      const slice = fullText.slice(0, i + batchSize);
+      m.innerHTML = renderMarkdown(slice);
       m.appendChild(cursor);
       scrollBottom();
-      await new Promise(r => setTimeout(r, speed));
+      await new Promise(r => setTimeout(r, frameDelay));
     }
     cursor.remove();
     m.innerHTML = renderMarkdown(fullText);
@@ -1987,12 +1875,17 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     localStorage.setItem('dark-theme', theme);
   }
 
-  /* ============================================================
-     AUTH (via Puter — Google/GitHub/Email)
-     ============================================================ */
+  // ===== AUTH =====
+  function isSuperAdminCheck(name, email) {
+    const _e = (email || '').toLowerCase();
+    const _n = (name || '').toLowerCase();
+    return _n === SUPER_ADMIN_USER.toLowerCase() || _e === SUPER_ADMIN_USER.toLowerCase() || _e.startsWith(SUPER_ADMIN_USER.toLowerCase() + '@');
+  }
+
   function updateAuthUI() {
     const authBtn = $('authBtn');
     const userChip = $('userChip');
+    const adminFloat = $('adminFloat');
     if (currentUser) {
       const name = currentUser.username || currentUser.email || 'User';
       authBtn.style.display = 'none';
@@ -2000,15 +1893,11 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       userChip.classList.toggle('super', isSuperAdmin);
       $('userChipAv').textContent = name.charAt(0).toUpperCase();
       $('userChipName').textContent = name;
-      // Auto open Super Admin for owner
-      if (isSuperAdmin && !window.__saAutoOpened) {
-        window.__saAutoOpened = true;
-        setTimeout(() => openSuperPanel(), 800);
-      }
+      adminFloat.classList.toggle('show', isSuperAdmin);
     } else {
       authBtn.style.display = 'flex';
       userChip.style.display = 'none';
-      $('authBtnText').textContent = 'Sign In';
+      adminFloat.classList.remove('show');
     }
     renderAuthBox();
   }
@@ -2019,33 +1908,18 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     if (currentUser) {
       const name = currentUser.username || currentUser.email || 'User';
       const email = currentUser.email || currentUser.username || '';
-      box.innerHTML =
-        '<div style="font-size:.85rem;font-weight:700;color:var(--fg);">✓ Signed in as <br><b>' +
-        escapeHtml(name) + '</b><br><small style="color:var(--muted);font-weight:400">' + escapeHtml(email) + '</small>' +
-        (isSuperAdmin ? '<br><span style="color:var(--gold);font-size:.72rem">👑 SUPER ADMIN</span>' : '') +
-        '</div>';
+      box.innerHTML = '<div style="font-size:.85rem;font-weight:700;color:var(--fg);">✓ Signed in as <br><b>' + escapeHtml(name) + '</b><br><small style="color:var(--muted);font-weight:400">' + escapeHtml(email) + '</small>' + (isSuperAdmin ? '<br><span style="color:var(--gold);font-size:.72rem">👑 SUPER ADMIN</span>' : '') + '</div>';
     } else {
-      box.innerHTML = '<p style="font-size:.82rem;color:var(--muted);margin-bottom:.7rem;">Sign in to sync your chats.</p>' +
-        '<button id="settingsSignIn" style="background:var(--grad);color:#fff;border:none;padding:.75rem 1.5rem;border-radius:11px;font-weight:700;font-size:.85rem;cursor:pointer;font-family:inherit;width:100%;">👤 Sign In</button>';
+      box.innerHTML = '<p style="font-size:.82rem;color:var(--muted);margin-bottom:.7rem;">Sign in to sync your chats.</p><button id="settingsSignIn" style="background:var(--grad);color:#fff;border:none;padding:.75rem 1.5rem;border-radius:11px;font-weight:700;font-size:.85rem;cursor:pointer;font-family:inherit;width:100%;">👤 Sign In</button>';
       setTimeout(() => {
         const btn = $('settingsSignIn');
-        if (btn) btn.onclick = () => { closeModal(); openAuthModal(); };
+        if (btn) btn.onclick = () => { closeModals(); openAuthModal(); };
       }, 0);
     }
   }
 
-  function closeModal() {
-    document.querySelectorAll('.modal-bg').forEach(m => m.classList.remove('show'));
-  }
-
+  function closeModals() { document.querySelectorAll('.modal-bg').forEach(m => m.classList.remove('show')); }
   function openAuthModal() { $('authModal').classList.add('show'); }
-
-  function isSuperAdminCheck(name, email) {
-    const _e = (email || '').toLowerCase();
-    const _n = (name || '').toLowerCase();
-    return _n === SUPER_ADMIN_USER.toLowerCase() || _e === SUPER_ADMIN_USER.toLowerCase() ||
-           _e.startsWith(SUPER_ADMIN_USER.toLowerCase() + '@');
-  }
 
   async function doSignIn() {
     try {
@@ -2054,7 +1928,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       toast('Welcome, ' + (user.username || 'User'));
       await refreshAuthState();
       await trackVisit();
-      closeModal();
+      closeModals();
     } catch (err) { toast('Auth error: ' + (err.message || 'unknown')); }
   }
 
@@ -2067,15 +1941,11 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
         const email = currentUser.email || '';
         isSuperAdmin = isSuperAdminCheck(name, email);
         const pa = $('profileAvatar');
-        if (pa) {
-          pa.textContent = name.charAt(0).toUpperCase();
-          pa.className = 'profile-avatar' + (isSuperAdmin ? ' super' : '');
-        }
+        if (pa) { pa.textContent = name.charAt(0).toUpperCase(); pa.className = 'profile-avatar' + (isSuperAdmin ? ' super' : ''); }
       } else {
         currentUser = null; isSuperAdmin = false;
       }
       updateAuthUI();
-      // Auto-track username in DB
       if (currentFingerprint) {
         const db = JSON.parse(localStorage.getItem('dark-users-db') || '{}');
         if (db[currentFingerprint] && currentUser) {
@@ -2092,13 +1962,15 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       await puter.auth.signOut();
       currentUser = null; isSuperAdmin = false;
       updateAuthUI();
-      closeModal();
+      closeModals();
       toast('Signed out');
     } catch { toast('Sign out failed'); }
   }
 
   function openProfile() {
     if (!currentUser) { openAuthModal(); return; }
+    // If super admin, open super panel instead
+    if (isSuperAdmin) { openSuperPanel(); return; }
     const name = currentUser.username || 'User';
     const email = currentUser.email || '—';
     $('profileName').textContent = name;
@@ -2121,9 +1993,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     c.appendChild(card);
   }
 
-  /* ============================================================
-     SETTINGS
-     ============================================================ */
+  // ===== SETTINGS =====
   function buildLangGrid() {
     const grid = $('langGrid'); grid.innerHTML = '';
     LANGUAGES.forEach(l => {
@@ -2159,22 +2029,23 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   }
   function openSettings() {
     buildLangGrid(); buildSizeGrid(); renderAuthBox();
+    $('autoGenToggle').classList.toggle('on', autoGenImages);
     $('autoSpeakToggle').classList.toggle('on', autoSpeak);
     $('themeToggle').classList.toggle('on', theme === 'dark');
     $('settingsModal').classList.add('show');
   }
   function saveSettings() {
+    autoGenImages = $('autoGenToggle').classList.contains('on');
+    localStorage.setItem('dark-autogen', autoGenImages);
     autoSpeak = $('autoSpeakToggle').classList.contains('on');
     localStorage.setItem('dark-autospeak', autoSpeak);
     theme = $('themeToggle').classList.contains('on') ? 'dark' : 'light';
     applyTheme();
-    closeModal();
+    closeModals();
     toast('Settings saved');
   }
 
-  /* ============================================================
-     ADS
-     ============================================================ */
+  // ===== ADS =====
   function openAdEditor(index = -1) {
     const isNew = index === -1;
     const ad = isNew ? {} : ads[index];
@@ -2191,7 +2062,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     $('adEditModal').dataset.index = index;
     $('adEditModal').classList.add('show');
   }
-
   function saveAdFromEditor() {
     const index = parseInt($('adEditModal').dataset.index, 10);
     const dur = Math.max(5, Math.min(60, parseInt($('adDuration').value, 10) || 10));
@@ -2204,23 +2074,17 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       media: $('adMedia').value.trim(),
       link: $('adLink').value.trim(),
       cta: $('adCta').value.trim() || 'Learn More',
-      duration: dur,
-      skipAfter: skipA,
+      duration: dur, skipAfter: skipA,
       freq: Math.max(1, parseInt($('adFreq').value, 10) || 10)
     };
-    if (index === -1) {
-      ads.push(ad);
-    } else {
-      ad.id = ads[index].id || ad.id;
-      ads[index] = ad;
-    }
+    if (index === -1) ads.push(ad);
+    else { ad.id = ads[index].id || ad.id; ads[index] = ad; }
     localStorage.setItem('dark-ads', JSON.stringify(ads));
-    closeModal();
+    closeModals();
     renderAdsList();
     updateAdsCount();
     toast('Ad saved');
   }
-
   function deleteAd(index) {
     if (!confirm('Delete this ad?')) return;
     ads.splice(index, 1);
@@ -2229,7 +2093,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     updateAdsCount();
     toast('Ad deleted');
   }
-
   function renderAdsList() {
     const list = $('saAdsList');
     if (!list) return;
@@ -2244,35 +2107,18 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       const isVideo = ad.type === 'video';
       const isGif = ad.type === 'gif';
       const thumbHtml = ad.media
-        ? (isVideo
-            ? '<video class="sa-ad-thumb" src="' + escapeHtml(ad.media) + '" muted playsinline preload="metadata"></video>'
-            : '<img class="sa-ad-thumb" src="' + escapeHtml(ad.media) + '" alt="" onerror="this.style.display=\'none\'">')
+        ? (isVideo ? '<video class="sa-ad-thumb" src="' + escapeHtml(ad.media) + '" muted playsinline preload="metadata"></video>' : '<img class="sa-ad-thumb" src="' + escapeHtml(ad.media) + '" alt="" onerror="this.style.display=\'none\'">')
         : '<div class="sa-ad-thumb-placeholder">' + (isVideo ? '🎬' : isGif ? '🎞️' : '🖼️') + '</div>';
-      row.innerHTML = thumbHtml +
-        '<div class="sa-ad-info">' +
-          '<div class="sa-ad-title">' + escapeHtml(ad.title || 'Untitled') + '</div>' +
-          '<div class="sa-ad-meta">' +
-            '<span>' + (isVideo ? '🎬 Video' : isGif ? '🎞️ GIF' : '🖼️ Image') + '</span>' +
-            '<span>• ' + (ad.duration || 10) + 's total</span>' +
-            '<span>• skip after ' + (ad.skipAfter || 10) + 's</span>' +
-            '<span>• every ' + (ad.freq || 10) + ' msgs</span>' +
-          '</div>' +
-        '</div>' +
-        '<div class="sa-ad-actions">' +
-          '<button data-act="edit" data-i="' + i + '">✏️</button>' +
-          '<button class="del" data-act="del" data-i="' + i + '">🗑</button>' +
-        '</div>';
+      row.innerHTML = thumbHtml + '<div class="sa-ad-info"><div class="sa-ad-title">' + escapeHtml(ad.title || 'Untitled') + '</div><div class="sa-ad-meta"><span>' + (isVideo ? '🎬 Video' : isGif ? '🎞️ GIF' : '🖼️ Image') + '</span><span>• ' + (ad.duration || 10) + 's</span><span>• skip ' + (ad.skipAfter || 10) + 's</span><span>• every ' + (ad.freq || 10) + ' msgs</span></div></div><div class="sa-ad-actions"><button data-act="edit" data-i="' + i + '">✏️</button><button class="del" data-act="del" data-i="' + i + '">🗑</button></div>';
       row.querySelector('[data-act="edit"]').onclick = () => openAdEditor(i);
       row.querySelector('[data-act="del"]').onclick = () => deleteAd(i);
       list.appendChild(row);
     });
   }
-
   function updateAdsCount() {
     const el = $('saAdsCount');
     if (el) el.textContent = ads.length;
   }
-
   function checkAndShowAd() {
     if (ads.length === 0) return;
     const due = ads.find(ad => messageCounter > 0 && messageCounter % (ad.freq || 10) === 0);
@@ -2280,9 +2126,18 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     showFullscreenAd(due);
   }
 
-  let __adState = null;
+  // FIXED AD SYSTEM — clean interval, no memory leak
+  let __adInterval = null;
+  let __adVideo = null;
+
+  function cleanupAd() {
+    if (__adInterval) { clearInterval(__adInterval); __adInterval = null; }
+    if (__adVideo) { try { __adVideo.pause(); __adVideo.src = ''; } catch {} __adVideo = null; }
+  }
 
   function showFullscreenAd(ad) {
+    cleanupAd(); // <-- FIX: always clean before showing
+
     const overlay = $('adFullscreen');
     const isVideo = ad.type === 'video';
     const isGif = ad.type === 'gif';
@@ -2310,10 +2165,9 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       if (isVideo) {
         vid.src = ad.media;
         vid.style.display = 'block';
-        vid.muted = true;
-        vid.loop = true;
-        vid.playsInline = true;
+        vid.muted = true; vid.loop = true; vid.playsInline = true;
         vid.play().catch(() => {});
+        __adVideo = vid;
       } else {
         img.src = ad.media;
         img.style.display = 'block';
@@ -2333,10 +2187,12 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
 
     skipBtn.disabled = true;
     skipBtn.classList.remove('ready');
+    skipText.textContent = '⏱ Skip in ' + Math.ceil(skipAfter) + 's';
     timerBar.style.width = '0%';
+    timeLeft.textContent = Math.ceil(total) + 's left';
 
     let elapsed = 0;
-    const interval = setInterval(() => {
+    __adInterval = setInterval(() => {
       elapsed += 0.1;
       const pct = Math.min(100, (elapsed / total) * 100);
       timerBar.style.width = pct + '%';
@@ -2348,28 +2204,20 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
         skipBtn.classList.add('ready');
         skipText.textContent = '✕ Skip Ad';
       }
-
       if (elapsed >= total) {
-        clearInterval(interval);
+        clearInterval(__adInterval);
+        __adInterval = null;
         closeAd();
       }
     }, 100);
-
-    __adState = { interval, vid };
   }
 
   function closeAd() {
-    if (__adState && __adState.interval) clearInterval(__adState.interval);
-    if (__adState && __adState.vid) {
-      try { __adState.vid.pause(); __adState.vid.src = ''; } catch {}
-    }
-    __adState = null;
+    cleanupAd();
     $('adFullscreen').classList.remove('show');
   }
 
-  /* ============================================================
-     SUPER ADMIN PANEL
-     ============================================================ */
+  // ===== SUPER ADMIN =====
   function openSuperPanel() {
     if (!isSuperAdmin) { toast('❌ Super Admin only'); return; }
     refreshSuperStats();
@@ -2381,7 +2229,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     $('superPanel').classList.add('show');
   }
   function closeSuperPanel() { $('superPanel').classList.remove('show'); }
-
   function switchSaTab(name) {
     document.querySelectorAll('.sa-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
     document.querySelectorAll('.sa-tab-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === name));
@@ -2389,7 +2236,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     if (name === 'ads') renderAdsList();
     if (name === 'learn') updateLearnUI();
   }
-
   function refreshSuperStats() {
     const usersDb = JSON.parse(localStorage.getItem('dark-users-db') || '{}');
     const usersArr = Object.values(usersDb);
@@ -2405,7 +2251,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const uc = $('saUsersCount'); if (uc) uc.textContent = totalUsers;
     updateAdsCount();
   }
-
   function timeAgo(ts) {
     const d = Date.now() - ts;
     const s = Math.floor(d / 1000);
@@ -2418,7 +2263,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     if (dy < 30) return dy + 'd ago';
     return new Date(ts).toLocaleDateString();
   }
-
   function renderUsersTable() {
     const tbody = $('saUsersBody');
     if (!tbody) return;
@@ -2433,17 +2277,10 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       const name = u.username && u.username !== 'Guest' ? u.username : 'Guest';
       const initial = (name[0] || '?').toUpperCase();
       const tr = document.createElement('tr');
-      tr.innerHTML =
-        '<td><div style="display:flex;align-items:center;gap:.5rem"><div class="sa-user-avatar">' + escapeHtml(initial) + '</div><span>' + escapeHtml(name) + '</span></div></td>' +
-        '<td><span class="sa-user-badge">' + escapeHtml((u.fp || '').slice(0, 10)) + '…</span></td>' +
-        '<td style="font-family:JetBrains Mono,monospace;font-size:.72rem">' + escapeHtml(u.ip || 'unknown') + '</td>' +
-        '<td><b style="color:#fbbf24">' + (u.visits || 1) + '</b></td>' +
-        '<td style="font-size:.72rem;color:rgba(255,255,255,.6)">' + timeAgo(u.firstSeen) + '</td>' +
-        '<td style="font-size:.72rem;color:rgba(255,255,255,.6)">' + timeAgo(u.lastSeen) + '</td>';
+      tr.innerHTML = '<td><div style="display:flex;align-items:center;gap:.5rem"><div class="sa-user-avatar">' + escapeHtml(initial) + '</div><span>' + escapeHtml(name) + '</span></div></td><td><span class="sa-user-badge">' + escapeHtml((u.fp || '').slice(0, 10)) + '…</span></td><td style="font-family:JetBrains Mono,monospace;font-size:.72rem">' + escapeHtml(u.ip || 'unknown') + '</td><td><b style="color:#fbbf24">' + (u.visits || 1) + '</b></td><td style="font-size:.72rem;color:rgba(255,255,255,.6)">' + timeAgo(u.firstSeen) + '</td><td style="font-size:.72rem;color:rgba(255,255,255,.6)">' + timeAgo(u.lastSeen) + '</td>';
       tbody.appendChild(tr);
     });
   }
-
   function updateLearnUI() {
     const db = JSON.parse(localStorage.getItem('dark-learn-db') || '{"positive":0,"negative":0,"patterns":{}}');
     const insights = $('saLearnInsights');
@@ -2451,28 +2288,30 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       const total = db.positive + db.negative;
       const ratio = total > 0 ? Math.round((db.positive / total) * 100) : 0;
       const patternCount = Object.keys(db.patterns).length;
-      insights.innerHTML =
-        '<div class="sa-insight"><span class="sa-insight-icon">👍</span><div>Positive feedback: <b>' + db.positive + '</b></div></div>' +
-        '<div class="sa-insight"><span class="sa-insight-icon">👎</span><div>Negative feedback: <b>' + db.negative + '</b></div></div>' +
-        '<div class="sa-insight"><span class="sa-insight-icon">📊</span><div>Satisfaction: <b>' + ratio + '%</b> (' + total + ' total)</div></div>' +
-        '<div class="sa-insight"><span class="sa-insight-icon">🔍</span><div>Learned patterns: <b>' + patternCount + '</b></div></div>';
+      insights.innerHTML = '<div class="sa-insight"><span class="sa-insight-icon">👍</span><div>Positive: <b>' + db.positive + '</b></div></div><div class="sa-insight"><span class="sa-insight-icon">👎</span><div>Negative: <b>' + db.negative + '</b></div></div><div class="sa-insight"><span class="sa-insight-icon">📊</span><div>Satisfaction: <b>' + ratio + '%</b> (' + total + ' total)</div></div><div class="sa-insight"><span class="sa-insight-icon">🔍</span><div>Learned patterns: <b>' + patternCount + '</b></div></div>';
     }
     const rulesArea = $('saLearnedRules');
     if (rulesArea) rulesArea.value = learnedRules || '(No rules yet — collect more feedback)';
   }
-
   function updateClock() {
     const el = $('saClock');
     if (el) el.textContent = new Date().toLocaleTimeString('en-GB');
   }
   setInterval(updateClock, 1000);
 
-  /* ============================================================
-     EVENTS
-     ============================================================ */
+  // ===== SEND BUTTON (fixed STOP) =====
   function handleSend(e) {
     if (e) { e.preventDefault(); e.stopPropagation(); }
-    if (busy) { if (abortController) abortController.abort(); return; }
+    if (busy) {
+      // STOP action
+      typewriterCancelled = true;
+      if (abortController) {
+        try { abortController.abort(); } catch {}
+      }
+      stopSpeaking();
+      setStatus('Stopped');
+      return;
+    }
     sendMsg();
   }
 
@@ -2507,29 +2346,41 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       toast('All cleared');
     };
 
-    // AUTH UI
     $('authBtn').onclick = openAuthModal;
     $('userChip').onclick = openProfile;
-    $('authSkip').onclick = closeModal;
+    $('authSkip').onclick = closeModals;
     $('authGoogle').onclick = doSignIn;
     $('authGithub').onclick = doSignIn;
     $('authEmail').onclick = doSignIn;
 
-    // Modals close
     document.querySelectorAll('.modal-bg').forEach(m => {
       m.addEventListener('click', (e) => { if (e.target === m) m.classList.remove('show'); });
     });
-    $('profileClose').onclick = closeModal;
+    $('profileClose').onclick = closeModals;
     $('profileSignOut').onclick = handleSignOut;
-    $('adEditCancel').onclick = closeModal;
+    $('adEditCancel').onclick = closeModals;
     $('adEditSave').onclick = saveAdFromEditor;
-    $('settingsCancel').onclick = closeModal;
+    $('settingsCancel').onclick = closeModals;
     $('settingsSave').onclick = saveSettings;
+    $('autoGenToggle').onclick = () => $('autoGenToggle').classList.toggle('on');
     $('autoSpeakToggle').onclick = () => $('autoSpeakToggle').classList.toggle('on');
     $('themeToggle').onclick = () => $('themeToggle').classList.toggle('on');
     $('adSkip').onclick = () => { if (!$('adSkip').disabled) closeAd(); };
 
-    // Super admin
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+        e.preventDefault();
+        if (isSuperAdmin) openSuperPanel();
+      }
+      if (e.key === 'Escape') {
+        if ($('adFullscreen').classList.contains('show') && !$('adSkip').disabled) closeAd();
+      }
+    });
+
+    // Floating admin button
+    $('adminFloat').onclick = () => openSuperPanel();
+
     $('superClose').onclick = closeSuperPanel;
     document.querySelectorAll('.sa-tab').forEach(t => t.onclick = () => switchSaTab(t.dataset.tab));
     $('saRefreshStats').onclick = () => { refreshSuperStats(); renderUsersTable(); toast('✓ Refreshed'); };
@@ -2546,7 +2397,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       if (!confirm('Clear user tracking log?')) return;
       localStorage.removeItem('dark-users-db');
       renderUsersTable(); refreshSuperStats();
-      toast('✓ User log cleared');
+      toast('✓ Cleared');
     };
     $('saSavePrompt').onclick = () => {
       const p = $('saPromptArea').value.trim();
@@ -2558,7 +2409,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       toast('✓ Prompt saved');
     };
     $('saResetPrompt').onclick = () => {
-      if (!confirm('Reset system prompt to default?')) return;
+      if (!confirm('Reset system prompt?')) return;
       systemPrompt = DEFAULT_SYSTEM_PROMPT;
       localStorage.setItem('dark-prompt', systemPrompt);
       $('saPromptArea').value = systemPrompt;
@@ -2567,36 +2418,27 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       toast('✓ Reset');
     };
     $('saApplyLearning').onclick = () => {
-      const rules = applyLearning();
+      applyLearning();
       Object.values(threads).forEach(t => { if (t.messages[0]?.role === 'system') t.messages[0].content = getEffectiveSystemPrompt(); });
       localStorage.setItem('dark-threads', JSON.stringify(threads));
       updateLearnUI();
-      toast('✨ Learning applied to AI');
+      toast('✨ Learning applied');
     };
     $('saResetLearning').onclick = () => {
-      if (!confirm('Reset all learning data?')) return;
+      if (!confirm('Reset learning?')) return;
       localStorage.removeItem('dark-learn-db');
       localStorage.removeItem('dark-learned-rules');
       learnedRules = '';
       updateLearnUI();
-      toast('✓ Learning reset');
+      toast('✓ Reset');
     };
     $('saExportAll').onclick = () => {
-      const data = {
-        exportDate: new Date().toISOString(),
-        version: '24.0',
-        systemPrompt, learnedRules, threads, ads,
-        users: JSON.parse(localStorage.getItem('dark-users-db') || '{}'),
-        learning: JSON.parse(localStorage.getItem('dark-learn-db') || '{}'),
-        settings: { preferredLang, preferredSize, theme, autoSpeak },
-        stats: { msgCounter: messageCounter }
-      };
+      const data = { exportDate: new Date().toISOString(), version: '25.0', systemPrompt, learnedRules, threads, ads, users: JSON.parse(localStorage.getItem('dark-users-db') || '{}'), learning: JSON.parse(localStorage.getItem('dark-learn-db') || '{}'), settings: { preferredLang, preferredSize, theme, autoSpeak, autoGenImages }, stats: { msgCounter: messageCounter } };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'dark-full-backup-' + Date.now() + '.json';
-      a.click();
-      toast('✓ Exported');
+      a.download = 'dark-backup-' + Date.now() + '.json';
+      a.click(); toast('✓ Exported');
     };
     $('saImportAll').onclick = () => {
       const input = document.createElement('input');
@@ -2618,10 +2460,11 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
               if (data.settings.preferredSize) preferredSize = data.settings.preferredSize;
               if (data.settings.theme) { theme = data.settings.theme; applyTheme(); }
               if (typeof data.settings.autoSpeak === 'boolean') autoSpeak = data.settings.autoSpeak;
+              if (typeof data.settings.autoGenImages === 'boolean') autoGenImages = data.settings.autoGenImages;
             }
             renderThreads(); rebuildUI(); refreshSuperStats(); renderAdsList(); renderUsersTable(); updateLearnUI();
             $('saPromptArea').value = systemPrompt;
-            toast('✓ Restore complete');
+            toast('✓ Restored');
           } catch { toast('❌ Invalid file'); }
         };
         reader.readAsText(file);
@@ -2629,9 +2472,9 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       input.click();
     };
     $('saChangeColors').onclick = () => {
-      const c1 = prompt('Primary color (hex):', '#6366f1');
+      const c1 = prompt('Primary color:', '#6366f1');
       if (!c1) return;
-      const c2 = prompt('Secondary color (hex):', '#06b6d4');
+      const c2 = prompt('Secondary color:', '#06b6d4');
       if (!c2) return;
       document.documentElement.style.setProperty('--accent', c1);
       document.documentElement.style.setProperty('--accent-2', c2);
@@ -2667,7 +2510,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       toast('✓ Cleared');
     };
     $('saFactoryReset').onclick = () => {
-      if (!confirm('⚠️ FACTORY RESET\n\nDeletes EVERYTHING permanently.\n\nContinue?')) return;
+      if (!confirm('⚠️ FACTORY RESET\n\nDeletes EVERYTHING.\n\nContinue?')) return;
       if (!confirm('⚠️ ARE YOU ABSOLUTELY SURE?\n\nCannot be undone!')) return;
       localStorage.clear();
       toast('💥 Factory reset complete');
@@ -2675,14 +2518,11 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     };
   }
 
-  /* ============================================================
-     INIT
-     ============================================================ */
+  // ===== INIT =====
   async function init() {
     loadThreads();
     applyTheme();
     updateClock();
-
     try { await refreshAuthState(); } catch {}
     try { await trackVisit(); } catch (e) { console.warn('Track failed:', e); }
 
@@ -2697,6 +2537,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     rebuildUI();
     attachEvents();
     initVoice();
+    initSpeaker();
     updateAdsCount();
 
     try {

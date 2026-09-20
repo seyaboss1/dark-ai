@@ -45,3 +45,5 @@ npm-debug.log*
 .vscode/
 .idea/
 *.swp
+index.html.v21backup
+index.html.*backup

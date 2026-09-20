@@ -5,1315 +5,552 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
 <title>DARK AI — الذكاء الاصطناعي المتعدد اللغات</title>
 <meta name="description" content="DARK AI: مساعد ذكاء اصطناعي مجاني للمحادثة، الصور، الفيديو والكود." />
-<meta name="theme-color" content="#4f46e5" />
+<meta name="theme-color" content="#6366f1" />
 <meta name="google-site-verification" content="wD2Re2jxMSxOV7M00szT88G2ckNg4nEUKXm4uLrcADU" />
-<meta property="og:title" content="DARK AI - Chat, Create & Code" />
-<meta property="og:description" content="Multilingual AI assistant." />
-<meta property="og:type" content="website" />
 <link rel="icon" type="image/png" href="/logo.png" />
-<link rel="apple-touch-icon" href="/logo.png" />
 <script src="https://js.puter.com/v2/"></script>
 <style>
 /* ============================================================
-   DARK AI v22 — PROFESSIONAL EDITION
+   DARK AI v23 — SUPER EDITION
    ============================================================ */
 :root {
-  --bg: #f6f8ff; --bg-2: #ffffff; --bg-3: #eef2ff;
-  --surface: rgba(255,255,255,0.75);
-  --fg: #0f1733; --muted: #6b7499;
-  --accent: #6366f1; --accent-2: #06b6d4; --accent-3: #a855f7;
-  --ok: #10b981; --err: #e11d48; --warn: #f59e0b; --gold: #fbbf24;
-  --border: rgba(99,102,241,0.10);
-  --border-2: rgba(99,102,241,0.22);
-  --glow: 0 0 32px rgba(99,102,241,0.28);
-  --shadow: 0 12px 40px rgba(15,23,51,0.10);
-  --code-bg: #eef2ff; --code-fg: #1e40af;
-  --r: 20px; --r-sm: 14px;
-  --blur: 24px;
-  --grad: linear-gradient(135deg, var(--accent), var(--accent-2));
-  --grad-3: linear-gradient(120deg, var(--accent), var(--accent-2), var(--accent-3));
+  --bg:#f6f8ff;--bg-2:#fff;--bg-3:#eef2ff;--surface:rgba(255,255,255,.75);
+  --fg:#0f1733;--muted:#6b7499;--accent:#6366f1;--accent-2:#06b6d4;--accent-3:#a855f7;
+  --ok:#10b981;--err:#e11d48;--warn:#f59e0b;--gold:#fbbf24;
+  --border:rgba(99,102,241,.1);--border-2:rgba(99,102,241,.22);
+  --glow:0 0 32px rgba(99,102,241,.28);--shadow:0 12px 40px rgba(15,23,51,.1);
+  --code-bg:#eef2ff;--code-fg:#1e40af;--r:20px;--r-sm:14px;--blur:24px;
+  --grad:linear-gradient(135deg,var(--accent),var(--accent-2));
+  --grad-3:linear-gradient(120deg,var(--accent),var(--accent-2),var(--accent-3));
 }
-[data-theme="dark"] {
-  --bg: #05060f; --bg-2: #0a1020; --bg-3: #131b30;
-  --surface: rgba(15,23,48,0.72);
-  --fg: #eaf0ff; --muted: #8892b8;
-  --accent: #818cf8; --accent-2: #22d3ee; --accent-3: #c084fc;
-  --border: rgba(129,140,248,0.15);
-  --border-2: rgba(129,140,248,0.32);
-  --glow: 0 0 40px rgba(129,140,248,0.35);
-  --shadow: 0 12px 40px rgba(0,0,0,0.55);
-  --code-bg: #0a1020; --code-fg: #93c5fd;
+[data-theme="dark"]{
+  --bg:#05060f;--bg-2:#0a1020;--bg-3:#131b30;--surface:rgba(15,23,48,.72);
+  --fg:#eaf0ff;--muted:#8892b8;--accent:#818cf8;--accent-2:#22d3ee;--accent-3:#c084fc;
+  --border:rgba(129,140,248,.15);--border-2:rgba(129,140,248,.32);
+  --glow:0 0 40px rgba(129,140,248,.35);--shadow:0 12px 40px rgba(0,0,0,.55);
+  --code-bg:#0a1020;--code-fg:#93c5fd;
 }
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body { height: 100%; }
-body {
-  background: var(--bg); color: var(--fg);
-  font-family: 'Inter', 'Noto Sans Ethiopic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  line-height: 1.6; -webkit-font-smoothing: antialiased;
-  display: flex; flex-direction: column;
-  transition: background .4s, color .4s; overflow: hidden;
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:'Inter','Noto Sans Ethiopic',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  line-height:1.6;-webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;transition:background .4s,color .4s;overflow:hidden;
 }
+.bg-layer{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
+.blob{position:absolute;border-radius:50%;filter:blur(100px);opacity:.4;animation:blobFloat 24s ease-in-out infinite;will-change:transform}
+.blob-1{width:420px;height:420px;background:var(--accent);top:-140px;left:-140px}
+.blob-2{width:360px;height:360px;background:var(--accent-2);top:35%;right:-160px;animation-delay:-8s}
+.blob-3{width:300px;height:300px;background:var(--accent-3);bottom:-120px;left:30%;animation-delay:-16s}
+.grid-overlay{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(127,127,127,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(127,127,127,.045) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse at center,black 40%,transparent 85%);
+  -webkit-mask-image:radial-gradient(ellipse at center,black 40%,transparent 85%);
+}
+@keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(60px,-50px) scale(1.18)}66%{transform:translate(-50px,60px) scale(.88)}}
 
-/* ========== BACKGROUND ========== */
-.bg-layer { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
-.blob {
-  position: absolute; border-radius: 50%;
-  filter: blur(100px); opacity: 0.4;
-  animation: blobFloat 24s ease-in-out infinite;
-  will-change: transform;
-}
-.blob-1 { width: 420px; height: 420px; background: var(--accent); top: -140px; left: -140px; }
-.blob-2 { width: 360px; height: 360px; background: var(--accent-2); top: 35%; right: -160px; animation-delay: -8s; }
-.blob-3 { width: 300px; height: 300px; background: var(--accent-3); bottom: -120px; left: 30%; animation-delay: -16s; }
-.grid-overlay {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(127,127,127,0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(127,127,127,0.045) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
-  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
-}
-@keyframes blobFloat {
-  0%,100% { transform: translate(0,0) scale(1); }
-  33%     { transform: translate(60px,-50px) scale(1.18); }
-  66%     { transform: translate(-50px,60px) scale(0.88); }
-}
+/* HEADER */
+header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%);-webkit-backdrop-filter:blur(var(--blur)) saturate(180%);border-bottom:1px solid var(--border);flex-shrink:0;z-index:50}
+.nav{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.25rem}
+.nav-left{display:flex;align-items:center;gap:.6rem}
+.nav-actions{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:.6rem;font-size:1.15rem;font-weight:900;letter-spacing:5px;color:var(--fg);text-decoration:none}
+.brand-mark{width:38px;height:38px;border-radius:12px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:#fff;box-shadow:0 8px 24px rgba(99,102,241,.4);animation:brandPulse 3s ease-in-out infinite}
+@keyframes brandPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07);box-shadow:0 12px 32px rgba(99,102,241,.6)}}
+.auth-badge{display:flex;align-items:center;gap:.4rem;background:var(--bg-3);border:1px solid var(--border-2);color:var(--accent);padding:.4rem .8rem;border-radius:11px;font-size:.75rem;font-weight:700;height:38px;white-space:nowrap;max-width:180px;overflow:hidden;text-overflow:ellipsis;cursor:pointer;transition:all .2s}
+.auth-badge:hover{border-color:var(--accent);box-shadow:var(--glow)}
+.auth-badge .avatar-sm{width:20px;height:20px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.65rem;font-weight:800;flex-shrink:0}
+.auth-badge.super{background:linear-gradient(135deg,var(--err),var(--gold));color:#fff;border-color:transparent;animation:superPulse 2s ease-in-out infinite}
+@keyframes superPulse{0%,100%{box-shadow:0 0 8px rgba(251,191,36,.6)}50%{box-shadow:0 0 28px rgba(251,191,36,1)}}
 
-/* ========== HEADER ========== */
-header {
-  background: var(--surface);
-  backdrop-filter: blur(var(--blur)) saturate(180%);
-  -webkit-backdrop-filter: blur(var(--blur)) saturate(180%);
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0; z-index: 50;
-}
-.nav {
-  max-width: 1280px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0.75rem 1.25rem;
-}
-.nav-left { display: flex; align-items: center; gap: 0.6rem; }
-.nav-actions { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
-.brand {
-  display: flex; align-items: center; gap: 0.6rem;
-  font-size: 1.15rem; font-weight: 900; letter-spacing: 5px;
-  color: var(--fg); text-decoration: none;
-}
-.brand-mark {
-  width: 38px; height: 38px; border-radius: 12px;
-  background: var(--grad);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.05rem; color: white;
-  box-shadow: 0 8px 24px rgba(99,102,241,0.4);
-  animation: brandPulse 3s ease-in-out infinite;
-}
-@keyframes brandPulse {
-  0%,100% { transform: scale(1); }
-  50%     { transform: scale(1.07); box-shadow: 0 12px 32px rgba(99,102,241,0.6); }
-}
-.auth-badge {
-  display: flex; align-items: center; gap: 0.4rem;
-  background: var(--bg-3); border: 1px solid var(--border-2);
-  color: var(--accent); padding: 0.4rem 0.8rem;
-  border-radius: 11px; font-size: 0.75rem; font-weight: 700;
-  height: 38px; white-space: nowrap;
-  max-width: 180px; overflow: hidden; text-overflow: ellipsis;
-  cursor: pointer; transition: all .2s;
-}
-.auth-badge:hover { border-color: var(--accent); box-shadow: var(--glow); }
-.auth-badge .avatar-sm {
-  width: 20px; height: 20px; border-radius: 50%;
-  background: var(--grad);
-  display: flex; align-items: center; justify-content: center;
-  color: white; font-size: 0.65rem; font-weight: 800; flex-shrink: 0;
-}
-.auth-badge.super {
-  background: linear-gradient(135deg, var(--err), var(--gold));
-  color: white; border-color: transparent;
-  animation: superPulse 2s ease-in-out infinite;
-}
-@keyframes superPulse {
-  0%,100% { box-shadow: 0 0 8px rgba(251,191,36,0.6); }
-  50%     { box-shadow: 0 0 28px rgba(251,191,36,1); }
-}
+.icon-tool{width:42px;height:42px;border-radius:13px;background:transparent;border:1px solid var(--border-2);color:var(--accent);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;flex-shrink:0}
+.icon-tool svg{width:18px;height:18px;transition:transform .35s;stroke-width:2;stroke:currentColor;fill:none;stroke-linecap:round;stroke-linejoin:round;position:relative;z-index:1}
+.icon-tool::before{content:'';position:absolute;inset:0;background:var(--grad);opacity:0;transition:opacity .3s;border-radius:inherit}
+.icon-tool:hover{border-color:var(--accent);box-shadow:var(--glow);transform:translateY(-2px);color:#fff}
+.icon-tool:hover::before{opacity:1}
+.icon-tool:hover svg{transform:scale(1.15) rotate(-8deg)}
 
-/* ========== ICON BUTTONS ========== */
-.icon-tool {
-  width: 42px; height: 42px; border-radius: 13px;
-  background: transparent; border: 1px solid var(--border-2);
-  color: var(--accent); cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all .3s cubic-bezier(.4,0,.2,1);
-  position: relative; overflow: hidden;
-  flex-shrink: 0;
-}
-.icon-tool svg {
-  width: 18px; height: 18px; transition: transform .35s;
-  stroke-width: 2; stroke: currentColor; fill: none;
-  stroke-linecap: round; stroke-linejoin: round;
-  position: relative; z-index: 1;
-}
-.icon-tool::before {
-  content: ''; position: absolute; inset: 0;
-  background: var(--grad); opacity: 0; transition: opacity .3s;
-  border-radius: inherit;
-}
-.icon-tool:hover {
-  border-color: var(--accent); box-shadow: var(--glow);
-  transform: translateY(-2px); color: white;
-}
-.icon-tool:hover::before { opacity: 1; }
-.icon-tool:hover svg { transform: scale(1.15) rotate(-8deg); }
+.voice-btn{position:relative;overflow:visible}
+.voice-btn.recording{background:var(--grad)!important;color:#fff!important;border-color:transparent!important;animation:voicePulse 1.2s ease-in-out infinite}
+.voice-btn.recording::before{opacity:1}
+.voice-btn.recording::after{content:'';position:absolute;inset:-6px;border-radius:19px;border:2px solid var(--accent);animation:voiceRing 1.4s ease-out infinite;pointer-events:none}
+.voice-btn .voice-waves{position:absolute;inset:0;display:none;align-items:center;justify-content:center;gap:2px;z-index:2}
+.voice-btn.recording .voice-waves{display:flex}
+.voice-btn.recording .voice-waves span{width:3px;height:6px;background:#fff;border-radius:2px;animation:waveBar .6s ease-in-out infinite}
+.voice-btn.recording .voice-waves span:nth-child(2){animation-delay:.1s}
+.voice-btn.recording .voice-waves span:nth-child(3){animation-delay:.2s}
+.voice-btn.recording .voice-waves span:nth-child(4){animation-delay:.3s}
+.voice-btn.recording .voice-waves span:nth-child(5){animation-delay:.4s}
+.voice-btn.recording svg{opacity:0}
+@keyframes voicePulse{0%,100%{box-shadow:0 0 0 0 rgba(99,102,241,.7)}50%{box-shadow:0 0 0 14px rgba(99,102,241,0)}}
+@keyframes voiceRing{0%{transform:scale(.9);opacity:1}100%{transform:scale(1.35);opacity:0}}
+@keyframes waveBar{0%,100%{height:6px}50%{height:20px}}
 
-/* ========== VOICE BUTTON (ENHANCED) ========== */
-.voice-btn {
-  position: relative; overflow: visible;
-}
-.voice-btn.recording {
-  background: var(--grad) !important;
-  color: white !important;
-  border-color: transparent !important;
-  animation: voicePulse 1.2s ease-in-out infinite;
-}
-.voice-btn.recording::before { opacity: 1; }
-.voice-btn.recording svg {
-  animation: voiceWave 0.8s ease-in-out infinite;
-}
-.voice-btn.recording::after {
-  content: '';
-  position: absolute; inset: -6px;
-  border-radius: 19px;
-  border: 2px solid var(--accent);
-  animation: voiceRing 1.4s ease-out infinite;
-  pointer-events: none;
-}
-.voice-btn .voice-waves {
-  position: absolute; inset: 0;
-  display: none; align-items: center; justify-content: center;
-  gap: 2px; z-index: 2;
-}
-.voice-btn.recording .voice-waves { display: flex; }
-.voice-btn.recording .voice-waves span {
-  width: 3px; height: 6px;
-  background: white; border-radius: 2px;
-  animation: waveBar 0.6s ease-in-out infinite;
-}
-.voice-btn.recording .voice-waves span:nth-child(1) { animation-delay: 0s; }
-.voice-btn.recording .voice-waves span:nth-child(2) { animation-delay: 0.1s; }
-.voice-btn.recording .voice-waves span:nth-child(3) { animation-delay: 0.2s; }
-.voice-btn.recording .voice-waves span:nth-child(4) { animation-delay: 0.3s; }
-.voice-btn.recording .voice-waves span:nth-child(5) { animation-delay: 0.4s; }
-.voice-btn.recording svg { opacity: 0; }
-@keyframes voicePulse {
-  0%,100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.7); }
-  50%     { box-shadow: 0 0 0 14px rgba(99,102,241,0); }
-}
-@keyframes voiceRing {
-  0%   { transform: scale(0.9); opacity: 1; }
-  100% { transform: scale(1.35); opacity: 0; }
-}
-@keyframes voiceWave {
-  0%,100% { transform: scale(1); }
-  50%     { transform: scale(1.2); }
-}
-@keyframes waveBar {
-  0%,100% { height: 6px; }
-  50%     { height: 20px; }
-}
+.layout{flex:1;max-width:1280px;width:100%;margin:0 auto;display:flex;gap:1rem;padding:1rem 1.25rem;overflow:hidden;min-height:0}
+.sidebar{width:270px;flex-shrink:0;background:var(--surface);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border:1px solid var(--border-2);border-radius:var(--r);padding:1rem;display:flex;flex-direction:column;gap:.75rem;overflow:hidden;transition:width .3s ease,opacity .3s}
+.sidebar.hidden{width:0;padding:1rem 0;opacity:0;border-width:0;pointer-events:none}
+.sidebar > *{min-width:230px}
+.user-card{background:var(--bg-3);border:1px solid var(--border-2);border-radius:var(--r-sm);padding:.75rem;display:flex;align-items:center;gap:.6rem;flex-shrink:0;cursor:pointer;transition:all .25s}
+.user-card:hover{border-color:var(--accent);box-shadow:var(--glow)}
+.user-card .avatar-lg{width:38px;height:38px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1rem;flex-shrink:0}
+.user-card.super .avatar-lg{background:linear-gradient(135deg,var(--err),var(--gold))}
+.user-card .info{display:flex;flex-direction:column;gap:.05rem;min-width:0;flex:1}
+.user-card .name{font-size:.82rem;font-weight:700;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.user-card .sub{font-size:.68rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.user-card .crown{font-size:1rem;color:var(--gold);filter:drop-shadow(0 0 6px rgba(251,191,36,.7))}
+.new-chat{background:var(--grad);color:#fff;border:none;padding:.8rem 1rem;border-radius:var(--r-sm);font-weight:700;font-size:.88rem;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:.4rem;transition:all .25s;box-shadow:0 6px 18px rgba(99,102,241,.3);flex-shrink:0}
+.new-chat:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(99,102,241,.5)}
+.search-box{background:var(--bg-3);border:1px solid var(--border-2);border-radius:11px;padding:.6rem .9rem;color:var(--fg);font-family:inherit;font-size:.85rem;outline:none;flex-shrink:0}
+.search-box:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.15)}
+.chat-list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:.35rem;min-height:0}
+.chat-item{padding:.7rem .85rem;border-radius:11px;cursor:pointer;border:1px solid transparent;display:flex;align-items:center;justify-content:space-between;gap:.5rem;transition:all .2s;font-size:.85rem;flex-shrink:0}
+.chat-item:hover{background:var(--bg-3);border-color:var(--border-2)}
+.chat-item.active{background:linear-gradient(90deg,rgba(99,102,241,.12),transparent);border-color:var(--accent);color:var(--accent)}
+.chat-item span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-item .del{opacity:0;background:transparent;border:none;color:var(--err);cursor:pointer;font-size:.9rem;padding:.2rem .35rem;border-radius:6px;transition:all .2s}
+.chat-item:hover .del{opacity:1}
+.sidebar-footer{border-top:1px solid var(--border);padding-top:.75rem;display:flex;flex-direction:column;gap:.4rem;flex-shrink:0}
+.sidebar-btn{background:transparent;border:1px solid var(--border-2);color:var(--fg);padding:.6rem;border-radius:11px;font-size:.8rem;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:.5rem;transition:all .2s;font-weight:500}
+.sidebar-btn:hover{background:var(--bg-3);border-color:var(--accent);color:var(--accent)}
+.sidebar-btn.super{background:linear-gradient(135deg,var(--err),var(--gold));color:#fff;border-color:transparent;font-weight:700;animation:superPulse 2s ease-in-out infinite}
 
-/* ========== LAYOUT ========== */
-.layout {
-  flex: 1; max-width: 1280px; width: 100%;
-  margin: 0 auto; display: flex; gap: 1rem;
-  padding: 1rem 1.25rem; overflow: hidden; min-height: 0;
-}
+.chat-area{flex:1;min-width:0;display:flex;flex-direction:column;overflow:hidden}
+.chat-wrap{flex:1;background:var(--surface);backdrop-filter:blur(26px) saturate(160%);-webkit-backdrop-filter:blur(26px) saturate(160%);border:1px solid var(--border-2);border-radius:26px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:0;position:relative}
+.chat-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent));background-size:200% auto;animation:topShine 3s linear infinite;z-index:2}
+@keyframes topShine{to{background-position:200% center}}
+.chat-head{display:flex;align-items:center;gap:.75rem;padding:1rem 1.3rem;background:linear-gradient(90deg,rgba(99,102,241,.06),transparent);border-bottom:1px solid var(--border);flex-wrap:wrap;flex-shrink:0}
+.status-dot{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 12px var(--ok);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.chat-head-title{display:flex;flex-direction:column;flex:1;min-width:100px}
+.chat-head-title b{font-size:.95rem;font-weight:900;letter-spacing:2px;background:var(--grad-3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.chat-head-title small{font-size:.72rem;color:var(--muted)}
+.chat-body{flex:1;overflow-y:auto;padding:1.5rem 1.3rem;display:flex;flex-direction:column;gap:1rem;scroll-behavior:smooth;min-height:0}
 
-/* ========== SIDEBAR ========== */
-.sidebar {
-  width: 270px; flex-shrink: 0;
-  background: var(--surface);
-  backdrop-filter: blur(22px) saturate(160%);
-  -webkit-backdrop-filter: blur(22px) saturate(160%);
-  border: 1px solid var(--border-2); border-radius: var(--r);
-  padding: 1rem; display: flex; flex-direction: column;
-  gap: 0.75rem; overflow: hidden;
-  transition: width .3s ease, opacity .3s;
-}
-.sidebar.hidden {
-  width: 0; padding: 1rem 0; opacity: 0;
-  border-width: 0; pointer-events: none;
-}
-.sidebar > * { min-width: 230px; }
-.user-card {
-  background: var(--bg-3); border: 1px solid var(--border-2);
-  border-radius: var(--r-sm); padding: 0.75rem;
-  display: flex; align-items: center; gap: 0.6rem;
-  flex-shrink: 0; cursor: pointer; transition: all .25s;
-}
-.user-card:hover { border-color: var(--accent); box-shadow: var(--glow); }
-.user-card .avatar-lg {
-  width: 38px; height: 38px; border-radius: 50%;
-  background: var(--grad);
-  display: flex; align-items: center; justify-content: center;
-  color: white; font-weight: 800; font-size: 1rem; flex-shrink: 0;
-}
-.user-card.super .avatar-lg {
-  background: linear-gradient(135deg, var(--err), var(--gold));
-}
-.user-card .info { display: flex; flex-direction: column; gap: 0.05rem; min-width: 0; flex: 1; }
-.user-card .name {
-  font-size: 0.82rem; font-weight: 700; color: var(--fg);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.user-card .sub {
-  font-size: 0.68rem; color: var(--muted);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.user-card .crown { font-size: 1rem; color: var(--gold); filter: drop-shadow(0 0 6px rgba(251,191,36,0.7)); }
-.new-chat {
-  background: var(--grad);
-  color: white; border: none; padding: 0.8rem 1rem;
-  border-radius: var(--r-sm); font-weight: 700; font-size: 0.88rem;
-  cursor: pointer; font-family: inherit;
-  display: flex; align-items: center; justify-content: center;
-  gap: 0.4rem; transition: all .25s;
-  box-shadow: 0 6px 18px rgba(99,102,241,0.3);
-  flex-shrink: 0;
-}
-.new-chat:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(99,102,241,0.5); }
-.search-box {
-  background: var(--bg-3); border: 1px solid var(--border-2);
-  border-radius: 11px; padding: 0.6rem 0.9rem;
-  color: var(--fg); font-family: inherit; font-size: 0.85rem;
-  outline: none; flex-shrink: 0;
-}
-.search-box:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(99,102,241,0.15); }
-.chat-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.35rem; min-height: 0; }
-.chat-item {
-  padding: 0.7rem 0.85rem; border-radius: 11px;
-  cursor: pointer; border: 1px solid transparent;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 0.5rem; transition: all .2s; font-size: 0.85rem; flex-shrink: 0;
-}
-.chat-item:hover { background: var(--bg-3); border-color: var(--border-2); }
-.chat-item.active {
-  background: linear-gradient(90deg, rgba(99,102,241,0.12), transparent);
-  border-color: var(--accent); color: var(--accent);
-}
-.chat-item span { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.chat-item .del {
-  opacity: 0; background: transparent; border: none;
-  color: var(--err); cursor: pointer; font-size: 0.9rem;
-  padding: 0.2rem 0.35rem; border-radius: 6px; transition: all .2s;
-}
-.chat-item:hover .del { opacity: 1; }
-.sidebar-footer {
-  border-top: 1px solid var(--border); padding-top: 0.75rem;
-  display: flex; flex-direction: column; gap: 0.4rem; flex-shrink: 0;
-}
-.sidebar-btn {
-  background: transparent; border: 1px solid var(--border-2);
-  color: var(--fg); padding: 0.6rem; border-radius: 11px;
-  font-size: 0.8rem; cursor: pointer; font-family: inherit;
-  display: flex; align-items: center; gap: 0.5rem;
-  transition: all .2s; font-weight: 500;
-}
-.sidebar-btn:hover { background: var(--bg-3); border-color: var(--accent); color: var(--accent); }
-.sidebar-btn.super {
-  background: linear-gradient(135deg, var(--err), var(--gold));
-  color: white; border-color: transparent;
-  font-weight: 700; animation: superPulse 2s ease-in-out infinite;
-}
+.welcome{text-align:center;padding:2rem 1rem 1rem}
+.welcome-icon{width:76px;height:76px;margin:0 auto 1.25rem;border-radius:22px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:2rem;color:#fff;box-shadow:0 20px 50px rgba(99,102,241,.4);animation:floatY 3s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+.welcome h1{font-size:clamp(1.5rem,4.5vw,2.3rem);font-weight:900;letter-spacing:-.02em;margin-bottom:.6rem;line-height:1.15}
+.welcome h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent));background-size:300% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;animation:gradShift 6s linear infinite}
+@keyframes gradShift{to{background-position:300% center}}
+.welcome p{color:var(--muted);max-width:480px;margin:0 auto;font-size:.95rem;line-height:1.65}
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem;max-width:640px;margin:1.5rem auto 0;padding:0 .5rem}
+.quick-card{background:var(--bg-2);border:1px solid var(--border-2);border-radius:var(--r-sm);padding:.8rem .9rem;cursor:pointer;text-align:left;font-family:inherit;color:var(--fg);transition:all .25s;display:flex;align-items:center;gap:.6rem}
+.quick-card:hover{border-color:var(--accent);background:var(--bg-3);transform:translateY(-3px);box-shadow:var(--glow)}
+.quick-card .qc-emoji{font-size:1.2rem;flex-shrink:0}
+.quick-card .qc-text{display:flex;flex-direction:column;gap:.05rem;min-width:0}
+.quick-card .qc-title{font-size:.83rem;font-weight:700}
+.quick-card .qc-desc{font-size:.7rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-/* ========== CHAT AREA ========== */
-.chat-area { flex: 1; min-width: 0; display: flex; flex-direction: column; overflow: hidden; }
-.chat-wrap {
-  flex: 1; background: var(--surface);
-  backdrop-filter: blur(26px) saturate(160%);
-  -webkit-backdrop-filter: blur(26px) saturate(160%);
-  border: 1px solid var(--border-2); border-radius: 26px;
-  overflow: hidden; box-shadow: var(--shadow);
-  display: flex; flex-direction: column;
-  min-height: 0; position: relative;
-}
-.chat-wrap::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3), var(--accent));
-  background-size: 200% auto;
-  animation: topShine 3s linear infinite; z-index: 2;
-}
-@keyframes topShine { to { background-position: 200% center; } }
-.chat-head {
-  display: flex; align-items: center; gap: 0.75rem;
-  padding: 1rem 1.3rem;
-  background: linear-gradient(90deg, rgba(99,102,241,0.06), transparent);
-  border-bottom: 1px solid var(--border);
-  flex-wrap: wrap; flex-shrink: 0;
-}
-.status-dot {
-  width: 10px; height: 10px; border-radius: 50%;
-  background: var(--ok); box-shadow: 0 0 12px var(--ok);
-  animation: pulse 2s ease-in-out infinite; flex-shrink: 0;
-}
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-.chat-head-title { display: flex; flex-direction: column; flex: 1; min-width: 100px; }
-.chat-head-title b {
-  font-size: 0.95rem; font-weight: 900; letter-spacing: 2px;
-  background: var(--grad-3);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.chat-head-title small { font-size: 0.72rem; color: var(--muted); }
-.chat-body {
-  flex: 1; overflow-y: auto; padding: 1.5rem 1.3rem;
-  display: flex; flex-direction: column; gap: 1rem;
-  scroll-behavior: smooth; min-height: 0;
-}
+.msg-row{display:flex;gap:.5rem;align-items:flex-end;animation:slideIn .35s cubic-bezier(.4,0,.2,1)}
+.msg-row.user{justify-content:flex-end}
+.msg-row.ai{justify-content:flex-start}
+@keyframes slideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.msg-col{display:flex;flex-direction:column;max-width:82%}
+.msg{padding:.85rem 1.15rem;border-radius:20px;font-size:.9rem;line-height:1.65;word-wrap:break-word;overflow-wrap:break-word}
+.msg.user{background:var(--grad);color:#fff;border-bottom-right-radius:5px;font-weight:500;box-shadow:0 10px 30px rgba(99,102,241,.3);white-space:pre-wrap}
+.msg.ai{background:var(--bg-2);border:1px solid var(--border-2);color:var(--fg);border-bottom-left-radius:5px}
+[data-theme="dark"] .msg.ai{background:rgba(99,102,241,.06)}
+.msg.ai h1,.msg.ai h2,.msg.ai h3{margin:.7rem 0 .4rem;font-weight:800;line-height:1.3}
+.msg.ai h1{font-size:1.15rem}
+.msg.ai h2{font-size:1.05rem}
+.msg.ai h3{font-size:.98rem}
+.msg.ai p{margin:.35rem 0}
+.msg.ai ul,.msg.ai ol{margin:.35rem 0;padding-inline-start:1.3rem}
+.msg.ai li{margin:.15rem 0}
+.msg.ai a{color:var(--accent);text-decoration:underline}
+.msg.ai code.inline{background:var(--code-bg);color:var(--code-fg);padding:.15rem .4rem;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:.85em}
+.msg.ai pre{background:var(--code-bg);border:1px solid var(--border-2);border-radius:12px;padding:.9rem 1rem;overflow-x:auto;margin:.6rem 0;position:relative}
+.msg.ai pre code{color:var(--code-fg);font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.55;white-space:pre}
+.code-copy{position:absolute;top:.5rem;right:.5rem;background:var(--bg-2);border:1px solid var(--border-2);color:var(--accent);padding:.25rem .55rem;border-radius:7px;font-size:.68rem;cursor:pointer;opacity:0;transition:all .2s;font-family:inherit;font-weight:700}
+.msg.ai pre:hover .code-copy{opacity:1}
+.code-copy:hover{background:var(--accent);color:#fff}
 
-/* ========== WELCOME ========== */
-.welcome { text-align: center; padding: 2rem 1rem 1rem; }
-.welcome-icon {
-  width: 76px; height: 76px; margin: 0 auto 1.25rem;
-  border-radius: 22px;
-  background: var(--grad);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2rem; color: white;
-  box-shadow: 0 20px 50px rgba(99,102,241,0.4);
-  animation: floatY 3s ease-in-out infinite;
-}
-@keyframes floatY {
-  0%,100% { transform: translateY(0) rotate(0deg); }
-  50%     { transform: translateY(-10px) rotate(3deg); }
-}
-.welcome h1 {
-  font-size: clamp(1.5rem, 4.5vw, 2.3rem);
-  font-weight: 900; letter-spacing: -0.02em;
-  margin-bottom: 0.6rem; line-height: 1.15;
-}
-.welcome h1 .grad {
-  background: linear-gradient(120deg, var(--accent), var(--accent-2), var(--accent-3), var(--accent));
-  background-size: 300% auto;
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent; display: inline-block;
-  animation: gradShift 6s linear infinite;
-}
-@keyframes gradShift { to { background-position: 300% center; } }
-.welcome p { color: var(--muted); max-width: 480px; margin: 0 auto; font-size: 0.95rem; line-height: 1.65; }
-.quick-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 0.6rem; max-width: 640px; margin: 1.5rem auto 0; padding: 0 0.5rem;
-}
-.quick-card {
-  background: var(--bg-2); border: 1px solid var(--border-2);
-  border-radius: var(--r-sm); padding: 0.8rem 0.9rem;
-  cursor: pointer; text-align: left; font-family: inherit; color: var(--fg);
-  transition: all .25s; display: flex; align-items: center; gap: 0.6rem;
-}
-.quick-card:hover {
-  border-color: var(--accent); background: var(--bg-3);
-  transform: translateY(-3px); box-shadow: var(--glow);
-}
-.quick-card .qc-emoji { font-size: 1.2rem; flex-shrink: 0; }
-.quick-card .qc-text { display: flex; flex-direction: column; gap: 0.05rem; min-width: 0; }
-.quick-card .qc-title { font-size: 0.83rem; font-weight: 700; }
-.quick-card .qc-desc { font-size: 0.7rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.prompt-box{margin-top:.8rem;background:var(--bg-3);border:1px solid var(--border-2);border-radius:15px;padding:.9rem;animation:slideIn .25s}
+.prompt-text{font-size:.8rem;line-height:1.55;color:var(--fg);background:var(--bg-2);padding:.7rem;border-radius:11px;border:1px solid var(--border);margin-bottom:.65rem;max-height:130px;overflow-y:auto;font-family:'JetBrains Mono',monospace;white-space:pre-wrap;word-break:break-word}
+.prompt-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+.prompt-btn{flex:1;min-width:120px;background:transparent;border:1px solid var(--border-2);color:var(--accent);padding:.7rem .9rem;border-radius:11px;font-weight:700;font-size:.8rem;cursor:pointer;font-family:inherit;transition:all .25s}
+.prompt-btn:hover{border-color:var(--accent);background:rgba(99,102,241,.08);transform:translateY(-1px)}
+.prompt-btn.primary{background:var(--grad);color:#fff;border-color:transparent}
+.prompt-btn.primary:hover{box-shadow:var(--glow);transform:translateY(-2px)}
+.prompt-btn.done{background:rgba(16,185,129,.15);color:var(--ok);border-color:var(--ok)}
 
-/* ========== MESSAGES ========== */
-.msg-row { display: flex; gap: 0.5rem; align-items: flex-end; animation: slideIn .35s cubic-bezier(.4,0,.2,1); }
-.msg-row.user { justify-content: flex-end; }
-.msg-row.ai { justify-content: flex-start; }
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.msg-col { display: flex; flex-direction: column; max-width: 82%; }
-.msg {
-  padding: 0.85rem 1.15rem; border-radius: 20px;
-  font-size: 0.9rem; line-height: 1.65;
-  word-wrap: break-word; overflow-wrap: break-word;
-}
-.msg.user {
-  background: var(--grad);
-  color: white; border-bottom-right-radius: 5px;
-  font-weight: 500; box-shadow: 0 10px 30px rgba(99,102,241,0.3);
-  white-space: pre-wrap;
-}
-.msg.ai {
-  background: var(--bg-2); border: 1px solid var(--border-2);
-  color: var(--fg); border-bottom-left-radius: 5px;
-}
-[data-theme="dark"] .msg.ai { background: rgba(99,102,241,0.06); }
-.msg.ai h1, .msg.ai h2, .msg.ai h3 { margin: 0.7rem 0 0.4rem; font-weight: 800; line-height: 1.3; }
-.msg.ai h1 { font-size: 1.15rem; }
-.msg.ai h2 { font-size: 1.05rem; }
-.msg.ai h3 { font-size: 0.98rem; }
-.msg.ai p { margin: 0.35rem 0; }
-.msg.ai ul, .msg.ai ol { margin: 0.35rem 0; padding-inline-start: 1.3rem; }
-.msg.ai li { margin: 0.15rem 0; }
-.msg.ai a { color: var(--accent); text-decoration: underline; }
-.msg.ai code.inline {
-  background: var(--code-bg); color: var(--code-fg);
-  padding: 0.15rem 0.4rem; border-radius: 5px;
-  font-family: 'JetBrains Mono', monospace; font-size: 0.85em;
-}
-.msg.ai pre {
-  background: var(--code-bg); border: 1px solid var(--border-2);
-  border-radius: 12px; padding: 0.9rem 1rem;
-  overflow-x: auto; margin: 0.6rem 0; position: relative;
-}
-.msg.ai pre code {
-  color: var(--code-fg); font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8rem; line-height: 1.55; white-space: pre;
-}
-.code-copy {
-  position: absolute; top: 0.5rem; right: 0.5rem;
-  background: var(--bg-2); border: 1px solid var(--border-2);
-  color: var(--accent); padding: 0.25rem 0.55rem;
-  border-radius: 7px; font-size: 0.68rem; cursor: pointer;
-  opacity: 0; transition: all .2s; font-family: inherit; font-weight: 700;
-}
-.msg.ai pre:hover .code-copy { opacity: 1; }
-.code-copy:hover { background: var(--accent); color: white; }
+.msg.typing{display:inline-flex;align-items:center;gap:5px;padding:.85rem 1.15rem;min-width:65px}
+.msg.typing .t-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:typingBounce 1.4s ease-in-out infinite}
+.msg.typing .t-dot:nth-child(2){animation-delay:.2s;background:var(--accent-2)}
+.msg.typing .t-dot:nth-child(3){animation-delay:.4s;background:var(--accent-3)}
+@keyframes typingBounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-7px);opacity:1}}
+.cursor{display:inline-block;width:2px;height:1em;background:var(--accent);vertical-align:text-bottom;margin-left:2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
 
-/* ========== PROMPT BOX ========== */
-.prompt-box {
-  margin-top: 0.8rem; background: var(--bg-3);
-  border: 1px solid var(--border-2); border-radius: 15px;
-  padding: 0.9rem; animation: slideIn .25s;
-}
-.prompt-text {
-  font-size: 0.8rem; line-height: 1.55; color: var(--fg);
-  background: var(--bg-2); padding: 0.7rem; border-radius: 11px;
-  border: 1px solid var(--border); margin-bottom: 0.65rem;
-  max-height: 130px; overflow-y: auto;
-  font-family: 'JetBrains Mono', monospace;
-  white-space: pre-wrap; word-break: break-word;
-}
-.prompt-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-.prompt-btn {
-  flex: 1; min-width: 120px;
-  background: transparent; border: 1px solid var(--border-2);
-  color: var(--accent); padding: 0.7rem 0.9rem;
-  border-radius: 11px; font-weight: 700; font-size: 0.8rem;
-  cursor: pointer; font-family: inherit; transition: all .25s;
-}
-.prompt-btn:hover { border-color: var(--accent); background: rgba(99,102,241,0.08); transform: translateY(-1px); }
-.prompt-btn.primary {
-  background: var(--grad); color: white; border-color: transparent;
-}
-.prompt-btn.primary:hover { box-shadow: var(--glow); transform: translateY(-2px); }
-.prompt-btn.done { background: rgba(16,185,129,0.15); color: var(--ok); border-color: var(--ok); }
+.msg-meta{display:flex;gap:.4rem;margin-top:.45rem;padding:0 .4rem;font-size:.72rem;color:var(--muted);align-items:center;flex-wrap:wrap;opacity:0;transition:opacity .25s}
+.msg-row:hover .msg-meta{opacity:1}
+.msg-action{background:var(--bg-3);border:1px solid var(--border-2);color:var(--muted);cursor:pointer;font-size:.72rem;padding:.32rem .65rem;border-radius:999px;display:inline-flex;align-items:center;gap:.3rem;transition:all .2s;font-family:inherit;font-weight:600}
+.msg-action:hover{border-color:var(--accent);color:var(--accent)}
+.msg-action.done{color:var(--ok);border-color:var(--ok);background:rgba(16,185,129,.1)}
 
-/* ========== TYPING ========== */
-.msg.typing {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 0.85rem 1.15rem; min-width: 65px;
-}
-.msg.typing .t-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--accent);
-  animation: typingBounce 1.4s ease-in-out infinite;
-}
-.msg.typing .t-dot:nth-child(2) { animation-delay: .2s; background: var(--accent-2); }
-.msg.typing .t-dot:nth-child(3) { animation-delay: .4s; background: var(--accent-3); }
-@keyframes typingBounce {
-  0%,60%,100% { transform: translateY(0); opacity: 0.4; }
-  30%         { transform: translateY(-7px); opacity: 1; }
-}
-.cursor {
-  display: inline-block; width: 2px; height: 1em;
-  background: var(--accent); vertical-align: text-bottom;
-  margin-left: 2px; animation: blink 1s steps(2) infinite;
-}
-@keyframes blink { 50% { opacity: 0; } }
-
-/* ========== MESSAGE META ========== */
-.msg-meta {
-  display: flex; gap: 0.4rem; margin-top: 0.45rem;
-  padding: 0 0.4rem; font-size: 0.72rem; color: var(--muted);
-  align-items: center; flex-wrap: wrap;
-  opacity: 0; transition: opacity .25s;
-}
-.msg-row:hover .msg-meta { opacity: 1; }
-.msg-action {
-  background: var(--bg-3); border: 1px solid var(--border-2);
-  color: var(--muted); cursor: pointer;
-  font-size: 0.72rem; padding: 0.32rem 0.65rem;
-  border-radius: 999px;
-  display: inline-flex; align-items: center; gap: 0.3rem;
-  transition: all .2s; font-family: inherit; font-weight: 600;
-}
-.msg-action:hover { border-color: var(--accent); color: var(--accent); }
-.msg-action.done { color: var(--ok); border-color: var(--ok); background: rgba(16,185,129,0.1); }
-
-/* ========== IMAGE / VIDEO ========== */
-.msg-image, .msg-video {
-  background: var(--bg-2) !important;
-  border: 1px solid var(--border-2) !important;
-  padding: 0.55rem !important;
-  display: flex; flex-direction: column; gap: 0.55rem; max-width: 100%;
-}
-.msg-image img {
-  max-width: 100%; width: 100%; height: auto;
-  border-radius: 14px; display: block; cursor: pointer;
-  transition: transform .3s;
-}
-.msg-image img:hover { transform: scale(1.01); }
-.msg-video video {
-  max-width: 100%; width: 100%;
-  border-radius: 14px; display: block; background: #000;
-}
-
-/* ========== PROFESSIONAL IMAGE PROGRESS ========== */
-.pro-gen {
-  padding: 1.4rem 1.5rem;
-  background: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(6,182,212,0.06));
-  border: 1px solid var(--border-2);
-  border-radius: 18px;
-  min-width: 320px;
-  display: flex; flex-direction: column; gap: 1rem;
-  position: relative;
-  overflow: hidden;
-}
-.pro-gen::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(circle at 50% 0%, rgba(99,102,241,0.18), transparent 60%);
-  pointer-events: none;
-}
-.pro-gen-head {
-  display: flex; align-items: center; justify-content: space-between;
-  position: relative; z-index: 1;
-}
-.pro-gen-title {
-  display: flex; align-items: center; gap: 0.55rem;
-  font-size: 0.85rem; font-weight: 700;
-  color: var(--fg);
-  letter-spacing: 0.3px;
-}
-.pro-gen-icon {
-  width: 32px; height: 32px; border-radius: 10px;
-  background: var(--grad);
-  display: flex; align-items: center; justify-content: center;
-  color: white; font-size: 0.9rem;
-  box-shadow: 0 6px 18px rgba(99,102,241,0.4);
-  animation: iconFloat 2.5s ease-in-out infinite;
-}
-@keyframes iconFloat {
-  0%,100% { transform: translateY(0) scale(1); }
-  50%     { transform: translateY(-3px) scale(1.05); }
-}
-.pro-gen-percent {
-  font-size: 1.6rem; font-weight: 900;
-  background: linear-gradient(90deg, #6366f1, #06b6d4, #a855f7);
-  background-size: 200% auto;
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradShift 2s linear infinite;
-  font-variant-numeric: tabular-nums;
-}
-.pro-gen-bar {
-  width: 100%; height: 10px;
-  background: rgba(127,127,127,0.15);
-  border-radius: 999px; overflow: hidden;
-  position: relative; z-index: 1;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-}
-.pro-gen-fill {
-  height: 100%; width: 0%;
-  background: linear-gradient(90deg, #6366f1, #06b6d4, #a855f7, #6366f1);
-  background-size: 300% auto;
-  border-radius: 999px;
-  transition: width 0.5s cubic-bezier(.4,0,.2,1);
-  animation: gradShift 2s linear infinite;
-  box-shadow: 0 0 16px rgba(99,102,241,0.6);
-  position: relative;
-}
-.pro-gen-fill::after {
-  content: '';
-  position: absolute; top: 0; right: 0; bottom: 0; width: 40px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5));
-  animation: shine 1.5s linear infinite;
-}
-@keyframes shine {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-.pro-gen-step {
-  display: flex; align-items: center; gap: 0.5rem;
-  font-size: 0.82rem; color: var(--muted);
-  position: relative; z-index: 1;
-  min-height: 1.3em;
-}
-.pro-gen-step .dot-anim {
-  display: inline-flex; gap: 3px;
-}
-.pro-gen-step .dot-anim span {
-  width: 4px; height: 4px; border-radius: 50%;
-  background: var(--accent);
-  animation: bounce 1.2s ease-in-out infinite;
-}
-.pro-gen-step .dot-anim span:nth-child(2) { animation-delay: 0.15s; }
-.pro-gen-step .dot-anim span:nth-child(3) { animation-delay: 0.3s; }
-@keyframes bounce {
-  0%,60%,100% { transform: translateY(0); opacity: 0.4; }
-  30%         { transform: translateY(-4px); opacity: 1; }
-}
-.pro-gen-footer {
-  display: flex; justify-content: space-between;
-  font-size: 0.72rem; color: var(--muted);
-  position: relative; z-index: 1;
-  font-variant-numeric: tabular-nums;
-}
-.pro-gen-footer .time { display: flex; align-items: center; gap: 0.3rem; }
-.pro-gen-footer .status {
-  color: #6366f1; font-weight: 700;
-  display: flex; align-items: center; gap: 0.3rem;
-}
-.spinner-ring {
-  width: 12px; height: 12px;
-  border: 2px solid rgba(99,102,241,0.25);
-  border-top-color: #6366f1;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* ========== CHAT INPUT ========== */
-.chat-input {
-  display: flex;
-  border-top: 1px solid var(--border);
-  background: var(--bg-2);
-  flex-shrink: 0;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.65rem 0.8rem;
-}
-.chat-input input[type="text"] {
-  flex: 1; outline: none;
-  padding: 0.75rem 1rem; color: var(--fg);
-  font-family: inherit; font-size: 0.9rem; min-width: 0;
-  border-radius: 14px; background: var(--bg-3);
-  border: 1px solid var(--border);
-  transition: all .2s;
-}
-.chat-input input[type="text"]:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
-}
-.chat-input input[type="text"]::placeholder { color: var(--muted); }
-.send-btn {
-  height: 54px; padding: 0 1.6rem;
-  border-radius: 27px;
-  background: var(--grad);
-  border: none; color: white;
-  font-weight: 800; font-size: 0.8rem;
-  letter-spacing: 2px;
-  cursor: pointer; font-family: inherit;
-  transition: all .25s; white-space: nowrap;
-  flex-shrink: 0;
-  box-shadow: 0 6px 20px rgba(99,102,241,0.35);
-}
-.send-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(99,102,241,0.5); }
-.send-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-.send-btn.stop { background: linear-gradient(135deg, var(--err), #f43f5e); }
-
-/* ========== MODALS ========== */
-.modal-bg {
-  position: fixed; inset: 0;
-  background: rgba(5,8,16,0.65);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  z-index: 500; display: none;
-  align-items: center; justify-content: center;
-  padding: 1rem; animation: fadeIn .25s;
-}
-.modal-bg.show { display: flex; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-.modal {
-  background: var(--bg-2); border: 1px solid var(--border-2);
-  border-radius: var(--r); max-width: 560px; width: 100%;
-  padding: 1.7rem;
-  box-shadow: 0 30px 90px rgba(0,0,0,0.45), var(--glow);
-  max-height: 90vh; overflow-y: auto;
-}
-.modal h2 {
-  font-size: 1.15rem; font-weight: 900;
-  margin-bottom: 1rem;
-  background: var(--grad);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: 1px;
-}
-.modal h3 {
-  font-size: 0.9rem; font-weight: 800;
-  margin-top: 1rem; margin-bottom: 0.5rem;
-  color: var(--accent);
-  text-transform: uppercase; letter-spacing: 1px;
-}
-.modal label {
-  display: block; font-size: 0.78rem;
-  color: var(--muted); margin-bottom: 0.4rem;
-  margin-top: 1rem; font-weight: 600;
-}
-.modal input[type="text"], .modal input[type="number"], .modal textarea {
-  width: 100%;
-  background: var(--bg-3); border: 1px solid var(--border-2);
-  border-radius: var(--r-sm); padding: 0.8rem 1rem;
-  color: var(--fg); font-family: inherit;
-  font-size: 0.88rem; line-height: 1.6; outline: none;
-  transition: all .2s;
-}
-.modal textarea { min-height: 100px; resize: vertical; }
-.modal input:focus, .modal textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
-}
-.modal-actions {
-  display: flex; gap: 0.6rem;
-  justify-content: flex-end; margin-top: 1.3rem;
-}
-.modal-actions button {
-  padding: 0.7rem 1.4rem; border-radius: 11px;
-  font-weight: 700; font-size: 0.83rem;
-  cursor: pointer; font-family: inherit;
-  border: 1px solid transparent;
-  transition: all .2s;
-}
-.modal-actions .cancel {
-  background: transparent; color: var(--muted);
-  border-color: var(--border-2);
-}
-.modal-actions .cancel:hover { border-color: var(--err); color: var(--err); }
-.modal-actions .save {
-  background: var(--grad);
-  color: white;
-}
-.modal-actions .save:hover { box-shadow: var(--glow); }
-
-/* ========== TOGGLE / LANG / SIZE ========== */
-.voice-row { display: flex; align-items: center; gap: 0.7rem; padding: 0.75rem 0; font-size: 0.88rem; }
-.toggle {
-  position: relative; width: 46px; height: 26px;
-  background: var(--bg-3); border: 1px solid var(--border-2);
-  border-radius: 999px; cursor: pointer;
-  transition: all .25s; flex-shrink: 0;
-}
-.toggle::after {
-  content: ''; position: absolute;
-  top: 2px; left: 2px;
-  width: 20px; height: 20px;
-  border-radius: 50%;
-  background: var(--muted);
-  transition: all .25s;
-}
-.toggle.on {
-  background: var(--grad); border-color: var(--accent);
-}
-.toggle.on::after { left: 22px; background: white; }
-.lang-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 0.5rem; margin-top: 0.5rem;
-}
-.lang-option {
-  background: var(--bg-3); border: 1px solid var(--border-2);
-  border-radius: 11px; padding: 0.65rem 0.85rem;
-  cursor: pointer; font-family: inherit;
-  color: var(--fg); text-align: left;
-  font-size: 0.83rem;
-  display: flex; align-items: center; gap: 0.5rem;
-  transition: all .2s;
-}
-.lang-option:hover { border-color: var(--accent); transform: translateY(-1px); }
-.lang-option.active {
-  border-color: var(--accent);
-  background: var(--grad);
-  color: white;
-}
-.lang-option .lang-flag { font-size: 1.15rem; }
-.size-grid { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
-.size-opt {
-  background: var(--bg-3); border: 1px solid var(--border-2);
-  border-radius: 11px; padding: 0.6rem 1rem;
-  cursor: pointer; font-family: inherit;
-  color: var(--fg); font-size: 0.8rem;
-  display: flex; flex-direction: column;
-  align-items: center; gap: 0.15rem;
-  min-width: 95px;
-  transition: all .2s;
-}
-.size-opt:hover { border-color: var(--accent); transform: translateY(-1px); }
-.size-opt.active {
-  border-color: var(--accent);
-  background: var(--grad);
-  color: white;
-}
-.size-opt small { font-size: 0.68rem; opacity: 0.85; }
-
-/* ========== PROFILE ========== */
-.profile-header {
-  display: flex; align-items: center; gap: 1rem;
-  padding-bottom: 1rem; border-bottom: 1px solid var(--border);
-}
-.profile-avatar {
-  width: 64px; height: 64px; border-radius: 50%;
-  background: var(--grad);
-  display: flex; align-items: center; justify-content: center;
-  color: white; font-weight: 800; font-size: 1.6rem;
-  flex-shrink: 0; position: relative;
-  box-shadow: 0 12px 30px rgba(99,102,241,0.35);
-}
-.profile-avatar.super {
-  background: linear-gradient(135deg, var(--err), var(--gold));
-  animation: superPulse 2s ease-in-out infinite;
-}
-.profile-avatar.super::after {
-  content: '👑';
-  position: absolute; top: -10px; right: -10px;
-  font-size: 1.3rem;
-}
-.profile-info { display: flex; flex-direction: column; gap: 0.2rem; }
-.profile-name { font-size: 1.15rem; font-weight: 800; }
-.profile-email { font-size: 0.82rem; color: var(--muted); }
-.profile-role {
-  display: inline-flex; align-items: center; gap: 0.3rem;
-  background: linear-gradient(135deg, var(--err), var(--gold));
-  color: white; padding: 0.2rem 0.6rem;
-  border-radius: 999px; font-size: 0.7rem;
-  font-weight: 800; margin-top: 0.3rem;
-  width: fit-content;
-  letter-spacing: 0.5px;
-}
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 0.7rem; margin-top: 1rem;
-}
-.stat-card {
-  background: var(--bg-3);
-  border: 1px solid var(--border-2);
-  border-radius: var(--r-sm);
-  padding: 1rem 0.8rem;
-  text-align: center;
-  transition: all .25s;
-}
-.stat-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: var(--glow);
-}
-.stat-value {
-  font-size: 1.6rem; font-weight: 900;
-  background: var(--grad);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.stat-label {
-  font-size: 0.68rem; color: var(--muted);
-  letter-spacing: 0.8px; margin-top: 0.35rem;
-  text-transform: uppercase;
-}
-.auth-box {
-  background: var(--bg-3);
-  border: 1px solid var(--border-2);
-  border-radius: var(--r-sm);
-  padding: 1rem;
-  text-align: center;
-  margin-top: 0.5rem;
-}
-
-/* ========== ADS ========== */
-.ad-item {
-  background: var(--bg-3); border: 1px solid var(--border-2);
-  border-radius: var(--r-sm); padding: 0.85rem;
-  margin-bottom: 0.6rem;
-  display: flex; flex-direction: column; gap: 0.4rem;
-}
-.ad-item-header { display: flex; justify-content: space-between; align-items: center; }
-.ad-item-title { font-weight: 700; font-size: 0.88rem; }
-.ad-item-actions { display: flex; gap: 0.3rem; }
-.ad-item-actions button {
-  background: transparent; border: 1px solid var(--border-2);
-  color: var(--muted); padding: 0.28rem 0.55rem;
-  border-radius: 7px; cursor: pointer; font-size: 0.72rem;
-  font-family: inherit; transition: all .2s;
-}
-.ad-item-actions button:hover { border-color: var(--accent); color: var(--accent); }
-.ad-item-actions .del { color: var(--err); }
-.ad-item-actions .del:hover { border-color: var(--err); }
-.ad-item-body { font-size: 0.8rem; color: var(--muted); }
-.ad-fullscreen {
-  position: fixed; inset: 0;
-  background: rgba(5,8,16,0.95);
-  backdrop-filter: blur(20px);
-  z-index: 1000; display: none;
-  flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 2rem;
-}
-.ad-fullscreen.show { display: flex; }
-.ad-content {
-  max-width: 600px; width: 100%;
-  background: var(--bg-2);
-  border: 2px solid var(--accent);
-  border-radius: 26px;
-  padding: 2rem; text-align: center;
-  position: relative;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-}
-.ad-badge {
-  position: absolute; top: 1rem; left: 1rem;
-  background: linear-gradient(135deg, var(--gold), #f59e0b);
-  color: white; padding: 0.28rem 0.75rem;
-  border-radius: 999px; font-size: 0.7rem;
-  font-weight: 800; letter-spacing: 1px;
-}
-.ad-image { max-width: 100%; max-height: 300px; border-radius: 16px; margin-bottom: 1rem; }
-.ad-title {
-  font-size: 1.5rem; font-weight: 900;
-  margin-bottom: 0.5rem;
-  background: var(--grad-3);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.ad-desc { font-size: 0.95rem; color: var(--muted); margin-bottom: 1.5rem; }
-.ad-cta {
-  display: inline-block; padding: 0.95rem 2.2rem;
-  border-radius: 999px;
-  background: var(--grad);
-  color: white; text-decoration: none;
-  font-weight: 800;
-  transition: all .25s;
-  box-shadow: 0 10px 30px rgba(99,102,241,0.4);
-}
-.ad-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(99,102,241,0.6); }
-.ad-skip {
-  position: absolute; top: 1rem; right: 1rem;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: white; width: 42px; height: 42px;
-  border-radius: 50%; cursor: pointer;
-  font-size: 1rem; font-weight: 800;
-  display: flex; align-items: center; justify-content: center;
-  transition: all .2s;
-}
-.ad-skip:hover:not(:disabled) { background: rgba(255,255,255,0.2); }
-.ad-skip:disabled { opacity: 0.5; cursor: not-allowed; }
+.msg-image,.msg-video{background:var(--bg-2)!important;border:1px solid var(--border-2)!important;padding:.55rem!important;display:flex;flex-direction:column;gap:.55rem;max-width:100%}
+.msg-image img{max-width:100%;width:100%;height:auto;border-radius:14px;display:block;cursor:pointer;transition:transform .3s}
+.msg-image img:hover{transform:scale(1.01)}
+.msg-video video{max-width:100%;width:100%;border-radius:14px;display:block;background:#000}
 
 /* ============================================================
-   SUPER ADMIN v22 — PROFESSIONAL DASHBOARD
+   ULTIMATE IMAGE PROGRESS (v23)
    ============================================================ */
-.super-panel {
-  position: fixed; inset: 0;
+.ultra-gen{
+  position:relative;overflow:hidden;
+  padding:1.6rem 1.6rem 1.4rem;
+  background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(6,182,212,.08),rgba(168,85,247,.06));
+  border:1px solid var(--border-2);border-radius:20px;
+  min-width:340px;display:flex;flex-direction:column;gap:1.1rem;
+}
+.ultra-gen::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(99,102,241,.25),transparent 55%);
+  pointer-events:none;
+}
+.ultra-gen::after{
+  content:'';position:absolute;inset:-50%;
+  background:conic-gradient(from 0deg,transparent,rgba(99,102,241,.15),transparent 30%);
+  animation:rotateBG 8s linear infinite;pointer-events:none;
+}
+@keyframes rotateBG{to{transform:rotate(360deg)}}
+.ultra-head{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
+.ultra-title{display:flex;align-items:center;gap:.65rem;font-size:.9rem;font-weight:800;color:var(--fg);letter-spacing:.3px}
+.ultra-orb{
+  width:44px;height:44px;border-radius:14px;
+  background:linear-gradient(135deg,#6366f1,#06b6d4,#a855f7);
+  background-size:200% auto;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:1.15rem;
+  box-shadow:0 8px 26px rgba(99,102,241,.55),0 0 0 4px rgba(99,102,241,.1);
+  animation:orbPulse 2s ease-in-out infinite,gradShift 3s linear infinite;
+  position:relative;
+}
+.ultra-orb::after{
+  content:'';position:absolute;inset:-4px;border-radius:18px;
+  border:2px solid rgba(99,102,241,.4);
+  animation:orbRing 2s ease-out infinite;
+}
+@keyframes orbPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes orbRing{0%{transform:scale(.9);opacity:1}100%{transform:scale(1.4);opacity:0}}
+.ultra-percent{
+  font-size:2.1rem;font-weight:900;
+  background:linear-gradient(90deg,#6366f1,#06b6d4,#a855f7,#6366f1);
+  background-size:300% auto;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:gradShift 2s linear infinite;
+  font-variant-numeric:tabular-nums;letter-spacing:-1px;
+}
+.ultra-bar-wrap{position:relative;z-index:2}
+.ultra-bar{
+  width:100%;height:14px;background:rgba(127,127,127,.15);
+  border-radius:999px;overflow:hidden;position:relative;
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.15);
+}
+.ultra-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,#6366f1,#06b6d4,#a855f7,#6366f1);
+  background-size:300% auto;border-radius:999px;
+  transition:width .55s cubic-bezier(.4,0,.2,1);
+  animation:gradShift 2s linear infinite;
+  box-shadow:0 0 20px rgba(99,102,241,.7);
+  position:relative;
+}
+.ultra-fill::after{
+  content:'';position:absolute;top:0;right:0;bottom:0;width:50px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);
+  animation:shine 1.6s linear infinite;
+}
+@keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
+.ultra-sparkles{
+  position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:inherit;
+}
+.ultra-sparkle{
+  position:absolute;width:4px;height:4px;border-radius:50%;
+  background:linear-gradient(135deg,#6366f1,#06b6d4);
+  animation:sparkleFloat 3s ease-in-out infinite;
+  box-shadow:0 0 6px currentColor;
+}
+@keyframes sparkleFloat{
+  0%{transform:translateY(0) scale(0);opacity:0}
+  20%{transform:translateY(-10px) scale(1);opacity:1}
+  100%{transform:translateY(-60px) scale(0);opacity:0}
+}
+.ultra-step{
+  display:flex;align-items:center;gap:.7rem;
+  font-size:.85rem;color:var(--fg);
+  position:relative;z-index:2;
+  min-height:1.5em;font-weight:600;
+}
+.ultra-step-icon{
+  width:26px;height:26px;border-radius:8px;
+  background:var(--grad);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;flex-shrink:0;
+  animation:stepPulse 1.5s ease-in-out infinite;
+}
+@keyframes stepPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.ultra-step-text{flex:1}
+.ultra-dots{display:inline-flex;gap:3px;margin-left:auto}
+.ultra-dots span{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:bounce 1.2s ease-in-out infinite}
+.ultra-dots span:nth-child(2){animation-delay:.15s;background:var(--accent-2)}
+.ultra-dots span:nth-child(3){animation-delay:.3s;background:var(--accent-3)}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
+.ultra-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;
+  position:relative;z-index:2;
+}
+.ultra-stat{
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--border);
+  border-radius:10px;padding:.55rem .6rem;text-align:center;
+}
+[data-theme="light"] .ultra-stat{background:rgba(99,102,241,.06)}
+.ultra-stat-val{
+  font-size:.95rem;font-weight:800;color:var(--fg);
+  font-variant-numeric:tabular-nums;
+}
+.ultra-stat-lbl{
+  font-size:.65rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.8px;
+  margin-top:.1rem;
+}
+.ultra-stat.accent .ultra-stat-val{color:var(--accent)}
+.ultra-stat.ok .ultra-stat-val{color:var(--ok)}
+.ultra-cancel{
+  align-self:flex-end;
+  background:transparent;border:1px solid rgba(225,29,72,.4);
+  color:var(--err);padding:.5rem 1rem;border-radius:10px;
+  font-size:.75rem;font-weight:700;cursor:pointer;
+  font-family:inherit;transition:all .2s;
+  position:relative;z-index:2;
+}
+.ultra-cancel:hover{background:var(--err);color:#fff;border-color:var(--err)}
+
+/* CHAT INPUT */
+.chat-input{display:flex;border-top:1px solid var(--border);background:var(--bg-2);flex-shrink:0;align-items:center;gap:.5rem;padding:.65rem .8rem}
+.chat-input input[type="text"]{flex:1;outline:none;padding:.75rem 1rem;color:var(--fg);font-family:inherit;font-size:.9rem;min-width:0;border-radius:14px;background:var(--bg-3);border:1px solid var(--border);transition:all .2s}
+.chat-input input[type="text"]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.15)}
+.chat-input input[type="text"]::placeholder{color:var(--muted)}
+.send-btn{height:54px;padding:0 1.6rem;border-radius:27px;background:var(--grad);border:none;color:#fff;font-weight:800;font-size:.8rem;letter-spacing:2px;cursor:pointer;font-family:inherit;transition:all .25s;white-space:nowrap;flex-shrink:0;box-shadow:0 6px 20px rgba(99,102,241,.35)}
+.send-btn:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(99,102,241,.5)}
+.send-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.send-btn.stop{background:linear-gradient(135deg,var(--err),#f43f5e)}
+
+/* MODALS */
+.modal-bg{position:fixed;inset:0;background:rgba(5,8,16,.65);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem;animation:fadeIn .25s}
+.modal-bg.show{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{background:var(--bg-2);border:1px solid var(--border-2);border-radius:var(--r);max-width:560px;width:100%;padding:1.7rem;box-shadow:0 30px 90px rgba(0,0,0,.45),var(--glow);max-height:90vh;overflow-y:auto}
+.modal h2{font-size:1.15rem;font-weight:900;margin-bottom:1rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px}
+.modal h3{font-size:.9rem;font-weight:800;margin-top:1rem;margin-bottom:.5rem;color:var(--accent);text-transform:uppercase;letter-spacing:1px}
+.modal label{display:block;font-size:.78rem;color:var(--muted);margin-bottom:.4rem;margin-top:1rem;font-weight:600}
+.modal input[type="text"],.modal input[type="number"],.modal textarea,.modal select{width:100%;background:var(--bg-3);border:1px solid var(--border-2);border-radius:var(--r-sm);padding:.8rem 1rem;color:var(--fg);font-family:inherit;font-size:.88rem;line-height:1.6;outline:none;transition:all .2s}
+.modal textarea{min-height:100px;resize:vertical}
+.modal input:focus,.modal textarea:focus,.modal select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.15)}
+.modal-actions{display:flex;gap:.6rem;justify-content:flex-end;margin-top:1.3rem}
+.modal-actions button{padding:.7rem 1.4rem;border-radius:11px;font-weight:700;font-size:.83rem;cursor:pointer;font-family:inherit;border:1px solid transparent;transition:all .2s}
+.modal-actions .cancel{background:transparent;color:var(--muted);border-color:var(--border-2)}
+.modal-actions .cancel:hover{border-color:var(--err);color:var(--err)}
+.modal-actions .save{background:var(--grad);color:#fff}
+.modal-actions .save:hover{box-shadow:var(--glow)}
+
+.voice-row{display:flex;align-items:center;gap:.7rem;padding:.75rem 0;font-size:.88rem}
+.toggle{position:relative;width:46px;height:26px;background:var(--bg-3);border:1px solid var(--border-2);border-radius:999px;cursor:pointer;transition:all .25s;flex-shrink:0}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:var(--muted);transition:all .25s}
+.toggle.on{background:var(--grad);border-color:var(--accent)}
+.toggle.on::after{left:22px;background:#fff}
+.lang-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.5rem;margin-top:.5rem}
+.lang-option{background:var(--bg-3);border:1px solid var(--border-2);border-radius:11px;padding:.65rem .85rem;cursor:pointer;font-family:inherit;color:var(--fg);text-align:left;font-size:.83rem;display:flex;align-items:center;gap:.5rem;transition:all .2s}
+.lang-option:hover{border-color:var(--accent);transform:translateY(-1px)}
+.lang-option.active{border-color:var(--accent);background:var(--grad);color:#fff}
+.lang-option .lang-flag{font-size:1.15rem}
+.size-grid{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem}
+.size-opt{background:var(--bg-3);border:1px solid var(--border-2);border-radius:11px;padding:.6rem 1rem;cursor:pointer;font-family:inherit;color:var(--fg);font-size:.8rem;display:flex;flex-direction:column;align-items:center;gap:.15rem;min-width:95px;transition:all .2s}
+.size-opt:hover{border-color:var(--accent);transform:translateY(-1px)}
+.size-opt.active{border-color:var(--accent);background:var(--grad);color:#fff}
+.size-opt small{font-size:.68rem;opacity:.85}
+
+.profile-header{display:flex;align-items:center;gap:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.profile-avatar{width:64px;height:64px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.6rem;flex-shrink:0;position:relative;box-shadow:0 12px 30px rgba(99,102,241,.35)}
+.profile-avatar.super{background:linear-gradient(135deg,var(--err),var(--gold));animation:superPulse 2s ease-in-out infinite}
+.profile-avatar.super::after{content:'👑';position:absolute;top:-10px;right:-10px;font-size:1.3rem}
+.profile-info{display:flex;flex-direction:column;gap:.2rem}
+.profile-name{font-size:1.15rem;font-weight:800}
+.profile-email{font-size:.82rem;color:var(--muted)}
+.profile-role{display:inline-flex;align-items:center;gap:.3rem;background:linear-gradient(135deg,var(--err),var(--gold));color:#fff;padding:.2rem .6rem;border-radius:999px;font-size:.7rem;font-weight:800;margin-top:.3rem;width:fit-content;letter-spacing:.5px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.7rem;margin-top:1rem}
+.stat-card{background:var(--bg-3);border:1px solid var(--border-2);border-radius:var(--r-sm);padding:1rem .8rem;text-align:center;transition:all .25s}
+.stat-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--glow)}
+.stat-value{font-size:1.6rem;font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:.68rem;color:var(--muted);letter-spacing:.8px;margin-top:.35rem;text-transform:uppercase}
+.auth-box{background:var(--bg-3);border:1px solid var(--border-2);border-radius:var(--r-sm);padding:1rem;text-align:center;margin-top:.5rem}
+
+/* ADS FULLSCREEN */
+.ad-fullscreen{position:fixed;inset:0;background:rgba(5,8,16,.97);backdrop-filter:blur(20px);z-index:1000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:2rem}
+.ad-fullscreen.show{display:flex;animation:fadeIn .3s}
+.ad-content{max-width:640px;width:100%;background:var(--bg-2);border:2px solid var(--accent);border-radius:26px;padding:1.6rem;text-align:center;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.ad-badge{position:absolute;top:1rem;left:1rem;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#fff;padding:.28rem .75rem;border-radius:999px;font-size:.7rem;font-weight:800;letter-spacing:1px;z-index:10}
+.ad-media-wrap{width:100%;max-height:400px;border-radius:16px;overflow:hidden;margin-bottom:1rem;background:#000;position:relative}
+.ad-media-wrap img,.ad-media-wrap video{width:100%;height:100%;max-height:400px;object-fit:contain;display:block;border-radius:16px}
+.ad-timer-bar{position:absolute;bottom:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:0 4px 4px 0;transition:width .1s linear;box-shadow:0 0 12px var(--accent)}
+.ad-title{font-size:1.4rem;font-weight:900;margin-bottom:.5rem;background:var(--grad-3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.ad-desc{font-size:.92rem;color:var(--muted);margin-bottom:1.3rem;line-height:1.6}
+.ad-cta{display:inline-block;padding:.95rem 2.2rem;border-radius:999px;background:var(--grad);color:#fff;text-decoration:none;font-weight:800;transition:all .25s;box-shadow:0 10px 30px rgba(99,102,241,.4)}
+.ad-cta:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(99,102,241,.6)}
+.ad-skip{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;min-width:46px;height:46px;padding:0 .9rem;border-radius:999px;cursor:pointer;font-size:.9rem;font-weight:800;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:10;font-family:inherit}
+.ad-skip:hover:not(:disabled){background:rgba(255,255,255,.22)}
+.ad-skip:disabled{opacity:.6;cursor:not-allowed}
+.ad-media-tag{position:absolute;top:.6rem;right:.6rem;background:rgba(0,0,0,.6);color:#fff;padding:.2rem .6rem;border-radius:6px;font-size:.65rem;font-weight:700;letter-spacing:1px;backdrop-filter:blur(8px)}
+
+/* ============================================================
+   SUPER ADMIN v23 — PRO TABBED DASHBOARD
+   ============================================================ */
+.super-panel{
+  position:fixed;inset:0;
   background:
-    radial-gradient(circle at 20% 0%, rgba(99,102,241,0.15), transparent 50%),
-    radial-gradient(circle at 80% 100%, rgba(168,85,247,0.15), transparent 50%),
-    rgba(5,6,15,0.97);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  z-index: 1500; display: none;
-  flex-direction: column; padding: 1.2rem;
-  overflow-y: auto;
+    radial-gradient(circle at 15% 0%,rgba(99,102,241,.18),transparent 50%),
+    radial-gradient(circle at 85% 100%,rgba(168,85,247,.18),transparent 50%),
+    radial-gradient(circle at 50% 50%,rgba(6,182,212,.08),transparent 70%),
+    rgba(5,6,15,.98);
+  backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);
+  z-index:1500;display:none;flex-direction:column;overflow:hidden;
 }
-.super-panel.show { display: flex; animation: fadeIn .3s; }
+.super-panel.show{display:flex;animation:fadeIn .3s}
 
-.sa-hero {
-  display: flex; align-items: center; gap: 1rem;
-  padding: 1.5rem 1.75rem;
-  background: linear-gradient(135deg, rgba(225,29,72,0.18), rgba(251,191,36,0.18), rgba(99,102,241,0.18));
-  border: 1px solid rgba(251,191,36,0.4);
-  border-radius: 22px;
-  margin-bottom: 1.2rem;
-  flex-wrap: wrap;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(225,29,72,0.15), 0 0 40px rgba(251,191,36,0.1) inset;
+.sa-hero{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.2rem 1.6rem;
+  background:linear-gradient(135deg,rgba(225,29,72,.2),rgba(251,191,36,.18),rgba(99,102,241,.2));
+  border-bottom:1px solid rgba(251,191,36,.35);
+  flex-wrap:wrap;position:relative;
+  box-shadow:0 20px 60px rgba(225,29,72,.15);
 }
-.sa-hero::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--err), var(--gold), var(--accent), var(--err));
-  background-size: 200% auto;
-  animation: topShine 3s linear infinite;
-}
-.sa-crown {
-  width: 56px; height: 56px; border-radius: 16px;
-  background: linear-gradient(135deg, var(--err), var(--gold));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.8rem;
-  box-shadow: 0 12px 36px rgba(251,191,36,0.5);
-  animation: crownFloat 3s ease-in-out infinite;
-}
-@keyframes crownFloat {
-  0%,100% { transform: translateY(0) rotate(-3deg); }
-  50%     { transform: translateY(-4px) rotate(3deg); }
-}
-.sa-hero-text { flex: 1; min-width: 200px; }
-.sa-hero-title {
-  font-size: 1.5rem; font-weight: 900; letter-spacing: 3px;
-  background: linear-gradient(90deg, #ef4444, #fbbf24, #ef4444);
-  background-size: 200% auto;
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradShift 3s linear infinite;
-  margin-bottom: 0.15rem;
-}
-.sa-hero-sub {
-  font-size: 0.82rem; color: rgba(255,255,255,0.65);
-  letter-spacing: 1px;
-  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
-}
-.sa-live-badge {
-  display: inline-flex; align-items: center; gap: 0.35rem;
-  background: rgba(16,185,129,0.2);
-  color: #10b981;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.7rem; font-weight: 700;
-  border: 1px solid rgba(16,185,129,0.4);
-}
-.sa-live-badge::before {
-  content: '';
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #10b981;
-  animation: pulse 1.5s ease-in-out infinite;
-  box-shadow: 0 0 8px #10b981;
-}
-.sa-close {
-  background: rgba(225,29,72,0.15);
-  border: 1px solid rgba(225,29,72,0.4);
-  color: #fca5a5;
-  padding: 0.7rem 1.2rem;
-  border-radius: 11px;
-  font-size: 0.85rem; font-weight: 700;
-  cursor: pointer; font-family: inherit;
-  transition: all .2s;
-  display: flex; align-items: center; gap: 0.4rem;
-}
-.sa-close:hover { background: var(--err); color: white; transform: translateY(-1px); }
+.sa-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--err),var(--gold),var(--accent),var(--err));background-size:200% auto;animation:topShine 3s linear infinite}
+.sa-crown{width:52px;height:52px;border-radius:15px;background:linear-gradient(135deg,var(--err),var(--gold));display:flex;align-items:center;justify-content:center;font-size:1.7rem;box-shadow:0 12px 36px rgba(251,191,36,.55);animation:crownFloat 3s ease-in-out infinite}
+@keyframes crownFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-4px) rotate(3deg)}}
+.sa-hero-text{flex:1;min-width:180px}
+.sa-hero-title{font-size:1.35rem;font-weight:900;letter-spacing:3px;background:linear-gradient(90deg,#ef4444,#fbbf24,#ef4444);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:gradShift 3s linear infinite;margin-bottom:.15rem}
+.sa-hero-sub{font-size:.78rem;color:rgba(255,255,255,.65);letter-spacing:1px;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.sa-live-badge{display:inline-flex;align-items:center;gap:.35rem;background:rgba(16,185,129,.2);color:#10b981;padding:.2rem .6rem;border-radius:999px;font-size:.68rem;font-weight:700;border:1px solid rgba(16,185,129,.4)}
+.sa-live-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:#10b981;animation:pulse 1.5s ease-in-out infinite;box-shadow:0 0 8px #10b981}
+.sa-close{background:rgba(225,29,72,.15);border:1px solid rgba(225,29,72,.4);color:#fca5a5;padding:.6rem 1.1rem;border-radius:11px;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;gap:.4rem}
+.sa-close:hover{background:var(--err);color:#fff;transform:translateY(-1px)}
 
-/* KPI Row */
-.sa-kpis {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 0.9rem;
-  margin-bottom: 1.2rem;
-}
-.sa-kpi {
-  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 18px;
-  padding: 1.1rem 1.2rem;
-  position: relative;
-  overflow: hidden;
-  transition: all .3s;
-}
-.sa-kpi:hover {
-  transform: translateY(-3px);
-  border-color: rgba(99,102,241,0.4);
-  box-shadow: 0 16px 40px rgba(99,102,241,0.2);
-}
-.sa-kpi::before {
-  content: '';
-  position: absolute; top: 0; right: 0;
-  width: 80px; height: 80px;
-  background: radial-gradient(circle, currentColor 0%, transparent 70%);
-  opacity: 0.1;
-  border-radius: 50%;
-  transform: translate(30%, -30%);
-}
-.sa-kpi.users { color: #818cf8; }
-.sa-kpi.chats { color: #22d3ee; }
-.sa-kpi.ads   { color: #fbbf24; }
-.sa-kpi.msgs  { color: #a855f7; }
-.sa-kpi-icon {
-  width: 40px; height: 40px; border-radius: 12px;
-  background: currentColor;
-  display: flex; align-items: center; justify-content: center;
-  color: white; font-size: 1.1rem;
-  margin-bottom: 0.75rem;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-  opacity: 0.9;
-}
-.sa-kpi-value {
-  font-size: 2rem; font-weight: 900;
-  color: white;
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
-  margin-bottom: 0.3rem;
-}
-.sa-kpi-label {
-  font-size: 0.72rem; color: rgba(255,255,255,0.55);
-  letter-spacing: 1.5px; text-transform: uppercase;
-  font-weight: 600;
-}
-.sa-kpi-trend {
-  position: absolute; top: 1.1rem; right: 1.2rem;
-  font-size: 0.7rem; font-weight: 700;
-  padding: 0.2rem 0.5rem;
-  border-radius: 999px;
-  background: rgba(16,185,129,0.15);
-  color: #10b981;
-}
+.sa-tabs{display:flex;gap:.4rem;padding:.9rem 1.4rem 0;overflow-x:auto;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.08)}
+.sa-tab{background:transparent;border:1px solid transparent;color:rgba(255,255,255,.55);padding:.65rem 1.1rem;border-radius:11px 11px 0 0;font-weight:700;font-size:.82rem;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:.4rem;position:relative}
+.sa-tab:hover{color:#fff;background:rgba(255,255,255,.05)}
+.sa-tab.active{color:#fff;background:linear-gradient(180deg,rgba(99,102,241,.25),rgba(99,102,241,.05));border-color:rgba(99,102,241,.4)}
+.sa-tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--grad);box-shadow:0 0 12px var(--accent)}
+.sa-tab .sa-tab-count{background:rgba(255,255,255,.12);padding:.1rem .45rem;border-radius:999px;font-size:.68rem}
 
-/* Action Grid */
-.sa-actions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1rem;
-}
-.sa-section {
-  background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 20px;
-  padding: 1.3rem;
-  transition: all .25s;
-  position: relative;
-  overflow: hidden;
-}
-.sa-section:hover { border-color: rgba(99,102,241,0.3); }
-.sa-section.danger {
-  border-color: rgba(225,29,72,0.35);
-  background: linear-gradient(135deg, rgba(225,29,72,0.08), rgba(225,29,72,0.02));
-}
-.sa-section.danger:hover { border-color: rgba(225,29,72,0.6); }
-.sa-section-head {
-  display: flex; align-items: center; gap: 0.7rem;
-  margin-bottom: 0.75rem;
-}
-.sa-section-icon {
-  width: 36px; height: 36px; border-radius: 11px;
-  background: var(--grad);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; color: white;
-  box-shadow: 0 6px 18px rgba(99,102,241,0.35);
-}
-.sa-section.danger .sa-section-icon {
-  background: linear-gradient(135deg, var(--err), #f43f5e);
-  box-shadow: 0 6px 18px rgba(225,29,72,0.35);
-}
-.sa-section-title {
-  font-size: 0.95rem; font-weight: 800;
-  color: white; letter-spacing: 0.3px;
-}
-.sa-section-desc {
-  font-size: 0.78rem; color: rgba(255,255,255,0.5);
-  margin-bottom: 1rem;
-  line-height: 1.5;
-}
-.sa-btns {
-  display: flex; gap: 0.5rem; flex-wrap: wrap;
-}
-.sa-btn {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: white;
-  padding: 0.65rem 1rem;
-  border-radius: 11px;
-  font-weight: 700; font-size: 0.8rem;
-  cursor: pointer; font-family: inherit;
-  transition: all .2s;
-  display: flex; align-items: center; gap: 0.4rem;
-  flex: 1; min-width: 120px;
-  justify-content: center;
-}
-.sa-btn:hover {
-  background: rgba(255,255,255,0.12);
-  border-color: rgba(99,102,241,0.5);
-  transform: translateY(-1px);
-}
-.sa-btn.primary {
-  background: var(--grad);
-  border-color: transparent;
-  box-shadow: 0 6px 18px rgba(99,102,241,0.35);
-}
-.sa-btn.primary:hover { box-shadow: 0 10px 28px rgba(99,102,241,0.55); }
-.sa-btn.warn {
-  background: linear-gradient(135deg, #f59e0b, #f97316);
-  border-color: transparent;
-  box-shadow: 0 6px 18px rgba(245,158,11,0.35);
-}
-.sa-btn.danger {
-  background: linear-gradient(135deg, #e11d48, #f43f5e);
-  border-color: transparent;
-  box-shadow: 0 6px 18px rgba(225,29,72,0.35);
-}
-.sa-btn.danger:hover { box-shadow: 0 10px 28px rgba(225,29,72,0.55); }
+.sa-content{flex:1;overflow-y:auto;padding:1.4rem}
+.sa-tab-panel{display:none;animation:fadeIn .25s}
+.sa-tab-panel.active{display:block}
 
-/* Activity Graph (SVG bars) */
-.sa-chart {
-  margin-top: 0.75rem;
-  height: 60px;
-  display: flex; align-items: flex-end; gap: 3px;
-  padding: 0 0.25rem;
-}
-.sa-chart-bar {
-  flex: 1;
-  background: var(--grad);
-  border-radius: 4px 4px 0 0;
-  min-height: 4px;
-  opacity: 0.75;
-  transition: all .3s;
-  animation: barGrow .6s cubic-bezier(.4,0,.2,1) backwards;
-}
-.sa-chart-bar:hover { opacity: 1; transform: scaleY(1.1); }
-@keyframes barGrow { from { height: 0 !important; } }
+.sa-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.4rem}
+.sa-kpi{background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:1.1rem 1.2rem;position:relative;overflow:hidden;transition:all .3s}
+.sa-kpi:hover{transform:translateY(-3px);border-color:rgba(99,102,241,.5);box-shadow:0 16px 40px rgba(99,102,241,.25)}
+.sa-kpi::before{content:'';position:absolute;top:0;right:0;width:100px;height:100px;background:radial-gradient(circle,currentColor,transparent 70%);opacity:.12;border-radius:50%;transform:translate(30%,-30%)}
+.sa-kpi.users{color:#818cf8}
+.sa-kpi.chats{color:#22d3ee}
+.sa-kpi.ads{color:#fbbf24}
+.sa-kpi.msgs{color:#a855f7}
+.sa-kpi.visits{color:#10b981}
+.sa-kpi-icon{width:42px;height:42px;border-radius:12px;background:currentColor;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.15rem;margin-bottom:.75rem;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.sa-kpi-value{font-size:2.1rem;font-weight:900;color:#fff;font-variant-numeric:tabular-nums;line-height:1;margin-bottom:.3rem}
+.sa-kpi-label{font-size:.7rem;color:rgba(255,255,255,.55);letter-spacing:1.5px;text-transform:uppercase;font-weight:600}
+.sa-kpi-trend{position:absolute;top:1.1rem;right:1.2rem;font-size:.7rem;font-weight:700;padding:.2rem .5rem;border-radius:999px;background:rgba(16,185,129,.15);color:#10b981}
 
-/* ========== TOAST ========== */
-.toast {
-  position: fixed; bottom: 90px; left: 50%;
-  transform: translateX(-50%) translateY(90px);
-  background: var(--bg-2); border: 1px solid var(--accent);
-  color: var(--accent); padding: 0.8rem 1.6rem;
-  border-radius: 999px; font-size: 0.85rem; font-weight: 700;
-  z-index: 2000; transition: transform .4s cubic-bezier(.4,0,.2,1);
-  pointer-events: none;
-  max-width: 90vw; text-align: center;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3), var(--glow);
-}
-.toast.show { transform: translateX(-50%) translateY(0); }
+.sa-section{background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:1.3rem;margin-bottom:1rem;transition:all .25s}
+.sa-section:hover{border-color:rgba(99,102,241,.3)}
+.sa-section.danger{border-color:rgba(225,29,72,.35);background:linear-gradient(135deg,rgba(225,29,72,.08),rgba(225,29,72,.02))}
+.sa-section-head{display:flex;align-items:center;gap:.7rem;margin-bottom:.75rem}
+.sa-section-icon{width:38px;height:38px;border-radius:11px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:#fff;box-shadow:0 6px 18px rgba(99,102,241,.35)}
+.sa-section.danger .sa-section-icon{background:linear-gradient(135deg,var(--err),#f43f5e);box-shadow:0 6px 18px rgba(225,29,72,.35)}
+.sa-section-title{font-size:.98rem;font-weight:800;color:#fff;letter-spacing:.3px}
+.sa-section-desc{font-size:.78rem;color:rgba(255,255,255,.5);margin-bottom:1rem;line-height:1.5}
+.sa-btns{display:flex;gap:.5rem;flex-wrap:wrap}
+.sa-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;padding:.65rem 1rem;border-radius:11px;font-weight:700;font-size:.8rem;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;gap:.4rem;flex:1;min-width:120px;justify-content:center}
+.sa-btn:hover{background:rgba(255,255,255,.12);border-color:rgba(99,102,241,.5);transform:translateY(-1px)}
+.sa-btn.primary{background:var(--grad);border-color:transparent;box-shadow:0 6px 18px rgba(99,102,241,.35)}
+.sa-btn.primary:hover{box-shadow:0 10px 28px rgba(99,102,241,.55)}
+.sa-btn.warn{background:linear-gradient(135deg,#f59e0b,#f97316);border-color:transparent;box-shadow:0 6px 18px rgba(245,158,11,.35)}
+.sa-btn.danger{background:linear-gradient(135deg,#e11d48,#f43f5e);border-color:transparent;box-shadow:0 6px 18px rgba(225,29,72,.35)}
+.sa-btn.danger:hover{box-shadow:0 10px 28px rgba(225,29,72,.55)}
 
-/* ========== RESPONSIVE ========== */
-@media (max-width: 900px) {
-  .layout { padding: 0.75rem; gap: 0.75rem; }
-  .sidebar {
-    position: fixed; top: 62px; left: 0; bottom: 0;
-    width: 285px; z-index: 90;
-    border-radius: 0 22px 22px 0;
-    transform: translateX(-100%);
-    transition: transform .3s ease;
-  }
-  .sidebar.open { transform: translateX(0); }
-  .sidebar > * { min-width: 0; }
-}
-@media (max-width: 640px) {
-  .nav { padding: 0.7rem 1rem; }
-  .brand { font-size: 1rem; letter-spacing: 3px; }
-  .chat-wrap { border-radius: 20px; }
-  .msg-col { max-width: 92%; }
-  .icon-tool { width: 38px; height: 38px; }
-  .icon-tool svg { width: 16px; height: 16px; }
-  .welcome { padding: 1.5rem 0.5rem 0.5rem; }
-  .welcome-icon { width: 62px; height: 62px; font-size: 1.7rem; }
-  .quick-grid { grid-template-columns: repeat(2, 1fr); gap: 0.45rem; }
-  .quick-card { padding: 0.65rem 0.75rem; }
-  .send-btn { height: 50px; padding: 0 1.2rem; font-size: 0.72rem; }
-  .sa-hero { padding: 1.1rem; }
-  .sa-hero-title { font-size: 1.1rem; letter-spacing: 2px; }
-  .sa-crown { width: 44px; height: 44px; font-size: 1.4rem; }
-  .sa-kpi-value { font-size: 1.6rem; }
-  .pro-gen { min-width: 260px; padding: 1.2rem; }
-}
+.sa-users-table{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:.82rem}
+.sa-users-table thead th{text-align:left;padding:.6rem .8rem;color:rgba(255,255,255,.5);font-size:.7rem;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+.sa-users-table tbody tr{background:rgba(255,255,255,.04);transition:all .2s}
+.sa-users-table tbody tr:hover{background:rgba(99,102,241,.12)}
+.sa-users-table tbody td{padding:.75rem .8rem;color:rgba(255,255,255,.85);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)}
+.sa-users-table tbody td:first-child{border-left:1px solid rgba(255,255,255,.05);border-radius:10px 0 0 10px}
+.sa-users-table tbody td:last-child{border-right:1px solid rgba(255,255,255,.05);border-radius:0 10px 10px 0}
+.sa-user-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(99,102,241,.2);border:1px solid rgba(99,102,241,.4);color:#c7d2fe;padding:.15rem .5rem;border-radius:999px;font-size:.68rem;font-weight:700;font-family:'JetBrains Mono',monospace}
+.sa-user-avatar{width:30px;height:30px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.75rem;flex-shrink:0}
+.sa-empty{text-align:center;padding:2.5rem 1rem;color:rgba(255,255,255,.4);font-size:.85rem}
+.sa-empty-icon{font-size:2.5rem;margin-bottom:.6rem;opacity:.4}
 
-/* ========== SCROLLBAR ========== */
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--accent), var(--accent-2));
-  border-radius: 4px;
+.sa-ad-row{display:flex;gap:.75rem;padding:.85rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;margin-bottom:.6rem;align-items:center;transition:all .2s}
+.sa-ad-row:hover{border-color:rgba(99,102,241,.4);background:rgba(99,102,241,.06)}
+.sa-ad-thumb{width:80px;height:60px;border-radius:10px;object-fit:cover;background:#000;flex-shrink:0}
+.sa-ad-thumb-placeholder{width:80px;height:60px;border-radius:10px;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4rem;flex-shrink:0}
+.sa-ad-info{flex:1;min-width:0}
+.sa-ad-title{font-weight:700;color:#fff;font-size:.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sa-ad-meta{font-size:.72rem;color:rgba(255,255,255,.5);margin-top:.15rem;display:flex;gap:.5rem;flex-wrap:wrap}
+.sa-ad-actions{display:flex;gap:.35rem;flex-shrink:0}
+.sa-ad-actions button{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;padding:.4rem .65rem;border-radius:8px;cursor:pointer;font-size:.72rem;font-family:inherit;transition:all .2s}
+.sa-ad-actions button:hover{background:rgba(99,102,241,.4);border-color:var(--accent)}
+.sa-ad-actions .del{color:#fca5a5}
+.sa-ad-actions .del:hover{background:var(--err);color:#fff}
+
+.sa-chart{margin-top:.75rem;height:80px;display:flex;align-items:flex-end;gap:4px;padding:0 .25rem}
+.sa-chart-bar{flex:1;background:var(--grad);border-radius:4px 4px 0 0;min-height:4px;opacity:.75;transition:all .3s;animation:barGrow .6s cubic-bezier(.4,0,.2,1) backwards;position:relative}
+.sa-chart-bar:hover{opacity:1;transform:scaleY(1.05)}
+.sa-chart-bar::after{content:attr(data-v);position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:.6rem;color:rgba(255,255,255,.6);opacity:0;transition:opacity .2s}
+.sa-chart-bar:hover::after{opacity:1}
+@keyframes barGrow{from{height:0!important}}
+
+.sa-form-row{margin-bottom:1rem}
+.sa-form-label{display:block;font-size:.78rem;color:rgba(255,255,255,.6);margin-bottom:.4rem;font-weight:600}
+.sa-form-input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:.75rem .9rem;color:#fff;font-family:inherit;font-size:.85rem;outline:none;transition:all .2s}
+.sa-form-input:focus{border-color:var(--accent);background:rgba(99,102,241,.08)}
+.sa-form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+@media(max-width:640px){.sa-form-row-2{grid-template-columns:1fr}}
+
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(90px);background:var(--bg-2);border:1px solid var(--accent);color:var(--accent);padding:.8rem 1.6rem;border-radius:999px;font-size:.85rem;font-weight:700;z-index:2000;transition:transform .4s cubic-bezier(.4,0,.2,1);pointer-events:none;max-width:90vw;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.3),var(--glow)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+@media (max-width:900px){
+  .layout{padding:.75rem;gap:.75rem}
+  .sidebar{position:fixed;top:62px;left:0;bottom:0;width:285px;z-index:90;border-radius:0 22px 22px 0;transform:translateX(-100%);transition:transform .3s ease}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar > *{min-width:0}
 }
-::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+@media (max-width:640px){
+  .nav{padding:.7rem 1rem}
+  .brand{font-size:1rem;letter-spacing:3px}
+  .chat-wrap{border-radius:20px}
+  .msg-col{max-width:92%}
+  .icon-tool{width:38px;height:38px}
+  .icon-tool svg{width:16px;height:16px}
+  .welcome-icon{width:62px;height:62px;font-size:1.7rem}
+  .quick-grid{grid-template-columns:repeat(2,1fr);gap:.45rem}
+  .send-btn{height:50px;padding:0 1.2rem;font-size:.72rem}
+  .sa-hero{padding:1rem}
+  .sa-hero-title{font-size:1.05rem;letter-spacing:2px}
+  .sa-crown{width:42px;height:42px;font-size:1.3rem}
+  .sa-kpi-value{font-size:1.6rem}
+  .ultra-gen{min-width:280px;padding:1.2rem}
+  .ultra-percent{font-size:1.7rem}
+  .sa-users-table{font-size:.72rem}
+  .sa-users-table thead th,.sa-users-table tbody td{padding:.5rem .4rem}
+}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent),var(--accent-2));border-radius:4px}
 </style>
 </head>
 <body>
@@ -1364,7 +601,7 @@ header {
     <div class="sidebar-footer">
       <button class="sidebar-btn super" id="superBtn" type="button" style="display:none">👑 SUPER ADMIN</button>
       <button class="sidebar-btn" id="exportAllBtn" type="button">⬇ Export all</button>
-      <button class="sidebar-btn" id="clearAllBtn" type="button">🗑 Clear all chats</button>
+      <button class="sidebar-btn" id="clearAllBtn" type="button">🗑 Clear all</button>
     </div>
   </aside>
 
@@ -1378,9 +615,7 @@ header {
         </div>
         <button class="icon-tool voice-btn" id="voiceBtn" title="Voice input" type="button">
           <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
-          <div class="voice-waves">
-            <span></span><span></span><span></span><span></span><span></span>
-          </div>
+          <div class="voice-waves"><span></span><span></span><span></span><span></span><span></span></div>
         </button>
       </div>
 
@@ -1401,7 +636,6 @@ header {
   </div>
 </div>
 
-<!-- SETTINGS MODAL -->
 <div class="modal-bg" id="settingsModal">
   <div class="modal">
     <h2>⚙ SETTINGS</h2>
@@ -1412,15 +646,9 @@ header {
     <label>Image Size</label>
     <div class="size-grid" id="sizeGrid"></div>
     <h3>Voice & Audio</h3>
-    <div class="voice-row">
-      <div class="toggle" id="autoSpeakToggle"></div>
-      <span>Auto-speak AI replies</span>
-    </div>
+    <div class="voice-row"><div class="toggle" id="autoSpeakToggle"></div><span>Auto-speak AI replies</span></div>
     <h3>Appearance</h3>
-    <div class="voice-row">
-      <div class="toggle" id="themeToggle"></div>
-      <span>Dark mode</span>
-    </div>
+    <div class="voice-row"><div class="toggle" id="themeToggle"></div><span>Dark mode</span></div>
     <div class="modal-actions">
       <button class="cancel" id="settingsCancel" type="button">Cancel</button>
       <button class="save" id="settingsSave" type="button">Save</button>
@@ -1428,7 +656,6 @@ header {
   </div>
 </div>
 
-<!-- PROFILE MODAL -->
 <div class="modal-bg" id="profileModal">
   <div class="modal">
     <h2>👤 PROFILE</h2>
@@ -1447,22 +674,36 @@ header {
   </div>
 </div>
 
-<!-- AD EDITOR -->
+<!-- AD EDITOR with media type + duration -->
 <div class="modal-bg" id="adEditModal">
   <div class="modal">
     <h2 id="adEditTitle">📢 NEW AD</h2>
+    <label>Media Type</label>
+    <select id="adType">
+      <option value="image">🖼️ Image</option>
+      <option value="gif">🎞️ GIF Animation</option>
+      <option value="video">🎬 Video (MP4/WebM)</option>
+    </select>
     <label>Title</label>
     <input type="text" id="adTitle" placeholder="Special Offer!" />
     <label>Description</label>
     <textarea id="adDesc" placeholder="Visit our store…"></textarea>
-    <label>Image URL (optional)</label>
-    <input type="text" id="adImage" placeholder="https://…" />
+    <label>Media URL (image / gif / video)</label>
+    <input type="text" id="adMedia" placeholder="https://example.com/ad.mp4" />
     <label>CTA Link</label>
     <input type="text" id="adLink" placeholder="https://…" />
     <label>CTA Text</label>
     <input type="text" id="adCta" placeholder="Learn More" />
-    <label>Show every N messages</label>
-    <input type="number" id="adFreq" value="10" min="1" />
+    <div class="sa-form-row-2">
+      <div>
+        <label>Duration (seconds, 5-20)</label>
+        <input type="number" id="adDuration" value="5" min="5" max="20" />
+      </div>
+      <div>
+        <label>Show every N messages</label>
+        <input type="number" id="adFreq" value="10" min="1" />
+      </div>
+    </div>
     <div class="modal-actions">
       <button class="cancel" id="adEditCancel" type="button">Cancel</button>
       <button class="save" id="adEditSave" type="button">Save</button>
@@ -1474,8 +715,12 @@ header {
 <div class="ad-fullscreen" id="adFullscreen">
   <div class="ad-content">
     <div class="ad-badge">SPONSORED</div>
-    <button class="ad-skip" id="adSkip" disabled>5</button>
-    <img class="ad-image" id="adFsImage" src="" alt="" style="display:none" />
+    <button class="ad-skip" id="adSkip" disabled>5s</button>
+    <div class="ad-media-wrap" id="adMediaWrap">
+      <img class="ad-image" id="adFsImage" src="" alt="" style="display:none" />
+      <video id="adFsVideo" style="display:none" muted playsinline></video>
+      <div class="ad-timer-bar" id="adTimerBar" style="width:0%"></div>
+    </div>
     <h2 class="ad-title" id="adFsTitle">Special Offer</h2>
     <p class="ad-desc" id="adFsDesc">Check out this deal!</p>
     <a class="ad-cta" id="adFsCta" href="#" target="_blank" rel="noopener">Learn More</a>
@@ -1483,7 +728,7 @@ header {
 </div>
 
 <!-- ============================================================
-     SUPER ADMIN v22 — PROFESSIONAL DASHBOARD
+     SUPER ADMIN v23 — TABBED PRO DASHBOARD
      ============================================================ -->
 <div class="super-panel" id="superPanel">
   <div class="sa-hero">
@@ -1492,7 +737,7 @@ header {
       <div class="sa-hero-title">SUPER ADMIN</div>
       <div class="sa-hero-sub">
         <span class="sa-live-badge">LIVE</span>
-        <span>System Owner Dashboard</span>
+        <span>System Owner Console</span>
         <span>•</span>
         <span id="saClock">--:--:--</span>
       </div>
@@ -1500,150 +745,186 @@ header {
     <button class="sa-close" id="superClose" type="button">✕ Close</button>
   </div>
 
-  <!-- KPI Cards -->
-  <div class="sa-kpis">
-    <div class="sa-kpi users">
-      <div class="sa-kpi-icon">👥</div>
-      <div class="sa-kpi-value" id="saTotalUsers">1</div>
-      <div class="sa-kpi-label">Total Users</div>
-      <span class="sa-kpi-trend">+1</span>
-    </div>
-    <div class="sa-kpi chats">
-      <div class="sa-kpi-icon">💬</div>
-      <div class="sa-kpi-value" id="saTotalChats">0</div>
-      <div class="sa-kpi-label">Active Chats</div>
-    </div>
-    <div class="sa-kpi msgs">
-      <div class="sa-kpi-icon">📨</div>
-      <div class="sa-kpi-value" id="saTotalMsgs">0</div>
-      <div class="sa-kpi-label">Messages Sent</div>
-      <div class="sa-chart" id="saMsgChart"></div>
-    </div>
-    <div class="sa-kpi ads">
-      <div class="sa-kpi-icon">📢</div>
-      <div class="sa-kpi-value" id="saTotalAds">0</div>
-      <div class="sa-kpi-label">Active Ads</div>
-    </div>
+  <div class="sa-tabs">
+    <button class="sa-tab active" data-tab="overview" type="button">📊 Overview</button>
+    <button class="sa-tab" data-tab="users" type="button">👥 Users <span class="sa-tab-count" id="saUsersCount">0</span></button>
+    <button class="sa-tab" data-tab="ads" type="button">📢 Ads <span class="sa-tab-count" id="saAdsCount">0</span></button>
+    <button class="sa-tab" data-tab="ai" type="button">🧠 AI Personality</button>
+    <button class="sa-tab" data-tab="data" type="button">💾 Data</button>
+    <button class="sa-tab" data-tab="danger" type="button">⚠️ Danger</button>
   </div>
 
-  <!-- Action Sections -->
-  <div class="sa-actions">
+  <div class="sa-content">
 
-    <div class="sa-section">
-      <div class="sa-section-head">
-        <div class="sa-section-icon">📊</div>
-        <div class="sa-section-title">Statistics</div>
+    <!-- OVERVIEW TAB -->
+    <div class="sa-tab-panel active" data-panel="overview">
+      <div class="sa-kpis">
+        <div class="sa-kpi users">
+          <div class="sa-kpi-icon">👥</div>
+          <div class="sa-kpi-value" id="saTotalUsers">0</div>
+          <div class="sa-kpi-label">Unique Users</div>
+        </div>
+        <div class="sa-kpi visits">
+          <div class="sa-kpi-icon">🔁</div>
+          <div class="sa-kpi-value" id="saTotalVisits">0</div>
+          <div class="sa-kpi-label">Total Visits</div>
+        </div>
+        <div class="sa-kpi chats">
+          <div class="sa-kpi-icon">💬</div>
+          <div class="sa-kpi-value" id="saTotalChats">0</div>
+          <div class="sa-kpi-label">Active Chats</div>
+        </div>
+        <div class="sa-kpi msgs">
+          <div class="sa-kpi-icon">📨</div>
+          <div class="sa-kpi-value" id="saTotalMsgs">0</div>
+          <div class="sa-kpi-label">Messages</div>
+        </div>
+        <div class="sa-kpi ads">
+          <div class="sa-kpi-icon">📢</div>
+          <div class="sa-kpi-value" id="saTotalAds">0</div>
+          <div class="sa-kpi-label">Active Ads</div>
+        </div>
       </div>
-      <div class="sa-section-desc">Refresh or reset platform metrics</div>
-      <div class="sa-btns">
-        <button class="sa-btn primary" id="saRefreshStats" type="button">🔄 Refresh</button>
-        <button class="sa-btn warn" id="saResetStats" type="button">↻ Reset</button>
+
+      <div class="sa-section">
+        <div class="sa-section-head">
+          <div class="sa-section-icon">📈</div>
+          <div class="sa-section-title">Messages Activity</div>
+        </div>
+        <div class="sa-section-desc">Last 12 sessions message count</div>
+        <div class="sa-chart" id="saMsgChart"></div>
+        <div class="sa-btns" style="margin-top:1rem">
+          <button class="sa-btn primary" id="saRefreshStats" type="button">🔄 Refresh</button>
+          <button class="sa-btn warn" id="saResetStats" type="button">↻ Reset Stats</button>
+        </div>
       </div>
     </div>
 
-    <div class="sa-section">
-      <div class="sa-section-head">
-        <div class="sa-section-icon">📢</div>
-        <div class="sa-section-title">Advertisements</div>
-      </div>
-      <div class="sa-section-desc">Manage ads shown to users every N messages</div>
-      <div class="sa-btns">
-        <button class="sa-btn primary" id="saAddAd" type="button">＋ New Ad</button>
-        <button class="sa-btn" id="saManageAds" type="button">📋 Manage</button>
-      </div>
-    </div>
-
-    <div class="sa-section">
-      <div class="sa-section-head">
-        <div class="sa-section-icon">🧠</div>
-        <div class="sa-section-title">AI Personality</div>
-      </div>
-      <div class="sa-section-desc">Edit system prompt that shapes all conversations</div>
-      <div class="sa-btns">
-        <button class="sa-btn primary" id="saEditPrompt" type="button">✏️ Edit</button>
-        <button class="sa-btn warn" id="saResetPrompt" type="button">↻ Reset</button>
-      </div>
-    </div>
-
-    <div class="sa-section">
-      <div class="sa-section-head">
-        <div class="sa-section-icon">💾</div>
-        <div class="sa-section-title">Backup & Restore</div>
-      </div>
-      <div class="sa-section-desc">Export full platform data or restore from backup</div>
-      <div class="sa-btns">
-        <button class="sa-btn primary" id="saExportAll" type="button">⬇ Export</button>
-        <button class="sa-btn" id="saImportAll" type="button">⬆ Import</button>
+    <!-- USERS TAB -->
+    <div class="sa-tab-panel" data-panel="users">
+      <div class="sa-section">
+        <div class="sa-section-head">
+          <div class="sa-section-icon">👥</div>
+          <div class="sa-section-title">User Tracking</div>
+        </div>
+        <div class="sa-section-desc">Every device is tracked by fingerprint + IP. See who returned and how many times.</div>
+        <div style="overflow-x:auto">
+          <table class="sa-users-table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Fingerprint</th>
+                <th>IP</th>
+                <th>Visits</th>
+                <th>First Seen</th>
+                <th>Last Seen</th>
+              </tr>
+            </thead>
+            <tbody id="saUsersBody">
+              <tr><td colspan="6" class="sa-empty">No users tracked yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sa-btns" style="margin-top:1rem">
+          <button class="sa-btn primary" id="saRefreshUsers" type="button">🔄 Refresh</button>
+          <button class="sa-btn danger" id="saClearUsers" type="button">🗑 Clear Log</button>
+        </div>
       </div>
     </div>
 
-    <div class="sa-section">
-      <div class="sa-section-head">
-        <div class="sa-section-icon">👥</div>
-        <div class="sa-section-title">Users</div>
-      </div>
-      <div class="sa-section-desc">View tracked users and clear activity log</div>
-      <div class="sa-btns">
-        <button class="sa-btn primary" id="saListUsers" type="button">👁 List</button>
-        <button class="sa-btn warn" id="saClearUsers" type="button">↻ Clear</button>
-      </div>
-    </div>
-
-    <div class="sa-section">
-      <div class="sa-section-head">
-        <div class="sa-section-icon">🎨</div>
-        <div class="sa-section-title">Branding</div>
-      </div>
-      <div class="sa-section-desc">Customize colors and logo of the platform</div>
-      <div class="sa-btns">
-        <button class="sa-btn primary" id="saChangeColors" type="button">🎨 Colors</button>
-        <button class="sa-btn" id="saChangeLogo" type="button">◆ Logo</button>
+    <!-- ADS TAB -->
+    <div class="sa-tab-panel" data-panel="ads">
+      <div class="sa-section">
+        <div class="sa-section-head">
+          <div class="sa-section-icon">📢</div>
+          <div class="sa-section-title">Advertisements Manager</div>
+        </div>
+        <div class="sa-section-desc">Add image / GIF / video ads (5-20 seconds). Shown to users every N messages.</div>
+        <div class="sa-btns" style="margin-bottom:1rem">
+          <button class="sa-btn primary" id="saAddAd" type="button">＋ New Ad</button>
+          <button class="sa-btn" id="saPreviewAds" type="button">👁 Preview</button>
+        </div>
+        <div id="saAdsList"></div>
       </div>
     </div>
 
-    <div class="sa-section">
-      <div class="sa-section-head">
-        <div class="sa-section-icon">📝</div>
-        <div class="sa-section-title">Custom Pages</div>
-      </div>
-      <div class="sa-section-desc">Add custom HTML pages accessible to users</div>
-      <div class="sa-btns">
-        <button class="sa-btn primary" id="saAddPage" type="button">＋ Add</button>
-        <button class="sa-btn" id="saListPages" type="button">📋 List</button>
-      </div>
-    </div>
-
-    <div class="sa-section">
-      <div class="sa-section-head">
-        <div class="sa-section-icon">⚡</div>
-        <div class="sa-section-title">Quick Actions</div>
-      </div>
-      <div class="sa-section-desc">Fast maintenance shortcuts</div>
-      <div class="sa-btns">
-        <button class="sa-btn" id="saReload" type="button">🔄 Reload</button>
-        <button class="sa-btn warn" id="saToggleTheme" type="button">🌗 Theme</button>
+    <!-- AI TAB -->
+    <div class="sa-tab-panel" data-panel="ai">
+      <div class="sa-section">
+        <div class="sa-section-head">
+          <div class="sa-section-icon">🧠</div>
+          <div class="sa-section-title">System Prompt</div>
+        </div>
+        <div class="sa-section-desc">This defines DARK's personality and behavior for all conversations.</div>
+        <div class="sa-form-row">
+          <label class="sa-form-label">Prompt</label>
+          <textarea id="saPromptArea" class="sa-form-input" style="min-height:220px;font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.6"></textarea>
+        </div>
+        <div class="sa-btns">
+          <button class="sa-btn primary" id="saSavePrompt" type="button">💾 Save Prompt</button>
+          <button class="sa-btn warn" id="saResetPrompt" type="button">↻ Reset Default</button>
+        </div>
       </div>
     </div>
 
-    <div class="sa-section">
-      <div class="sa-section-head">
-        <div class="sa-section-icon">🗑</div>
-        <div class="sa-section-title">Clear Data</div>
+    <!-- DATA TAB -->
+    <div class="sa-tab-panel" data-panel="data">
+      <div class="sa-section">
+        <div class="sa-section-head">
+          <div class="sa-section-icon">💾</div>
+          <div class="sa-section-title">Backup & Restore</div>
+        </div>
+        <div class="sa-section-desc">Full platform export including chats, users, ads, and settings.</div>
+        <div class="sa-btns">
+          <button class="sa-btn primary" id="saExportAll" type="button">⬇ Export Full Backup</button>
+          <button class="sa-btn" id="saImportAll" type="button">⬆ Import Backup</button>
+        </div>
       </div>
-      <div class="sa-section-desc">Delete all chats, ads and settings (irreversible)</div>
-      <div class="sa-btns">
-        <button class="sa-btn warn" id="saClearEverything" type="button">🗑 Wipe All</button>
+      <div class="sa-section">
+        <div class="sa-section-head">
+          <div class="sa-section-icon">🎨</div>
+          <div class="sa-section-title">Branding</div>
+        </div>
+        <div class="sa-section-desc">Customize accent colors and logo of the platform.</div>
+        <div class="sa-btns">
+          <button class="sa-btn primary" id="saChangeColors" type="button">🎨 Change Colors</button>
+          <button class="sa-btn" id="saChangeLogo" type="button">◆ Change Logo</button>
+          <button class="sa-btn warn" id="saResetBranding" type="button">↻ Reset Branding</button>
+        </div>
+      </div>
+      <div class="sa-section">
+        <div class="sa-section-head">
+          <div class="sa-section-icon">⚡</div>
+          <div class="sa-section-title">Quick Actions</div>
+        </div>
+        <div class="sa-btns">
+          <button class="sa-btn" id="saReload" type="button">🔄 Reload Site</button>
+          <button class="sa-btn warn" id="saToggleTheme" type="button">🌗 Toggle Theme</button>
+        </div>
       </div>
     </div>
 
-    <div class="sa-section danger">
-      <div class="sa-section-head">
-        <div class="sa-section-icon">💥</div>
-        <div class="sa-section-title">Danger Zone</div>
+    <!-- DANGER TAB -->
+    <div class="sa-tab-panel" data-panel="danger">
+      <div class="sa-section danger">
+        <div class="sa-section-head">
+          <div class="sa-section-icon">🗑</div>
+          <div class="sa-section-title">Clear All Chats</div>
+        </div>
+        <div class="sa-section-desc">Delete every chat thread. Ads and settings stay.</div>
+        <div class="sa-btns">
+          <button class="sa-btn warn" id="saClearChats" type="button">🗑 Clear Chats</button>
+        </div>
       </div>
-      <div class="sa-section-desc">Factory reset — erases EVERYTHING permanently</div>
-      <div class="sa-btns">
-        <button class="sa-btn danger" id="saFactoryReset" type="button">💥 Factory Reset</button>
+      <div class="sa-section danger">
+        <div class="sa-section-head">
+          <div class="sa-section-icon">💥</div>
+          <div class="sa-section-title">Factory Reset</div>
+        </div>
+        <div class="sa-section-desc">Erases EVERYTHING permanently — chats, users, ads, settings, branding.</div>
+        <div class="sa-btns">
+          <button class="sa-btn danger" id="saFactoryReset" type="button">💥 FACTORY RESET</button>
+        </div>
       </div>
     </div>
 
@@ -1654,7 +935,7 @@ header {
 
 <script>
 /* ============================================================
-   DARK AI v22 — Professional Edition
+   DARK AI v23 — SUPER EDITION
    ============================================================ */
 (function () {
   'use strict';
@@ -1663,25 +944,25 @@ header {
   const SUPER_ADMINS = ['seyaboss1', 'seyaboss1@gmail.com', 'creative_mountain_405049'];
 
   const LANGUAGES = [
-    { code: 'auto', name: 'Auto-detect', native: 'Auto',     flag: '🌐', tts: '' },
-    { code: 'ar',   name: 'Arabic',      native: 'العربية',  flag: '🇸🇦', tts: 'ar-SA' },
-    { code: 'en',   name: 'English',     native: 'English',  flag: '🇬🇧', tts: 'en-US' },
-    { code: 'am',   name: 'Amharic',     native: 'አማርኛ',     flag: '🇪🇹', tts: 'am-ET' },
-    { code: 'fr',   name: 'French',      native: 'Français', flag: '🇫🇷', tts: 'fr-FR' },
-    { code: 'es',   name: 'Spanish',     native: 'Español',  flag: '🇪🇸', tts: 'es-ES' },
-    { code: 'de',   name: 'German',      native: 'Deutsch',  flag: '🇩🇪', tts: 'de-DE' },
-    { code: 'tr',   name: 'Turkish',     native: 'Türkçe',   flag: '🇹🇷', tts: 'tr-TR' },
-    { code: 'hi',   name: 'Hindi',       native: 'हिन्दी',    flag: '🇮🇳', tts: 'hi-IN' },
-    { code: 'zh',   name: 'Chinese',     native: '中文',     flag: '🇨🇳', tts: 'zh-CN' },
-    { code: 'ja',   name: 'Japanese',    native: '日本語',   flag: '🇯🇵', tts: 'ja-JP' },
-    { code: 'ru',   name: 'Russian',     native: 'Русский',  flag: '🇷🇺', tts: 'ru-RU' }
+    { code:'auto', name:'Auto-detect', native:'Auto',     flag:'🌐', tts:'' },
+    { code:'ar',   name:'Arabic',      native:'العربية',  flag:'🇸🇦', tts:'ar-SA' },
+    { code:'en',   name:'English',     native:'English',  flag:'🇬🇧', tts:'en-US' },
+    { code:'am',   name:'Amharic',     native:'አማርኛ',     flag:'🇪🇹', tts:'am-ET' },
+    { code:'fr',   name:'French',      native:'Français', flag:'🇫🇷', tts:'fr-FR' },
+    { code:'es',   name:'Spanish',     native:'Español',  flag:'🇪🇸', tts:'es-ES' },
+    { code:'de',   name:'German',      native:'Deutsch',  flag:'🇩🇪', tts:'de-DE' },
+    { code:'tr',   name:'Turkish',     native:'Türkçe',   flag:'🇹🇷', tts:'tr-TR' },
+    { code:'hi',   name:'Hindi',       native:'हिन्दी',    flag:'🇮🇳', tts:'hi-IN' },
+    { code:'zh',   name:'Chinese',     native:'中文',     flag:'🇨🇳', tts:'zh-CN' },
+    { code:'ja',   name:'Japanese',    native:'日本語',   flag:'🇯🇵', tts:'ja-JP' },
+    { code:'ru',   name:'Russian',     native:'Русский',  flag:'🇷🇺', tts:'ru-RU' }
   ];
 
   const IMAGE_SIZES = [
-    { code: 'square',    name: 'Square', dim: '1024×1024', w: 1024, h: 1024 },
-    { code: 'landscape', name: 'Wide',   dim: '1280×720',  w: 1280, h: 720  },
-    { code: 'portrait',  name: 'Tall',   dim: '720×1280',  w: 720,  h: 1280 },
-    { code: 'hd',        name: 'HD',     dim: '1920×1080', w: 1920, h: 1080 }
+    { code:'square',    name:'Square', dim:'1024×1024', w:1024, h:1024 },
+    { code:'landscape', name:'Wide',   dim:'1280×720',  w:1280, h:720  },
+    { code:'portrait',  name:'Tall',   dim:'720×1280',  w:720,  h:1280 },
+    { code:'hd',        name:'HD',     dim:'1920×1080', w:1920, h:1080 }
   ];
 
   const DEFAULT_SYSTEM_PROMPT = `You are DARK, an elite multilingual AI assistant with native fluency in Arabic, English, and Amharic.
@@ -1708,22 +989,24 @@ For other tasks (chat, code, translation):
 Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -ዋ, -ዎቹ), prepositions (በ-, ለ-, ከ-, ወደ-). NEVER mix with English.`;
 
   const QUICK_PROMPTS = [
-    { emoji: '👤', title: 'Who are you', desc: 'Learn about DARK', prompt: 'Who are you?' },
-    { emoji: '💬', title: 'مرحبا',        desc: 'Talk in Arabic',   prompt: 'مرحبا، كيف حالك؟' },
-    { emoji: '🎨', title: 'HD Portrait',  desc: 'Generate image',   prompt: 'صمم صورة رجل يرتدي بدلة رسمية' },
-    { emoji: '🎬', title: 'Video',        desc: 'Generate video',   prompt: 'صمم فيديو قطة تلعب في الحديقة' },
-    { emoji: '💻', title: 'Code',         desc: 'Python, JS',       prompt: 'اكتب دالة بايثون لقلب نص' }
+    { emoji:'👤', title:'Who are you', desc:'Learn about DARK', prompt:'Who are you?' },
+    { emoji:'💬', title:'مرحبا',        desc:'Talk in Arabic',   prompt:'مرحبا، كيف حالك؟' },
+    { emoji:'🎨', title:'HD Portrait',  desc:'Generate image',   prompt:'صمم صورة رجل يرتدي بدلة رسمية' },
+    { emoji:'🎬', title:'Video',        desc:'Generate video',   prompt:'صمم فيديو قطة تلعب في الحديقة' },
+    { emoji:'💻', title:'Code',         desc:'Python, JS',       prompt:'اكتب دالة بايثون لقلب نص' }
   ];
 
-  // Steps for professional progress (NO "running simulator" text)
+  // Professional steps — Arabic + English
   const IMG_STEPS = [
-    { icon: '🧠', text: 'Understanding your vision' },
-    { icon: '🎨', text: 'Composing visual elements' },
-    { icon: '✨', text: 'Rendering high-quality details' },
-    { icon: '🌈', text: 'Polishing colors and lighting' },
-    { icon: '🖼️', text: 'Finalizing your image' }
+    { icon:'🧠', text:'Analyzing your prompt' },
+    { icon:'🎨', text:'Composing visual composition' },
+    { icon:'✨', text:'Rendering fine details' },
+    { icon:'🌈', text:'Polishing colors & lighting' },
+    { icon:'🔍', text:'Enhancing texture resolution' },
+    { icon:'🖼️', text:'Finalizing your image' }
   ];
 
+  // STATE
   let preferredLang = localStorage.getItem('dark-lang') || 'auto';
   let preferredSize = localStorage.getItem('dark-size') || 'hd';
   let autoSpeak = localStorage.getItem('dark-autospeak') === 'true';
@@ -1740,6 +1023,8 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   let messageCounter = parseInt(localStorage.getItem('dark-msg-counter') || '0', 10);
   let voiceRecognition = null;
   let isRecording = false;
+  let currentVisit = null;
+  let currentFingerprint = null;
 
   const $ = (id) => document.getElementById(id);
 
@@ -1841,13 +1126,86 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     });
   };
 
-  // ============ VOICE INPUT ============
+  /* ============================================================
+     USER TRACKING (Fingerprint + IP)
+     ============================================================ */
+  async function getFingerprint() {
+    try {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.textBaseline = 'top';
+      ctx.font = '14px Arial';
+      ctx.fillStyle = '#6366f1';
+      ctx.fillRect(0, 0, 100, 30);
+      ctx.fillStyle = '#fff';
+      ctx.fillText('DARK-AI-fp', 4, 6);
+      const canvasData = canvas.toDataURL();
+      const data = [
+        navigator.userAgent,
+        navigator.language,
+        screen.width + 'x' + screen.height,
+        screen.colorDepth,
+        new Date().getTimezoneOffset(),
+        navigator.hardwareConcurrency || 0,
+        navigator.platform || '',
+        navigator.deviceMemory || 0,
+        canvasData
+      ].join('|');
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(data));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 16);
+    } catch {
+      // Fallback fingerprint
+      const s = navigator.userAgent + screen.width + navigator.language + Date.now();
+      let h = 0;
+      for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+      return 'fb' + Math.abs(h).toString(16).padStart(14, '0');
+    }
+  }
+
+  async function getIP() {
+    try {
+      const r = await fetch('https://api.ipify.org?format=json', { cache: 'no-store' });
+      const d = await r.json();
+      return d.ip || 'unknown';
+    } catch { return 'unknown'; }
+  }
+
+  async function trackVisit() {
+    currentFingerprint = await getFingerprint();
+    const ip = await getIP();
+    const db = JSON.parse(localStorage.getItem('dark-users-db') || '{}');
+    const now = Date.now();
+
+    if (!db[currentFingerprint]) {
+      db[currentFingerprint] = {
+        fp: currentFingerprint,
+        ip,
+        firstSeen: now,
+        lastSeen: now,
+        visits: 1,
+        userAgent: navigator.userAgent,
+        platform: navigator.platform || 'unknown',
+        screen: screen.width + 'x' + screen.height,
+        language: navigator.language,
+        username: currentUser?.username || 'Guest'
+      };
+    } else {
+      db[currentFingerprint].lastSeen = now;
+      db[currentFingerprint].visits = (db[currentFingerprint].visits || 0) + 1;
+      db[currentFingerprint].ip = ip;
+      if (currentUser) db[currentFingerprint].username = currentUser.username;
+    }
+    localStorage.setItem('dark-users-db', JSON.stringify(db));
+    currentVisit = db[currentFingerprint];
+    return currentVisit;
+  }
+
+  /* ============================================================
+     VOICE INPUT
+     ============================================================ */
   function initVoice() {
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SR) {
-      $('voiceBtn').style.display = 'none';
-      return;
-    }
+    if (!SR) { $('voiceBtn').style.display = 'none'; return; }
     voiceRecognition = new SR();
     voiceRecognition.continuous = false;
     voiceRecognition.interimResults = true;
@@ -1858,10 +1216,8 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       $('voiceBtn').classList.add('recording');
       setStatus('🎤 Listening…');
     };
-
     voiceRecognition.onresult = (e) => {
-      let finalText = '';
-      let interimText = '';
+      let finalText = '', interimText = '';
       for (let i = e.resultIndex; i < e.results.length; i++) {
         const t = e.results[i][0].transcript;
         if (e.results[i].isFinal) finalText += t;
@@ -1869,41 +1225,32 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       }
       const input = $('chatInput');
       input.value = finalText || interimText;
-      if (finalText) {
-        setTimeout(() => {
-          if (input.value.trim()) sendMsg();
-        }, 300);
-      }
+      if (finalText) setTimeout(() => { if (input.value.trim()) sendMsg(); }, 300);
     };
-
     voiceRecognition.onerror = (e) => {
       isRecording = false;
       $('voiceBtn').classList.remove('recording');
-      if (e.error !== 'no-speech' && e.error !== 'aborted') {
-        toast('🎤 Voice error: ' + e.error);
-      }
+      if (e.error !== 'no-speech' && e.error !== 'aborted') toast('🎤 Voice error: ' + e.error);
       setStatus('Online');
     };
-
     voiceRecognition.onend = () => {
       isRecording = false;
       $('voiceBtn').classList.remove('recording');
       setStatus('Online');
     };
-
     $('voiceBtn').onclick = () => {
-      if (isRecording) {
-        voiceRecognition.stop();
-      } else {
+      if (isRecording) voiceRecognition.stop();
+      else {
         const lang = preferredLang === 'auto' ? 'ar-SA' : (LANGUAGES.find(l => l.code === preferredLang)?.tts || 'en-US');
         voiceRecognition.lang = lang;
-        try { voiceRecognition.start(); }
-        catch (err) { toast('🎤 Already listening'); }
+        try { voiceRecognition.start(); } catch { toast('🎤 Already listening'); }
       }
     };
   }
 
-  // ============ THREADS ============
+  /* ============================================================
+     THREADS
+     ============================================================ */
   function loadThreads() {
     try { threads = JSON.parse(localStorage.getItem('dark-threads') || '{}') || {}; }
     catch { threads = {}; }
@@ -1927,11 +1274,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
 
   function createThread(silent = false) {
     const id = 't_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
-    threads[id] = {
-      title: 'New chat',
-      messages: [{ role: 'system', content: systemPrompt }],
-      createdAt: Date.now()
-    };
+    threads[id] = { title:'New chat', messages:[{ role:'system', content:systemPrompt }], createdAt:Date.now() };
     activeId = id;
     saveThreads();
     if (!silent) {
@@ -1945,9 +1288,9 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     if (!confirm('Delete this chat?')) return;
     delete threads[id];
     if (activeId === id) {
-      const remaining = Object.keys(threads);
-      if (remaining.length === 0) createThread(true);
-      else activeId = remaining[0];
+      const r = Object.keys(threads);
+      if (r.length === 0) createThread(true);
+      else activeId = r[0];
     }
     saveThreads(); renderThreads(); rebuildUI(); toast('Chat deleted');
   }
@@ -1959,8 +1302,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   }
 
   function renderThreads() {
-    const list = $('chatList');
-    list.innerHTML = '';
+    const list = $('chatList'); list.innerHTML = '';
     const ids = Object.keys(threads)
       .filter(id => !searchQuery || threads[id].title.toLowerCase().includes(searchQuery))
       .sort((a, b) => threads[b].createdAt - threads[a].createdAt);
@@ -1978,7 +1320,9 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     });
   }
 
-  // ============ UI HELPERS ============
+  /* ============================================================
+     RENDER HELPERS
+     ============================================================ */
   function hideWelcome() { const w = $('welcome'); if (w) w.remove(); }
   function scrollBottom() { const cb = $('chatBody'); cb.scrollTop = cb.scrollHeight; }
 
@@ -1989,8 +1333,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const col = document.createElement('div');
     col.className = 'msg-col';
     const m = document.createElement('div');
-    m.className = 'msg user';
-    m.textContent = text;
+    m.className = 'msg user'; m.textContent = text;
     col.appendChild(m); row.appendChild(col);
     $('chatBody').appendChild(row); scrollBottom();
   }
@@ -1998,42 +1341,33 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   function buildMeta(text, tokens) {
     const meta = document.createElement('div');
     meta.className = 'msg-meta';
-
     const copyBtn = document.createElement('button');
     copyBtn.type = 'button'; copyBtn.className = 'msg-action';
     copyBtn.innerHTML = '<span>📋</span><span>Copy</span>';
     copyBtn.onclick = () => {
-      const clean = text
-        .replace(/\[IMAGE_PROMPT\]([\s\S]*?)\[\/IMAGE_PROMPT\]/g, '$1')
-        .replace(/\[VIDEO_PROMPT\]([\s\S]*?)\[\/VIDEO_PROMPT\]/g, '$1').trim();
+      const clean = text.replace(/\[IMAGE_PROMPT\]([\s\S]*?)\[\/IMAGE_PROMPT\]/g, '$1')
+                        .replace(/\[VIDEO_PROMPT\]([\s\S]*?)\[\/VIDEO_PROMPT\]/g, '$1').trim();
       navigator.clipboard.writeText(clean).then(() => {
         copyBtn.classList.add('done');
         copyBtn.innerHTML = '<span>✓</span><span>Copied</span>';
-        setTimeout(() => {
-          copyBtn.classList.remove('done');
-          copyBtn.innerHTML = '<span>📋</span><span>Copy</span>';
-        }, 1600);
+        setTimeout(() => { copyBtn.classList.remove('done'); copyBtn.innerHTML = '<span>📋</span><span>Copy</span>'; }, 1600);
       });
     };
     meta.appendChild(copyBtn);
-
     const speakBtn = document.createElement('button');
     speakBtn.type = 'button'; speakBtn.className = 'msg-action';
     speakBtn.innerHTML = '<span>🔊</span><span>Speak</span>';
     speakBtn.onclick = () => speak(text);
     meta.appendChild(speakBtn);
-
     const retryBtn = document.createElement('button');
     retryBtn.type = 'button'; retryBtn.className = 'msg-action';
     retryBtn.innerHTML = '<span>↻</span><span>Retry</span>';
     retryBtn.onclick = retryLast;
     meta.appendChild(retryBtn);
-
     if (tokens) {
       const ti = document.createElement('span');
       ti.textContent = '• ' + tokens + ' tokens';
-      ti.style.marginLeft = '0.3rem';
-      ti.style.fontSize = '0.7rem';
+      ti.style.marginLeft = '.3rem'; ti.style.fontSize = '.7rem';
       meta.appendChild(ti);
     }
     return meta;
@@ -2045,72 +1379,51 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     row.className = 'msg-row ai';
     const col = document.createElement('div');
     col.className = 'msg-col';
-
     let imgMatch = text.match(/\[IMAGE_PROMPT\]([\s\S]*?)\[\/IMAGE_PROMPT\]/);
     let vidMatch = text.match(/\[VIDEO_PROMPT\]([\s\S]*?)\[\/VIDEO_PROMPT\]/);
-
     if (!imgMatch && !vidMatch) {
       const lower = text.toLowerCase();
       const isVideo = /فيديو|video|متحرك|animated/.test(lower) && !/صورة|image|photo/.test(lower);
       const isImage = /صورة|صور|image|photo|رسم/.test(lower) && !isVideo;
       const hasGenBtn = /click the button below|اضغط الزر|👇/.test(lower);
       if (hasGenBtn && (isVideo || isImage)) {
-        let desc = text.replace(/Click the button below.*/i, '')
-                       .replace(/اضغط الزر.*/i, '')
-                       .replace(/\*\*/g, '').replace(/\*/g, '').trim();
+        let desc = text.replace(/Click the button below.*/i, '').replace(/اضغط الزر.*/i, '').replace(/\*\*/g,'').replace(/\*/g,'').trim();
         const lines = desc.split('\n').map(l => l.trim()).filter(Boolean);
         desc = lines[0] || desc;
         if (isVideo) vidMatch = [desc, desc];
         else imgMatch = [desc, desc];
       }
     }
-
     if (imgMatch) return renderMediaPrompt(text, imgMatch[1], 'image', tokens, col, row);
     if (vidMatch) return renderMediaPrompt(text, vidMatch[1], 'video', tokens, col, row);
-
     const m = document.createElement('div');
-    m.className = 'msg ai';
-    m.innerHTML = renderMarkdown(text);
-    col.appendChild(m);
-    col.appendChild(buildMeta(text, tokens));
-    row.appendChild(col);
-    $('chatBody').appendChild(row);
-    scrollBottom();
+    m.className = 'msg ai'; m.innerHTML = renderMarkdown(text);
+    col.appendChild(m); col.appendChild(buildMeta(text, tokens));
+    row.appendChild(col); $('chatBody').appendChild(row); scrollBottom();
   }
 
   function renderMediaPrompt(text, prompt, type, tokens, col, row) {
     prompt = (prompt || '').trim();
     const tagRe = type === 'image' ? /\[IMAGE_PROMPT\][\s\S]*?\[\/IMAGE_PROMPT\]/g : /\[VIDEO_PROMPT\][\s\S]*?\[\/VIDEO_PROMPT\]/g;
-    const clean = text.replace(tagRe, '')
-      .replace(/Click the button below.*/gi, '')
-      .replace(/اضغط الزر.*/gi, '').trim();
-
+    const clean = text.replace(tagRe, '').replace(/Click the button below.*/gi, '').replace(/اضغط الزر.*/gi, '').trim();
     const m = document.createElement('div');
     m.className = 'msg ai';
     m.innerHTML = renderMarkdown(clean || (type === 'image' ? 'Ready to generate your image:' : 'Ready to generate your video:'));
-
     const box = document.createElement('div');
     box.className = 'prompt-box';
     box.innerHTML = '<div class="prompt-text">' + escapeHtml(prompt) + '</div>';
-
     const actions = document.createElement('div');
     actions.className = 'prompt-actions';
-
     const copyBtn = document.createElement('button');
     copyBtn.className = 'prompt-btn';
     copyBtn.innerHTML = '📋 Copy Prompt';
     copyBtn.onclick = () => {
       navigator.clipboard.writeText(prompt).then(() => {
-        copyBtn.innerHTML = '✓ Copied';
-        copyBtn.classList.add('done');
-        setTimeout(() => {
-          copyBtn.innerHTML = '📋 Copy Prompt';
-          copyBtn.classList.remove('done');
-        }, 1500);
+        copyBtn.innerHTML = '✓ Copied'; copyBtn.classList.add('done');
+        setTimeout(() => { copyBtn.innerHTML = '📋 Copy Prompt'; copyBtn.classList.remove('done'); }, 1500);
       });
     };
     actions.appendChild(copyBtn);
-
     const genBtn = document.createElement('button');
     genBtn.className = 'prompt-btn primary';
     if (type === 'image') {
@@ -2121,14 +1434,10 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       genBtn.onclick = () => generateVideo(prompt);
     }
     actions.appendChild(genBtn);
-
     box.appendChild(actions);
     m.appendChild(box);
-    col.appendChild(m);
-    col.appendChild(buildMeta(text, tokens));
-    row.appendChild(col);
-    $('chatBody').appendChild(row);
-    scrollBottom();
+    col.appendChild(m); col.appendChild(buildMeta(text, tokens));
+    row.appendChild(col); $('chatBody').appendChild(row); scrollBottom();
   }
 
   function renderTyping() {
@@ -2145,7 +1454,9 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     return row;
   }
 
-  // ============ PROFESSIONAL IMAGE GENERATION ============
+  /* ============================================================
+     ULTIMATE IMAGE GENERATION
+     ============================================================ */
   async function generateImage(userPrompt) {
     const t = threads[activeId];
     if (!t) return;
@@ -2153,12 +1464,11 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     $('sendBtn').disabled = true;
     renderUserMsg('🎨 ' + userPrompt);
     $('chatInput').value = '';
-
     let prompt = userPrompt.trim();
     if (!/(?:8k|4k|detailed|cinematic|masterpiece|hyperrealistic|ultra)/i.test(prompt)) {
       prompt += ', highly detailed, cinematic, 8k, sharp focus';
     }
-    t.messages.push({ role: 'user', content: '[Image] ' + prompt });
+    t.messages.push({ role:'user', content:'[Image] ' + prompt });
     saveThreads();
 
     hideWelcome();
@@ -2171,65 +1481,118 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
 
     const uid = 'p_' + Date.now();
 
-    // PROFESSIONAL PROGRESS UI
     wrap.innerHTML = `
-      <div class="pro-gen">
-        <div class="pro-gen-head">
-          <div class="pro-gen-title">
-            <div class="pro-gen-icon" id="ico-${uid}">🧠</div>
+      <div class="ultra-gen" id="ug-${uid}">
+        <div class="ultra-sparkles" id="spark-${uid}"></div>
+        <div class="ultra-head">
+          <div class="ultra-title">
+            <div class="ultra-orb" id="orb-${uid}">🧠</div>
             <span>AI Image Generation</span>
           </div>
-          <div class="pro-gen-percent" id="pct-${uid}">0%</div>
+          <div class="ultra-percent" id="pct-${uid}">0%</div>
         </div>
-        <div class="pro-gen-bar">
-          <div class="pro-gen-fill" id="fill-${uid}"></div>
+        <div class="ultra-bar-wrap">
+          <div class="ultra-bar">
+            <div class="ultra-fill" id="fill-${uid}"></div>
+          </div>
         </div>
-        <div class="pro-gen-step">
-          <span id="step-${uid}">Understanding your vision</span>
-          <span class="dot-anim"><span></span><span></span><span></span></span>
+        <div class="ultra-step">
+          <div class="ultra-step-icon" id="sico-${uid}">🧠</div>
+          <div class="ultra-step-text" id="stxt-${uid}">Initializing…</div>
+          <div class="ultra-dots"><span></span><span></span><span></span></div>
         </div>
-        <div class="pro-gen-footer">
-          <span class="time">⏱️ <span id="time-${uid}">0.0</span>s</span>
-          <span class="status"><span class="spinner-ring"></span> Processing</span>
+        <div class="ultra-stats">
+          <div class="ultra-stat accent">
+            <div class="ultra-stat-val" id="time-${uid}">0.0s</div>
+            <div class="ultra-stat-lbl">Elapsed</div>
+          </div>
+          <div class="ultra-stat ok">
+            <div class="ultra-stat-val" id="eta-${uid}">--</div>
+            <div class="ultra-stat-lbl">ETA</div>
+          </div>
+          <div class="ultra-stat">
+            <div class="ultra-stat-val" id="step-${uid}">0/${IMG_STEPS.length}</div>
+            <div class="ultra-stat-lbl">Step</div>
+          </div>
         </div>
+        <button class="ultra-cancel" id="cancel-${uid}" type="button">✕ Cancel</button>
       </div>`;
 
     col.appendChild(wrap); row.appendChild(col);
     $('chatBody').appendChild(row); scrollBottom();
     setStatus('Generating image…');
 
-    const pctEl = $('pct-' + uid);
-    const fillEl = $('fill-' + uid);
-    const stepEl = $('step-' + uid);
-    const icoEl = $('ico-' + uid);
-    const timeEl = $('time-' + uid);
+    const $pct  = $('pct-'  + uid), $fill = $('fill-' + uid);
+    const $time = $('time-' + uid), $eta  = $('eta-'  + uid);
+    const $sico = $('sico-' + uid), $stxt = $('stxt-' + uid);
+    const $step = $('step-' + uid), $orb  = $('orb-'  + uid);
+    const $cancel = $('cancel-' + uid);
+
+    // Sparkles
+    const $spark = $('spark-' + uid);
+    for (let i = 0; i < 12; i++) {
+      const s = document.createElement('div');
+      s.className = 'ultra-sparkle';
+      s.style.left = (Math.random() * 100) + '%';
+      s.style.bottom = (Math.random() * 40) + '%';
+      s.style.animationDelay = (Math.random() * 3) + 's';
+      s.style.animationDuration = (2 + Math.random() * 2) + 's';
+      const hue = 200 + Math.random() * 100;
+      s.style.background = `hsl(${hue}, 80%, 65%)`;
+      s.style.color = `hsl(${hue}, 80%, 65%)`;
+      $spark.appendChild(s);
+    }
+
     const startTime = Date.now();
     let fakeProgress = 0;
     let currentStep = -1;
     let lastStepChange = 0;
+    let cancelled = false;
+    let expectedTime = 22; // base expected seconds
+
+    $cancel.onclick = () => {
+      cancelled = true;
+      clearInterval(tick);
+      wrap.innerHTML = '<div class="ultra-gen"><div class="ultra-head"><div class="ultra-title"><div class="ultra-orb" style="background:linear-gradient(135deg,#e11d48,#f43f5e)">✕</div><span>Cancelled</span></div></div></div>';
+      busy = false; $('sendBtn').disabled = false;
+      setStatus('Cancelled');
+    };
 
     const tick = setInterval(() => {
+      if (cancelled) return;
       const elapsed = (Date.now() - startTime) / 1000;
-      timeEl.textContent = elapsed.toFixed(1);
+      $time.textContent = elapsed.toFixed(1) + 's';
 
-      if (fakeProgress < 96) {
-        const speed = fakeProgress < 40 ? 2.2 : fakeProgress < 75 ? 1.1 : 0.35;
-        fakeProgress = Math.min(fakeProgress + speed, 96);
-        const rounded = Math.floor(fakeProgress);
-        pctEl.textContent = rounded + '%';
-        fillEl.style.width = rounded + '%';
+      // ETA calculation
+      if (fakeProgress > 8) {
+        const remaining = expectedTime * (1 - fakeProgress / 100);
+        $eta.textContent = remaining > 0 ? remaining.toFixed(0) + 's' : '~1s';
+      } else {
+        $eta.textContent = '--';
       }
 
-      // Change step every ~2.5s
-      if (elapsed - lastStepChange > 2.5 && currentStep < IMG_STEPS.length - 1) {
-        currentStep++;
-        lastStepChange = elapsed;
-        const step = IMG_STEPS[currentStep];
-        stepEl.textContent = step.text;
-        icoEl.textContent = step.icon;
-        // small pulse on change
-        icoEl.style.transform = 'scale(1.15)';
-        setTimeout(() => icoEl.style.transform = '', 250);
+      if (fakeProgress < 96) {
+        // Adaptive speed — fast early, slower later
+        const speed = fakeProgress < 30 ? 2.8 :
+                      fakeProgress < 60 ? 1.6 :
+                      fakeProgress < 85 ? 0.9 : 0.35;
+        fakeProgress = Math.min(fakeProgress + speed, 96);
+        const rounded = Math.floor(fakeProgress);
+        $pct.textContent = rounded + '%';
+        $fill.style.width = rounded + '%';
+      }
+
+      // Step progression
+      const targetStep = Math.min(Math.floor((fakeProgress / 96) * IMG_STEPS.length), IMG_STEPS.length - 1);
+      if (targetStep !== currentStep) {
+        currentStep = targetStep;
+        const s = IMG_STEPS[currentStep];
+        $sico.textContent = s.icon;
+        $stxt.textContent = s.text;
+        $orb.textContent = s.icon;
+        $step.textContent = (currentStep + 1) + '/' + IMG_STEPS.length;
+        $sico.style.transform = 'scale(1.25)';
+        setTimeout(() => $sico.style.transform = '', 250);
       }
     }, 180);
 
@@ -2239,22 +1602,26 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=${s.w}&height=${s.h}&seed=${seed}&model=flux&enhance=true&safe=false&private=true&nologo=true`;
 
       const loaded = await new Promise((resolve) => {
+        if (cancelled) return resolve(false);
         const img = new Image();
         img.onload = () => resolve(true);
         img.onerror = () => resolve(false);
         img.src = url;
         setTimeout(() => resolve(false), 90000);
       });
+
       clearInterval(tick);
+      if (cancelled) return;
       if (!loaded) throw new Error('Timeout');
 
-      // Complete progress to 100%
-      pctEl.textContent = '100%';
-      fillEl.style.width = '100%';
-      stepEl.textContent = 'Complete ✨';
-
-      // Short delay then show image
-      await new Promise(r => setTimeout(r, 400));
+      // Complete to 100%
+      $pct.textContent = '100%';
+      $fill.style.width = '100%';
+      $stxt.textContent = 'Complete ✨';
+      $sico.textContent = '✅';
+      $orb.textContent = '✅';
+      $eta.textContent = 'Done';
+      await new Promise(r => setTimeout(r, 350));
 
       wrap.innerHTML = '';
       const img = document.createElement('img');
@@ -2263,8 +1630,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       wrap.appendChild(img);
 
       const meta = document.createElement('div');
-      meta.className = 'msg-meta';
-      meta.style.opacity = '1';
+      meta.className = 'msg-meta'; meta.style.opacity = '1';
 
       const dlBtn = document.createElement('button');
       dlBtn.type = 'button'; dlBtn.className = 'msg-action';
@@ -2276,8 +1642,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
           const a = document.createElement('a');
           a.href = URL.createObjectURL(blob);
           a.download = 'dark-' + Date.now() + '.png';
-          a.click();
-          toast('Downloaded');
+          a.click(); toast('Downloaded');
         } catch { window.open(url, '_blank'); }
       };
       meta.appendChild(dlBtn);
@@ -2289,14 +1654,15 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       meta.appendChild(reBtn);
 
       col.appendChild(meta);
-      t.messages.push({ role: 'assistant', content: '[Generated image]\n![image](' + url + ')' });
+      t.messages.push({ role:'assistant', content:'[Generated image]\n![image](' + url + ')' });
       saveThreads();
       setStatus('Online • image ready');
       toast('✨ Image ready');
     } catch (err) {
       clearInterval(tick);
+      if (cancelled) return;
       const safe = userPrompt.replace(/'/g, "\\'");
-      wrap.innerHTML = '<div class="pro-gen" style="border-color:rgba(225,29,72,0.4)"><div class="pro-gen-head"><div class="pro-gen-title"><div class="pro-gen-icon" style="background:linear-gradient(135deg,#e11d48,#f43f5e)">⚠️</div><span>Generation Failed</span></div></div><div style="font-size:0.82rem;color:rgba(255,255,255,0.7);margin-top:0.5rem">Something went wrong. <button class="msg-action" onclick="DARK_RETRY_IMG(\'' + safe + '\')" style="color:var(--accent);margin-left:0.5rem;">↻ Try again</button></div></div>';
+      wrap.innerHTML = '<div class="ultra-gen"><div class="ultra-head"><div class="ultra-title"><div class="ultra-orb" style="background:linear-gradient(135deg,#e11d48,#f43f5e)">⚠️</div><span>Generation Failed</span></div></div><div style="font-size:.82rem;color:var(--muted);margin-top:.5rem">Something went wrong. <button class="msg-action" onclick="DARK_RETRY_IMG(\'' + safe + '\')" style="color:var(--accent);margin-left:.5rem;">↻ Try again</button></div></div>';
       setStatus('Image error', false);
     } finally {
       busy = false; $('sendBtn').disabled = false; $('chatInput').focus();
@@ -2305,7 +1671,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
 
   window.DARK_RETRY_IMG = (p) => generateImage(p);
 
-  // ============ VIDEO GENERATION ============
   async function generateVideo(userPrompt) {
     const t = threads[activeId];
     if (!t) return;
@@ -2314,7 +1679,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     renderUserMsg('🎬 ' + userPrompt);
     $('chatInput').value = '';
     const prompt = userPrompt.trim();
-    t.messages.push({ role: 'user', content: '[Video] ' + prompt });
+    t.messages.push({ role:'user', content:'[Video] ' + prompt });
     saveThreads();
 
     hideWelcome();
@@ -2324,23 +1689,24 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     col.className = 'msg-col';
     const wrap = document.createElement('div');
     wrap.className = 'msg ai msg-video';
-
     const uid = 'v_' + Date.now();
     wrap.innerHTML = `
-      <div class="pro-gen">
-        <div class="pro-gen-head">
-          <div class="pro-gen-title">
-            <div class="pro-gen-icon">🎬</div>
+      <div class="ultra-gen">
+        <div class="ultra-head">
+          <div class="ultra-title">
+            <div class="ultra-orb">🎬</div>
             <span>AI Video Generation</span>
           </div>
         </div>
-        <div class="pro-gen-step">
-          <span>Creating animation frames</span>
-          <span class="dot-anim"><span></span><span></span><span></span></span>
+        <div class="ultra-step">
+          <div class="ultra-step-icon">🎞️</div>
+          <div class="ultra-step-text">Rendering frames…</div>
+          <div class="ultra-dots"><span></span><span></span><span></span></div>
         </div>
-        <div class="pro-gen-footer">
-          <span class="time">⏱️ <span id="vtime-${uid}">0.0</span>s</span>
-          <span class="status"><span class="spinner-ring"></span> This can take 30-90s</span>
+        <div class="ultra-stats">
+          <div class="ultra-stat accent"><div class="ultra-stat-val" id="vtime-${uid}">0.0s</div><div class="ultra-stat-lbl">Elapsed</div></div>
+          <div class="ultra-stat"><div class="ultra-stat-val">30-90s</div><div class="ultra-stat-lbl">Typical</div></div>
+          <div class="ultra-stat ok"><div class="ultra-stat-val">HD</div><div class="ultra-stat-lbl">Quality</div></div>
         </div>
       </div>`;
     col.appendChild(wrap); row.appendChild(col);
@@ -2350,7 +1716,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const startT = Date.now();
     const tTick = setInterval(() => {
       const el = $('vtime-' + uid);
-      if (el) el.textContent = ((Date.now() - startT) / 1000).toFixed(1);
+      if (el) el.textContent = ((Date.now() - startT) / 1000).toFixed(1) + 's';
     }, 100);
 
     try {
@@ -2360,17 +1726,13 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       const videoElement = await puter.ai.txt2vid(prompt);
       clearInterval(tTick);
       wrap.innerHTML = '';
-      videoElement.controls = true;
-      videoElement.loop = true;
-      videoElement.muted = false;
-      videoElement.playsInline = true;
-      videoElement.style.width = '100%';
-      videoElement.style.borderRadius = '14px';
+      videoElement.controls = true; videoElement.loop = true;
+      videoElement.muted = false; videoElement.playsInline = true;
+      videoElement.style.width = '100%'; videoElement.style.borderRadius = '14px';
       wrap.appendChild(videoElement);
 
       const meta = document.createElement('div');
-      meta.className = 'msg-meta';
-      meta.style.opacity = '1';
+      meta.className = 'msg-meta'; meta.style.opacity = '1';
 
       const dlBtn = document.createElement('button');
       dlBtn.type = 'button'; dlBtn.className = 'msg-action';
@@ -2383,8 +1745,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
           const a = document.createElement('a');
           a.href = URL.createObjectURL(blob);
           a.download = 'dark-video-' + Date.now() + '.mp4';
-          a.click();
-          toast('Downloaded');
+          a.click(); toast('Downloaded');
         } catch { toast('Download failed'); }
       };
       meta.appendChild(dlBtn);
@@ -2396,37 +1757,37 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       meta.appendChild(reBtn);
 
       col.appendChild(meta);
-      t.messages.push({ role: 'assistant', content: '[Generated video]' });
+      t.messages.push({ role:'assistant', content:'[Generated video]' });
       saveThreads();
       setStatus('Online • video ready');
       toast('🎬 Video ready');
     } catch (err) {
       clearInterval(tTick);
       const safe = userPrompt.replace(/'/g, "\\'");
-      wrap.innerHTML = '<div class="pro-gen" style="border-color:rgba(225,29,72,0.4)"><div class="pro-gen-head"><div class="pro-gen-title"><div class="pro-gen-icon" style="background:linear-gradient(135deg,#e11d48,#f43f5e)">⚠️</div><span>Video Failed</span></div></div><div style="font-size:0.82rem;color:rgba(255,255,255,0.7);margin-top:0.5rem">' + (err.message || 'Error') + ' <button class="msg-action" onclick="DARK_RETRY_VID(\'' + safe + '\')" style="color:var(--accent);margin-left:0.5rem;">↻ Try</button></div></div>';
+      wrap.innerHTML = '<div class="ultra-gen"><div class="ultra-head"><div class="ultra-title"><div class="ultra-orb" style="background:linear-gradient(135deg,#e11d48,#f43f5e)">⚠️</div><span>Video Failed</span></div></div><div style="font-size:.82rem;color:var(--muted);margin-top:.5rem">' + (err.message || 'Error') + ' <button class="msg-action" onclick="DARK_RETRY_VID(\'' + safe + '\')" style="color:var(--accent);margin-left:.5rem;">↻ Try</button></div></div>';
       setStatus('Video error', false);
     } finally {
       busy = false; $('sendBtn').disabled = false; $('chatInput').focus();
     }
   }
-
   window.DARK_RETRY_VID = (p) => generateVideo(p);
 
-  // ============ CHAT ============
+  /* ============================================================
+     CHAT
+     ============================================================ */
   async function sendMsg() {
     if (busy) return;
     const text = $('chatInput').value.trim();
     if (!text) return;
     const t = threads[activeId];
     if (!t) return;
-
     if (t.messages.filter(m => m.role === 'user').length === 0) {
       t.title = text.length > 40 ? text.slice(0, 40) + '…' : text;
       renderThreads();
     }
     renderUserMsg(text);
     $('chatInput').value = '';
-    t.messages.push({ role: 'user', content: text });
+    t.messages.push({ role:'user', content:text });
     await saveThreads();
     await streamReply();
     messageCounter++;
@@ -2444,11 +1805,10 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const typing = renderTyping();
     setStatus('Thinking…');
     abortController = new AbortController();
-
     try {
       const res = await fetch(PROXY_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method:'POST',
+        headers:{ 'Content-Type':'application/json' },
         body: JSON.stringify({ messages: t.messages.slice(-20) }),
         signal: abortController.signal
       });
@@ -2460,7 +1820,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       }
       const reply = data.choices?.[0]?.message?.content?.trim() || '(empty response)';
       const tokens = data.usage?.total_tokens;
-      t.messages.push({ role: 'assistant', content: reply });
+      t.messages.push({ role:'assistant', content:reply });
       await saveThreads();
       await typewriterRender(reply, tokens);
       setStatus(tokens ? 'Online • ' + tokens + ' tokens' : 'Online');
@@ -2489,7 +1849,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     m.appendChild(cursor);
     col.appendChild(m); row.appendChild(col);
     $('chatBody').appendChild(row);
-
     const speed = fullText.length > 500 ? 3 : fullText.length > 200 ? 6 : 10;
     for (let i = 0; i < fullText.length; i++) {
       m.innerHTML = renderMarkdown(fullText.slice(0, i + 1));
@@ -2507,9 +1866,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     if (busy) return;
     const t = threads[activeId];
     if (!t) return;
-    while (t.messages.length > 1 && t.messages[t.messages.length - 1].role === 'assistant') {
-      t.messages.pop();
-    }
+    while (t.messages.length > 1 && t.messages[t.messages.length - 1].role === 'assistant') t.messages.pop();
     await saveThreads(); rebuildUI();
     if (t.messages.length > 1) await streamReply();
     else toast('Nothing to retry');
@@ -2523,19 +1880,14 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     if (visible.length === 0) {
       const w = document.createElement('div');
       w.className = 'welcome'; w.id = 'welcome';
-      w.innerHTML =
-        '<div class="welcome-icon">◆</div>' +
-        '<h1>Chat, speak, <span class="grad">create anything</span>.</h1>' +
-        '<p>Arabic, English, Amharic & more. Ask for images, videos, code, or anything.</p>' +
-        '<div class="quick-grid" id="quickGrid"></div>';
+      w.innerHTML = '<div class="welcome-icon">◆</div><h1>Chat, speak, <span class="grad">create anything</span>.</h1><p>Arabic, English, Amharic & more. Ask for images, videos, code, or anything.</p><div class="quick-grid" id="quickGrid"></div>';
       $('chatBody').appendChild(w);
       buildQuickGrid(w.querySelector('#quickGrid'));
       return;
     }
     visible.forEach(m => {
-      if (m.role === 'user') {
-        renderUserMsg(typeof m.content === 'string' ? m.content : '[message]');
-      } else {
+      if (m.role === 'user') renderUserMsg(typeof m.content === 'string' ? m.content : '[message]');
+      else {
         const text = typeof m.content === 'string' ? m.content : '';
         const imgMatch = text.match(/!\[image\]\((https?:\/\/[^\)]+)\)/);
         if (imgMatch) { renderImageFromHistory(imgMatch[1]); return; }
@@ -2564,11 +1916,8 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     container.innerHTML = '';
     QUICK_PROMPTS.forEach(p => {
       const card = document.createElement('button');
-      card.type = 'button';
-      card.className = 'quick-card';
-      card.innerHTML = '<span class="qc-emoji">' + p.emoji + '</span>' +
-        '<span class="qc-text"><span class="qc-title">' + p.title + '</span>' +
-        '<span class="qc-desc">' + p.desc + '</span></span>';
+      card.type = 'button'; card.className = 'quick-card';
+      card.innerHTML = '<span class="qc-emoji">' + p.emoji + '</span><span class="qc-text"><span class="qc-title">' + p.title + '</span><span class="qc-desc">' + p.desc + '</span></span>';
       card.onclick = () => { $('chatInput').value = p.prompt; $('chatInput').focus(); sendMsg(); };
       container.appendChild(card);
     });
@@ -2579,14 +1928,13 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     localStorage.setItem('dark-theme', theme);
   }
 
-  // ============ AUTH ============
+  /* ============================================================
+     AUTH
+     ============================================================ */
   function isSuperAdminCheck(name, email) {
     const _e = (email || '').toLowerCase();
     const _n = (name || '').toLowerCase();
-    return SUPER_ADMINS.some(u => {
-      const lu = u.toLowerCase();
-      return _e === lu || _n === lu;
-    });
+    return SUPER_ADMINS.some(u => { const lu = u.toLowerCase(); return _e === lu || _n === lu; });
   }
 
   function renderAuthBox() {
@@ -2596,24 +1944,17 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       const name = currentUser.username || currentUser.email || 'User';
       const email = currentUser.email || currentUser.username || '';
       box.innerHTML =
-        '<div style="font-size:0.85rem;font-weight:700;margin-bottom:0.7rem;color:var(--fg);">✓ Signed in as <br><b>' +
-        escapeHtml(name) + '</b><br>' +
-        '<small style="color:var(--muted);font-weight:400">' + escapeHtml(email) + '</small>' +
-        (isSuperAdmin ? '<br><span style="color:var(--gold);font-size:0.72rem">👑 SUPER ADMIN</span>' : '') +
+        '<div style="font-size:.85rem;font-weight:700;margin-bottom:.7rem;color:var(--fg);">✓ Signed in as <br><b>' +
+        escapeHtml(name) + '</b><br><small style="color:var(--muted);font-weight:400">' + escapeHtml(email) + '</small>' +
+        (isSuperAdmin ? '<br><span style="color:var(--gold);font-size:.72rem">👑 SUPER ADMIN</span>' : '') +
         '</div>' +
-        '<button id="settingsSignOut" style="background:transparent;border:1px solid rgba(225,29,72,0.4);color:var(--err);padding:0.75rem 1.5rem;border-radius:11px;font-weight:700;font-size:0.85rem;cursor:pointer;font-family:inherit;width:100%;">🚪 Sign Out</button>';
-      setTimeout(() => {
-        const btn = $('settingsSignOut');
-        if (btn) btn.onclick = handleSignOut;
-      }, 0);
+        '<button id="settingsSignOut" style="background:transparent;border:1px solid rgba(225,29,72,.4);color:var(--err);padding:.75rem 1.5rem;border-radius:11px;font-weight:700;font-size:.85rem;cursor:pointer;font-family:inherit;width:100%;">🚪 Sign Out</button>';
+      setTimeout(() => { const btn = $('settingsSignOut'); if (btn) btn.onclick = handleSignOut; }, 0);
     } else {
       box.innerHTML =
-        '<p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.7rem;">Sign in to sync your chats.</p>' +
-        '<button id="settingsSignIn" style="background:linear-gradient(135deg,var(--accent),var(--accent-2));color:white;border:none;padding:0.75rem 1.5rem;border-radius:11px;font-weight:700;font-size:0.85rem;cursor:pointer;font-family:inherit;width:100%;">👤 Sign In with Puter</button>';
-      setTimeout(() => {
-        const btn = $('settingsSignIn');
-        if (btn) btn.onclick = handleSignIn;
-      }, 0);
+        '<p style="font-size:.82rem;color:var(--muted);margin-bottom:.7rem;">Sign in to sync your chats.</p>' +
+        '<button id="settingsSignIn" style="background:linear-gradient(135deg,var(--accent),var(--accent-2));color:white;border:none;padding:.75rem 1.5rem;border-radius:11px;font-weight:700;font-size:.85rem;cursor:pointer;font-family:inherit;width:100%;">👤 Sign In with Puter</button>';
+      setTimeout(() => { const btn = $('settingsSignIn'); if (btn) btn.onclick = handleSignIn; }, 0);
     }
   }
 
@@ -2625,13 +1966,11 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
         const name = currentUser.username || 'User';
         const email = currentUser.email || '';
         isSuperAdmin = isSuperAdminCheck(name, email);
-
         const badge = $('authBadge');
         badge.style.display = 'flex';
         badge.classList.toggle('super', isSuperAdmin);
         $('authAvatar').textContent = name.charAt(0).toUpperCase();
         $('authName').textContent = name;
-
         $('userCard').style.display = 'flex';
         $('userCard').classList.toggle('super', isSuperAdmin);
         $('userName').textContent = name;
@@ -2639,7 +1978,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
         $('userAvatar').textContent = name.charAt(0).toUpperCase();
         $('userCrown').style.display = isSuperAdmin ? 'inline' : 'none';
         $('superBtn').style.display = isSuperAdmin ? 'flex' : 'none';
-
         const pa = $('profileAvatar');
         pa.textContent = name.charAt(0).toUpperCase();
         pa.className = 'profile-avatar' + (isSuperAdmin ? ' super' : '');
@@ -2659,6 +1997,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       const user = await puter.auth.getUser();
       toast('Welcome, ' + (user.username || 'User'));
       await updateAuthUI();
+      await trackVisit();
       renderThreads(); rebuildUI();
     } catch (err) { toast('Auth error: ' + (err.message || 'unknown')); }
   }
@@ -2684,10 +2023,12 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const statsEl = $('profileStats');
     statsEl.innerHTML = '';
     const myChats = Object.keys(threads).length;
-    const myMessages = Object.values(threads).reduce((sum, t) =>
-      sum + t.messages.filter(m => m.role !== 'system').length, 0);
+    const myMessages = Object.values(threads).reduce((sum, t) => sum + t.messages.filter(m => m.role !== 'system').length, 0);
     addStatCard(statsEl, myChats, 'Your Chats');
     addStatCard(statsEl, myMessages, 'Your Messages');
+    if (currentVisit) {
+      addStatCard(statsEl, currentVisit.visits, 'Your Visits');
+    }
     $('profileModal').classList.add('show');
   }
 
@@ -2698,10 +2039,11 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     container.appendChild(card);
   }
 
-  // ============ SETTINGS ============
+  /* ============================================================
+     SETTINGS
+     ============================================================ */
   function buildLangGrid() {
-    const grid = $('langGrid');
-    grid.innerHTML = '';
+    const grid = $('langGrid'); grid.innerHTML = '';
     LANGUAGES.forEach(l => {
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -2711,9 +2053,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
         preferredLang = l.code;
         localStorage.setItem('dark-lang', preferredLang);
         buildLangGrid();
-        if (voiceRecognition) {
-          voiceRecognition.lang = l.code === 'auto' ? 'ar-SA' : (l.tts || 'en-US');
-        }
+        if (voiceRecognition) voiceRecognition.lang = l.code === 'auto' ? 'ar-SA' : (l.tts || 'en-US');
         toast('Language: ' + l.name);
       };
       grid.appendChild(btn);
@@ -2721,8 +2061,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   }
 
   function buildSizeGrid() {
-    const grid = $('sizeGrid');
-    grid.innerHTML = '';
+    const grid = $('sizeGrid'); grid.innerHTML = '';
     IMAGE_SIZES.forEach(s => {
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -2754,16 +2093,20 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     toast('Settings saved');
   }
 
-  // ============ ADS ============
+  /* ============================================================
+     ADS
+     ============================================================ */
   function openAdEditor(index = -1) {
     const isNew = index === -1;
     const ad = isNew ? {} : ads[index];
     $('adEditTitle').textContent = isNew ? '📢 NEW AD' : '✏️ EDIT AD';
+    $('adType').value = ad.type || 'image';
     $('adTitle').value = ad.title || '';
     $('adDesc').value = ad.desc || '';
-    $('adImage').value = ad.image || '';
+    $('adMedia').value = ad.media || '';
     $('adLink').value = ad.link || '';
     $('adCta').value = ad.cta || 'Learn More';
+    $('adDuration').value = ad.duration || 5;
     $('adFreq').value = ad.freq || 10;
     $('adEditModal').dataset.index = index;
     $('adEditModal').classList.add('show');
@@ -2772,99 +2115,270 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   function saveAdFromEditor() {
     const index = parseInt($('adEditModal').dataset.index, 10);
     const ad = {
+      id: 'ad_' + Date.now(),
+      type: $('adType').value,
       title: $('adTitle').value.trim() || 'Special Offer',
       desc: $('adDesc').value.trim(),
-      image: $('adImage').value.trim(),
+      media: $('adMedia').value.trim(),
       link: $('adLink').value.trim(),
       cta: $('adCta').value.trim() || 'Learn More',
-      freq: parseInt($('adFreq').value, 10) || 10
+      duration: Math.max(5, Math.min(20, parseInt($('adDuration').value, 10) || 5)),
+      freq: Math.max(1, parseInt($('adFreq').value, 10) || 10)
     };
-    if (index === -1) ads.push(ad);
-    else ads[index] = ad;
+    if (index === -1) {
+      ad.id = 'ad_' + Date.now();
+      ads.push(ad);
+    } else {
+      ad.id = ads[index].id || ad.id;
+      ads[index] = ad;
+    }
     localStorage.setItem('dark-ads', JSON.stringify(ads));
     $('adEditModal').classList.remove('show');
+    renderAdsList();
+    updateAdsCount();
     toast('Ad saved');
+  }
+
+  function deleteAd(index) {
+    if (!confirm('Delete this ad?')) return;
+    ads.splice(index, 1);
+    localStorage.setItem('dark-ads', JSON.stringify(ads));
+    renderAdsList();
+    updateAdsCount();
+    toast('Ad deleted');
+  }
+
+  function renderAdsList() {
+    const list = $('saAdsList');
+    if (!list) return;
+    list.innerHTML = '';
+    if (ads.length === 0) {
+      list.innerHTML = '<div class="sa-empty"><div class="sa-empty-icon">📢</div>No ads yet — click "New Ad" to add one</div>';
+      return;
+    }
+    ads.forEach((ad, i) => {
+      const row = document.createElement('div');
+      row.className = 'sa-ad-row';
+      const isVideo = ad.type === 'video';
+      const isGif = ad.type === 'gif';
+      const thumbHtml = ad.media
+        ? (isVideo
+            ? '<video class="sa-ad-thumb" src="' + escapeHtml(ad.media) + '" muted playsinline preload="metadata"></video>'
+            : '<img class="sa-ad-thumb" src="' + escapeHtml(ad.media) + '" alt="" onerror="this.style.display=\'none\'">')
+        : '<div class="sa-ad-thumb-placeholder">' + (isVideo ? '🎬' : isGif ? '🎞️' : '🖼️') + '</div>';
+      row.innerHTML =
+        thumbHtml +
+        '<div class="sa-ad-info">' +
+          '<div class="sa-ad-title">' + escapeHtml(ad.title || 'Untitled') + '</div>' +
+          '<div class="sa-ad-meta">' +
+            '<span>' + (isVideo ? '🎬 Video' : isGif ? '🎞️ GIF' : '🖼️ Image') + '</span>' +
+            '<span>• ' + (ad.duration || 5) + 's</span>' +
+            '<span>• every ' + (ad.freq || 10) + ' msgs</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="sa-ad-actions">' +
+          '<button data-act="preview" data-i="' + i + '">👁</button>' +
+          '<button data-act="edit" data-i="' + i + '">✏️</button>' +
+          '<button class="del" data-act="del" data-i="' + i + '">🗑</button>' +
+        '</div>';
+      row.querySelector('[data-act="preview"]').onclick = () => previewAd(ad);
+      row.querySelector('[data-act="edit"]').onclick = () => openAdEditor(i);
+      row.querySelector('[data-act="del"]').onclick = () => deleteAd(i);
+      list.appendChild(row);
+    });
+  }
+
+  function previewAd(ad) {
+    showFullscreenAd(ad, true);
+  }
+
+  function updateAdsCount() {
+    const el = $('saAdsCount');
+    if (el) el.textContent = ads.length;
   }
 
   function checkAndShowAd() {
     if (ads.length === 0) return;
     const due = ads.find(ad => messageCounter > 0 && messageCounter % (ad.freq || 10) === 0);
     if (!due) return;
-    showFullscreenAd(due);
+    showFullscreenAd(due, false);
   }
 
-  function showFullscreenAd(ad) {
+  function showFullscreenAd(ad, isPreview) {
     const overlay = $('adFullscreen');
+    const isVideo = ad.type === 'video';
+    const isGif = ad.type === 'gif';
+    const duration = isPreview ? 3 : Math.max(5, Math.min(20, ad.duration || 5));
+
     $('adFsTitle').textContent = ad.title || 'Sponsored';
     $('adFsDesc').textContent = ad.desc || '';
     const cta = $('adFsCta');
     cta.textContent = ad.cta || 'Learn More';
     cta.href = ad.link || '#';
+    cta.style.display = ad.link ? 'inline-block' : 'none';
+
     const img = $('adFsImage');
-    if (ad.image) { img.src = ad.image; img.style.display = 'block'; }
-    else img.style.display = 'none';
+    const vid = $('adFsVideo');
+    const wrap = $('adMediaWrap');
+    const timer = $('adTimerBar');
+
+    // Reset
+    img.style.display = 'none'; img.src = '';
+    vid.style.display = 'none'; vid.pause(); vid.src = '';
+    wrap.querySelectorAll('.ad-media-tag').forEach(e => e.remove());
+
+    if (!ad.media) {
+      wrap.style.display = 'none';
+    } else {
+      wrap.style.display = 'block';
+      if (isVideo) {
+        vid.src = ad.media;
+        vid.style.display = 'block';
+        vid.muted = true;
+        vid.loop = !isPreview;
+        vid.playsInline = true;
+        vid.play().catch(() => {});
+      } else {
+        img.src = ad.media;
+        img.style.display = 'block';
+      }
+      const tag = document.createElement('div');
+      tag.className = 'ad-media-tag';
+      tag.textContent = isVideo ? '🎬 VIDEO' : isGif ? '🎞️ GIF' : '🖼️ IMAGE';
+      wrap.appendChild(tag);
+    }
+
     overlay.classList.add('show');
+
     const skipBtn = $('adSkip');
-    let countdown = 5;
+    let elapsed = 0;
     skipBtn.disabled = true;
-    skipBtn.textContent = countdown;
-    const timer = setInterval(() => {
-      countdown--;
-      skipBtn.textContent = countdown;
-      if (countdown <= 0) {
-        clearInterval(timer);
+    skipBtn.textContent = Math.ceil(duration) + 's';
+    timer.style.width = '0%';
+
+    const interval = setInterval(() => {
+      elapsed += 0.1;
+      const pct = Math.min(100, (elapsed / duration) * 100);
+      timer.style.width = pct + '%';
+      const remaining = Math.max(0, duration - elapsed);
+      skipBtn.textContent = Math.ceil(remaining) + 's';
+      if (elapsed >= duration) {
+        clearInterval(interval);
         skipBtn.disabled = false;
         skipBtn.textContent = '✕';
       }
-    }, 1000);
+    }, 100);
+
+    window.__adInterval = interval;
   }
 
-  // ============ SUPER ADMIN PANEL ============
+  function closeAd() {
+    if (window.__adInterval) clearInterval(window.__adInterval);
+    const vid = $('adFsVideo');
+    if (vid) { vid.pause(); vid.src = ''; }
+    $('adFullscreen').classList.remove('show');
+  }
+
+  /* ============================================================
+     SUPER ADMIN PANEL
+     ============================================================ */
   function openSuperPanel() {
     if (!isSuperAdmin) { toast('❌ Super Admin only'); return; }
     refreshSuperStats();
+    renderAdsList();
+    updateAdsCount();
+    $('saPromptArea').value = systemPrompt;
     $('superPanel').classList.add('show');
   }
+  function closeSuperPanel() { $('superPanel').classList.remove('show'); }
 
-  function closeSuperPanel() {
-    $('superPanel').classList.remove('show');
+  function switchSaTab(tabName) {
+    document.querySelectorAll('.sa-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
+    document.querySelectorAll('.sa-tab-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === tabName));
+    if (tabName === 'users') renderUsersTable();
+    if (tabName === 'ads') renderAdsList();
   }
 
   function refreshSuperStats() {
-    const totalUsers = parseInt(localStorage.getItem('dark-total-users') || '1', 10);
+    const usersDb = JSON.parse(localStorage.getItem('dark-users-db') || '{}');
+    const usersArr = Object.values(usersDb);
+    const totalUsers = usersArr.length;
+    const totalVisits = usersArr.reduce((s, u) => s + (u.visits || 0), 0);
     const totalChats = Object.keys(threads).length;
-    const totalMessages = Object.values(threads).reduce((sum, t) =>
-      sum + t.messages.filter(m => m.role !== 'system').length, 0);
+    const totalMsgs = Object.values(threads).reduce((s, t) => s + t.messages.filter(m => m.role !== 'system').length, 0);
     $('saTotalUsers').textContent = totalUsers;
+    $('saTotalVisits').textContent = totalVisits;
     $('saTotalChats').textContent = totalChats;
-    $('saTotalMsgs').textContent = totalMessages;
+    $('saTotalMsgs').textContent = totalMsgs;
     $('saTotalAds').textContent = ads.length;
+    const uc = $('saUsersCount'); if (uc) uc.textContent = totalUsers;
+    updateAdsCount();
 
-    // Draw message chart
+    // Chart
     const chart = $('saMsgChart');
-    chart.innerHTML = '';
-    const bars = 12;
-    const val = Math.max(totalMessages, 12);
-    for (let i = 0; i < bars; i++) {
-      const bar = document.createElement('div');
-      bar.className = 'sa-chart-bar';
-      const h = Math.max(4, (Math.random() * 0.6 + 0.4) * 100);
-      bar.style.height = h + '%';
-      bar.style.animationDelay = (i * 0.03) + 's';
-      chart.appendChild(bar);
+    if (chart) {
+      chart.innerHTML = '';
+      const bars = 12;
+      const maxVal = Math.max(1, ...Array.from({ length: bars }, () => Math.floor(Math.random() * totalMsgs + 1)));
+      for (let i = 0; i < bars; i++) {
+        const v = Math.floor(Math.random() * (totalMsgs || 10)) + 1;
+        const bar = document.createElement('div');
+        bar.className = 'sa-chart-bar';
+        bar.style.height = Math.max(6, (v / maxVal) * 100) + '%';
+        bar.style.animationDelay = (i * 0.04) + 's';
+        bar.dataset.v = v;
+        chart.appendChild(bar);
+      }
     }
+  }
+
+  function timeAgo(ts) {
+    const d = Date.now() - ts;
+    const s = Math.floor(d / 1000);
+    if (s < 60) return s + 's ago';
+    const m = Math.floor(s / 60);
+    if (m < 60) return m + 'm ago';
+    const h = Math.floor(m / 60);
+    if (h < 24) return h + 'h ago';
+    const dy = Math.floor(h / 24);
+    if (dy < 30) return dy + 'd ago';
+    return new Date(ts).toLocaleDateString();
+  }
+
+  function renderUsersTable() {
+    const tbody = $('saUsersBody');
+    if (!tbody) return;
+    const db = JSON.parse(localStorage.getItem('dark-users-db') || '{}');
+    const arr = Object.values(db).sort((a, b) => (b.lastSeen || 0) - (a.lastSeen || 0));
+    if (arr.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" class="sa-empty"><div class="sa-empty-icon">👥</div>No users tracked yet</td></tr>';
+      return;
+    }
+    tbody.innerHTML = '';
+    arr.forEach(u => {
+      const name = u.username && u.username !== 'Guest' ? u.username : 'Guest';
+      const initial = (name[0] || '?').toUpperCase();
+      const tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td><div style="display:flex;align-items:center;gap:.5rem"><div class="sa-user-avatar">' + escapeHtml(initial) + '</div><span>' + escapeHtml(name) + '</span></div></td>' +
+        '<td><span class="sa-user-badge">' + escapeHtml((u.fp || '').slice(0, 10)) + '…</span></td>' +
+        '<td style="font-family:JetBrains Mono,monospace;font-size:.72rem">' + escapeHtml(u.ip || 'unknown') + '</td>' +
+        '<td><b style="color:#fbbf24">' + (u.visits || 1) + '</b></td>' +
+        '<td style="font-size:.72rem;color:rgba(255,255,255,.6)">' + timeAgo(u.firstSeen) + '</td>' +
+        '<td style="font-size:.72rem;color:rgba(255,255,255,.6)">' + timeAgo(u.lastSeen) + '</td>';
+      tbody.appendChild(tr);
+    });
   }
 
   function updateClock() {
     const el = $('saClock');
-    if (el) {
-      const d = new Date();
-      el.textContent = d.toLocaleTimeString('en-GB');
-    }
+    if (el) el.textContent = new Date().toLocaleTimeString('en-GB');
   }
   setInterval(updateClock, 1000);
 
-  // ============ EVENTS ============
+  /* ============================================================
+     EVENTS
+     ============================================================ */
   function handleSend(e) {
     if (e) { e.preventDefault(); e.stopPropagation(); }
     if (busy) { if (abortController) abortController.abort(); return; }
@@ -2887,16 +2401,13 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     $('exportAllBtn').onclick = () => {
       const all = Object.values(threads).map(t => {
         const v = t.messages.filter(m => m.role !== 'system');
-        return '# ' + t.title + '\n\n' + v.map(m =>
-          '**' + (m.role === 'user' ? 'You' : 'DARK') + ':**\n\n' + m.content
-        ).join('\n\n');
+        return '# ' + t.title + '\n\n' + v.map(m => '**' + (m.role === 'user' ? 'You' : 'DARK') + ':**\n\n' + m.content).join('\n\n');
       }).join('\n\n---\n\n---\n\n');
-      const blob = new Blob([all], { type: 'text/markdown;charset=utf-8' });
+      const blob = new Blob([all], { type:'text/markdown;charset=utf-8' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = 'dark-all-chats.md';
-      a.click();
-      toast('Exported');
+      a.click(); toast('Exported');
     };
     $('clearAllBtn').onclick = () => {
       if (!confirm('Delete ALL chats?')) return;
@@ -2913,59 +2424,60 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     $('settingsSave').onclick = saveSettings;
     $('autoSpeakToggle').onclick = () => $('autoSpeakToggle').classList.toggle('on');
     $('themeToggle').onclick = () => $('themeToggle').classList.toggle('on');
-    $('adSkip').onclick = () => {
-      if ($('adSkip').disabled) return;
-      $('adFullscreen').classList.remove('show');
-    };
+    $('adSkip').onclick = () => { if (!$('adSkip').disabled) closeAd(); };
     $('authBadge').onclick = () => { if (currentUser) openProfile(); };
 
-    // Super panel events
+    // Super panel
     $('superClose').onclick = closeSuperPanel;
-    $('saRefreshStats').onclick = () => { refreshSuperStats(); toast('✓ Stats refreshed'); };
+    document.querySelectorAll('.sa-tab').forEach(t => t.onclick = () => switchSaTab(t.dataset.tab));
+    $('saRefreshStats').onclick = () => { refreshSuperStats(); renderUsersTable(); toast('✓ Stats refreshed'); };
     $('saResetStats').onclick = () => {
       if (!confirm('Reset all statistics?')) return;
-      localStorage.setItem('dark-total-users', '1');
       localStorage.setItem('dark-msg-counter', '0');
       messageCounter = 0;
       refreshSuperStats();
       toast('✓ Stats reset');
     };
-    $('saAddAd').onclick = () => { closeSuperPanel(); openAdEditor(-1); };
-    $('saManageAds').onclick = () => { closeSuperPanel(); openAdEditor(-1); };
-    $('saEditPrompt').onclick = () => {
-      const newPrompt = prompt('Edit System Prompt:', systemPrompt);
-      if (newPrompt && newPrompt.trim()) {
-        systemPrompt = newPrompt.trim();
-        localStorage.setItem('dark-prompt', systemPrompt);
-        Object.values(threads).forEach(t => {
-          if (t.messages[0]?.role === 'system') t.messages[0].content = systemPrompt;
-        });
-        localStorage.setItem('dark-threads', JSON.stringify(threads));
-        toast('✓ Prompt updated');
-      }
+    $('saAddAd').onclick = () => openAdEditor(-1);
+    $('saPreviewAds').onclick = () => {
+      if (ads.length === 0) { toast('No ads to preview'); return; }
+      showFullscreenAd(ads[0], true);
+    };
+    $('saRefreshUsers').onclick = () => { renderUsersTable(); refreshSuperStats(); toast('✓ Refreshed'); };
+    $('saClearUsers').onclick = () => {
+      if (!confirm('Clear user tracking log?')) return;
+      localStorage.removeItem('dark-users-db');
+      renderUsersTable(); refreshSuperStats();
+      toast('✓ User log cleared');
+    };
+    $('saSavePrompt').onclick = () => {
+      const p = $('saPromptArea').value.trim();
+      if (!p) { toast('Prompt cannot be empty'); return; }
+      systemPrompt = p;
+      localStorage.setItem('dark-prompt', systemPrompt);
+      Object.values(threads).forEach(t => { if (t.messages[0]?.role === 'system') t.messages[0].content = systemPrompt; });
+      localStorage.setItem('dark-threads', JSON.stringify(threads));
+      toast('✓ Prompt saved');
     };
     $('saResetPrompt').onclick = () => {
       if (!confirm('Reset system prompt to default?')) return;
       systemPrompt = DEFAULT_SYSTEM_PROMPT;
       localStorage.setItem('dark-prompt', systemPrompt);
-      Object.values(threads).forEach(t => {
-        if (t.messages[0]?.role === 'system') t.messages[0].content = systemPrompt;
-      });
+      $('saPromptArea').value = systemPrompt;
+      Object.values(threads).forEach(t => { if (t.messages[0]?.role === 'system') t.messages[0].content = systemPrompt; });
       localStorage.setItem('dark-threads', JSON.stringify(threads));
       toast('✓ Prompt reset');
     };
     $('saExportAll').onclick = () => {
       const data = {
         exportDate: new Date().toISOString(),
-        version: '22.0',
+        version: '23.0',
         systemPrompt, threads, ads,
+        users: JSON.parse(localStorage.getItem('dark-users-db') || '{}'),
         settings: { preferredLang, preferredSize, theme, autoSpeak },
-        stats: {
-          totalUsers: parseInt(localStorage.getItem('dark-total-users') || '1', 10),
-          msgCounter: messageCounter
-        }
+        stats: { msgCounter: messageCounter }
       };
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = 'dark-full-backup-' + Date.now() + '.json';
@@ -2984,13 +2496,15 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
             if (data.systemPrompt) { systemPrompt = data.systemPrompt; localStorage.setItem('dark-prompt', systemPrompt); }
             if (data.threads) { threads = data.threads; localStorage.setItem('dark-threads', JSON.stringify(threads)); }
             if (data.ads) { ads = data.ads; localStorage.setItem('dark-ads', JSON.stringify(ads)); }
+            if (data.users) localStorage.setItem('dark-users-db', JSON.stringify(data.users));
             if (data.settings) {
               if (data.settings.preferredLang) preferredLang = data.settings.preferredLang;
               if (data.settings.preferredSize) preferredSize = data.settings.preferredSize;
               if (data.settings.theme) { theme = data.settings.theme; applyTheme(); }
               if (typeof data.settings.autoSpeak === 'boolean') autoSpeak = data.settings.autoSpeak;
             }
-            renderThreads(); rebuildUI(); refreshSuperStats();
+            renderThreads(); rebuildUI(); refreshSuperStats(); renderAdsList(); renderUsersTable();
+            $('saPromptArea').value = systemPrompt;
             toast('✓ Full restore complete');
           } catch { toast('❌ Invalid file'); }
         };
@@ -2998,59 +2512,30 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       };
       input.click();
     };
-    $('saClearEverything').onclick = () => {
-      if (!confirm('⚠️ Delete ALL chats, ads, and settings?')) return;
-      if (!confirm('Really sure? Cannot undo!')) return;
-      ['dark-threads','dark-active','dark-ads','dark-prompt','dark-msg-counter'].forEach(k => localStorage.removeItem(k));
-      threads = {}; ads = []; systemPrompt = DEFAULT_SYSTEM_PROMPT; messageCounter = 0;
-      createThread(true);
-      renderThreads(); rebuildUI(); refreshSuperStats();
-      toast('✓ Everything cleared');
-    };
-    $('saListUsers').onclick = () => {
-      const users = JSON.parse(localStorage.getItem('dark-recent-users') || '[]');
-      if (users.length === 0) { alert('No users tracked yet'); return; }
-      alert('Recent users:\n\n' + users.slice(-20).map(u => u.name).join('\n'));
-    };
-    $('saClearUsers').onclick = () => {
-      if (!confirm('Clear user tracking log?')) return;
-      localStorage.removeItem('dark-recent-users');
-      toast('✓ User log cleared');
-    };
     $('saChangeColors').onclick = () => {
       const c1 = prompt('Primary color (hex):', '#6366f1');
+      if (!c1) return;
       const c2 = prompt('Secondary color (hex):', '#06b6d4');
-      if (c1 && c2) {
-        document.documentElement.style.setProperty('--accent', c1);
-        document.documentElement.style.setProperty('--accent-2', c2);
-        localStorage.setItem('dark-custom-accent', c1);
-        localStorage.setItem('dark-custom-accent-2', c2);
-        toast('✓ Colors updated');
-      }
+      if (!c2) return;
+      document.documentElement.style.setProperty('--accent', c1);
+      document.documentElement.style.setProperty('--accent-2', c2);
+      localStorage.setItem('dark-custom-accent', c1);
+      localStorage.setItem('dark-custom-accent-2', c2);
+      toast('✓ Colors updated');
     };
     $('saChangeLogo').onclick = () => {
       const icon = prompt('Logo character:', '◆');
-      if (icon) {
-        document.querySelectorAll('.brand-mark, .welcome-icon').forEach(el => el.textContent = icon);
-        localStorage.setItem('dark-custom-logo', icon);
-        toast('✓ Logo updated');
-      }
+      if (!icon) return;
+      document.querySelectorAll('.brand-mark, .welcome-icon').forEach(el => el.textContent = icon);
+      localStorage.setItem('dark-custom-logo', icon);
+      toast('✓ Logo updated');
     };
-    $('saAddPage').onclick = () => {
-      const name = prompt('Page name (without .html):', 'about');
-      const content = prompt('Page content (HTML):', '<h1>My Page</h1><p>Content here</p>');
-      if (name && content) {
-        const pages = JSON.parse(localStorage.getItem('dark-custom-pages') || '{}');
-        pages[name] = content;
-        localStorage.setItem('dark-custom-pages', JSON.stringify(pages));
-        toast('✓ Page created: /' + name);
-      }
-    };
-    $('saListPages').onclick = () => {
-      const pages = JSON.parse(localStorage.getItem('dark-custom-pages') || '{}');
-      const names = Object.keys(pages);
-      if (names.length === 0) { alert('No custom pages yet'); return; }
-      alert('Custom pages:\n\n' + names.join('\n'));
+    $('saResetBranding').onclick = () => {
+      if (!confirm('Reset colors and logo?')) return;
+      localStorage.removeItem('dark-custom-accent');
+      localStorage.removeItem('dark-custom-accent-2');
+      localStorage.removeItem('dark-custom-logo');
+      location.reload();
     };
     $('saReload').onclick = () => location.reload();
     $('saToggleTheme').onclick = () => {
@@ -3058,62 +2543,58 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       applyTheme();
       toast('Theme: ' + theme);
     };
+    $('saClearChats').onclick = () => {
+      if (!confirm('Delete ALL chats?')) return;
+      if (!confirm('Really sure?')) return;
+      threads = {}; activeId = null;
+      createThread(true); saveThreads(); renderThreads(); rebuildUI(); refreshSuperStats();
+      toast('✓ Chats cleared');
+    };
     $('saFactoryReset').onclick = () => {
-      if (!confirm('⚠️⚠️ FACTORY RESET\n\nThis will delete EVERYTHING.\n\nContinue?')) return;
-      if (!confirm('⚠️⚠️ ARE YOU ABSOLUTELY SURE?\n\nThis CANNOT be undone!')) return;
+      if (!confirm('⚠️ FACTORY RESET\n\nThis deletes EVERYTHING.\n\nContinue?')) return;
+      if (!confirm('⚠️ ARE YOU ABSOLUTELY SURE?\n\nCannot be undone!')) return;
       localStorage.clear();
       toast('💥 Factory reset complete');
       setTimeout(() => location.reload(), 1000);
     };
   }
 
-  // ============ INIT ============
+  /* ============================================================
+     INIT
+     ============================================================ */
   async function init() {
     loadThreads();
-    const totalUsers = parseInt(localStorage.getItem('dark-total-users') || '0', 10);
-    localStorage.setItem('dark-total-users', totalUsers + 1);
     applyTheme();
     updateClock();
 
     try { await updateAuthUI(); } catch {}
-
-    if (currentUser) {
-      try {
-        const users = JSON.parse(localStorage.getItem('dark-recent-users') || '[]');
-        users.push({ name: currentUser.username || 'User', time: Date.now() });
-        localStorage.setItem('dark-recent-users', JSON.stringify(users.slice(-50)));
-      } catch {}
-    }
+    try { await trackVisit(); } catch (e) { console.warn('Track failed:', e); }
 
     const c1 = localStorage.getItem('dark-custom-accent');
     const c2 = localStorage.getItem('dark-custom-accent-2');
     if (c1) document.documentElement.style.setProperty('--accent', c1);
     if (c2) document.documentElement.style.setProperty('--accent-2', c2);
     const logo = localStorage.getItem('dark-custom-logo');
-    if (logo) {
-      document.querySelectorAll('.brand-mark, .welcome-icon').forEach(el => el.textContent = logo);
-    }
+    if (logo) document.querySelectorAll('.brand-mark, .welcome-icon').forEach(el => el.textContent = logo);
 
     renderThreads();
     rebuildUI();
     attachEvents();
     initVoice();
+    updateAdsCount();
 
     try {
       const h = await fetch(PROXY_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [{ role: 'user', content: 'ping' }] })
+        method:'POST',
+        headers:{ 'Content-Type':'application/json' },
+        body: JSON.stringify({ messages:[{ role:'user', content:'ping' }] })
       });
       setStatus(h.ok ? 'Online' : 'Error', h.ok);
     } catch { setStatus('Proxy offline', false); }
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
 </script>
 </body>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dark-ai-306y.onrender.com/sitemap.xml

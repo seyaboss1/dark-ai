@@ -466,19 +466,46 @@
     border-radius: 12px; display: block; background: #000;
   }
   .img-progress {
-    display: flex; align-items: center; gap: 0.5rem;
-    padding: 0.6rem 0.8rem; background: var(--bg-3);
-    border-radius: 10px; font-size: 0.82rem; color: var(--muted);
-  }
-  .img-progress .spinner {
-    width: 16px; height: 16px;
-    border: 2px solid var(--border-2);
-    border-top-color: var(--accent);
-    border-radius: 50%; animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .chat-input {
-    display: flex; border-top: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 0.7rem;
+  padding: 1rem 1.2rem; background: var(--bg-3);
+  border-radius: 12px; font-size: 0.85rem; color: var(--muted);
+  min-width: 260px;
+}
+.progress-percent {
+  font-size: 2rem; font-weight: 800; text-align: center;
+  background: linear-gradient(90deg, #8b5cf6, #3b82f6, #06b6d4);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.progress-bar {
+  width: 100%; height: 8px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 4px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, #8b5cf6, #3b82f6, #06b6d4);
+  border-radius: 4px;
+  transition: width 0.4s ease;
+  animation: shimmer 1.8s infinite;
+}
+@keyframes shimmer {
+  0%   { filter: brightness(1); }
+  50%  { filter: brightness(1.4); }
+  100% { filter: brightness(1); }
+}
+.progress-message {
+  text-align: center; font-size: 0.8rem;
+  color: var(--muted); min-height: 1.2em;
+  transition: opacity 0.3s;
+}
+.progress-meta {
+  display: flex; justify-content: space-between;
+  font-size: 0.72rem; opacity: 0.8;
+}
+.progress-meta .eta { color: #8b5cf6; font-weight: 600; }
+@keyframes spin { to { transform: rotate(360deg); } }
+  display: flex; border-top: 1px solid var(--border);
     background: var(--bg-2); flex-shrink: 0;
     align-items: center; gap: 0.5rem;
     padding: 0.6rem 0.75rem;
@@ -1631,8 +1658,47 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     col.className = 'msg-col';
     const wrap = document.createElement('div');
     wrap.className = 'msg ai msg-image';
-    wrap.innerHTML = '<div class="img-progress"><div class="spinner"></div><span>Generating image…</span></div>';
-    col.appendChild(wrap); row.appendChild(col);
+    const progressId = 'prog-' + Date.now();
+wrap.innerHTML = `
+  <div class="img-progress">
+    <div class="progress-percent" id="pct-${progressId}">0%</div>
+    <div class="progress-bar"><div class="progress-fill" id="fill-${progressId}"></div></div>
+    <div class="progress-message" id="msg-${progressId}">🎨 جاري تحضير الفكرة...</div>
+    <div class="progress-meta">
+      <span>⏱️ <span id="time-${progressId}">0.0</span>s</span>
+      <span class="eta">جاري الإنشاء</span>
+    </div>
+  </div>
+`;
+const pctEl = document.getElementById('pct-' + progressId);
+const fillEl = document.getElementById('fill-' + progressId);
+const msgEl = document.getElementById('msg-' + progressId);
+const timeEl = document.getElementById('time-' + progressId);
+const startTime = Date.now();
+let fakeProgress = 0;
+const messages = [
+  '🎨 جاري تحضير الفكرة...',
+  '💭 أفكر في التفاصيل...',
+  '✏️ أرسم الخطوط الأولى...',
+  '🎨 أضيف الألوان...',
+  '✨ أضيف اللمسات الأخيرة...',
+  '🖼️ جاري التحميل...'
+];
+const progressInterval = setInterval(() => {
+  const elapsed = (Date.now() - startTime) / 1000;
+  timeEl.textContent = elapsed.toFixed(1);
+  if (fakeProgress < 95) {
+    const speed = fakeProgress < 50 ? 2.5 : fakeProgress < 80 ? 1.2 : 0.4;
+    fakeProgress += speed;
+    if (fakeProgress > 95) fakeProgress = 95;
+    const rounded = Math.floor(fakeProgress);
+    pctEl.textContent = rounded + '%';
+    fillEl.style.width = rounded + '%';
+    const msgIndex = Math.min(Math.floor(elapsed / 3), messages.length - 1);
+    msgEl.textContent = messages[msgIndex];
+  }
+}, 200);
+col.appendChild(wrap); row.appendChild(col);
     $('chatBody').appendChild(row); scrollBottom();
     setStatus('Generating image…');
 
@@ -1644,11 +1710,13 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
 
       const loaded = await new Promise((resolve) => {
         const img = new Image();
-        img.onload = () => resolve(true);
-        img.onerror = () => resolve(false);
+        img.onload = () => { clearInterval(progressInterval); resolve(true); };
+        img.onerror = () => { clearInterval(progressInterval); resolve(false); };
         img.src = url;
-        setTimeout(() => resolve(false), 90000);
-      });
+        setTimeout(() => { clearInterval(progressInterval); resolve(false); }, 90000);
+        });
+
+      clearInterval(progressInterval);
 
       if (!loaded) throw new Error('Timeout');
 

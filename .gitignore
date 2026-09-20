@@ -1,11 +1,47 @@
+# ===== Dependencies =====
 node_modules/
+package-lock.json
+
+# ===== Secrets / Env =====
+.env
+.env.local
 .hf_key
-*.tgz
+
+# ===== Backups =====
+*.OLD
+*.OLD_*
+*.backup
+*.backup.v*
 *.save
-favicon.ico
 index.html.save
-node_modules/
-.hf_key
+index.html.backup
+index.html.backup.v*
+sitemap.xml.backup
+
+# ===== Archives =====
 *.tgz
-*.save
+
+# ===== Termux artifacts =====
+termux-api.apk
+ngrok-*.tgz
+storage/
+usb/
+Apps/
+Termux:API
+
+# ===== Embedded repos =====
+dark-ai/
+
+# ===== OS =====
 .DS_Store
+Thumbs.db
+*~
+
+# ===== Logs =====
+*.log
+npm-debug.log*
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.swp

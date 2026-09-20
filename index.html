@@ -85,7 +85,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 @keyframes voiceRing{0%{transform:scale(.9);opacity:1}100%{transform:scale(1.35);opacity:0}}
 @keyframes waveBar{0%,100%{height:6px}50%{height:20px}}
 
-/* ============ LAYOUT ============ */
 .layout{flex:1;max-width:1280px;width:100%;margin:0 auto;display:flex;gap:1rem;padding:1rem 1.25rem;overflow:hidden;min-height:0}
 .sidebar{width:270px;flex-shrink:0;background:var(--surface);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border:1px solid var(--border-2);border-radius:var(--r);padding:1rem;display:flex;flex-direction:column;gap:.75rem;overflow:hidden;transition:width .3s ease,opacity .3s}
 .sidebar.hidden{width:0;padding:1rem 0;opacity:0;border-width:0;pointer-events:none}
@@ -156,20 +155,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .msg.ai pre:hover .code-copy{opacity:1}
 .code-copy:hover{background:var(--accent);color:#fff}
 
-/* ============ PROMPT BOX ============ */
-.prompt-box{margin-top:.8rem;background:var(--bg-3);border:1px solid var(--border-2);border-radius:15px;padding:.9rem;animation:slideIn .25s}
-.prompt-text{font-size:.8rem;line-height:1.55;color:var(--fg);background:var(--bg-2);padding:.7rem;border-radius:11px;border:1px solid var(--border);margin-bottom:.65rem;max-height:130px;overflow-y:auto;font-family:'JetBrains Mono',monospace;white-space:pre-wrap;word-break:break-word}
-.prompt-actions{display:flex;gap:.5rem;flex-wrap:wrap}
-.prompt-btn{flex:1;min-width:120px;background:transparent;border:1px solid var(--border-2);color:var(--accent);padding:.7rem .9rem;border-radius:11px;font-weight:700;font-size:.8rem;cursor:pointer;font-family:inherit;transition:all .25s;position:relative;overflow:hidden}
-.prompt-btn:hover:not(:disabled){border-color:var(--accent);background:rgba(99,102,241,.08);transform:translateY(-1px)}
-.prompt-btn:disabled{opacity:.7;cursor:not-allowed}
-.prompt-btn.primary{background:var(--grad);color:#fff;border-color:transparent;position:relative;overflow:hidden}
-.prompt-btn.primary::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);transform:translateX(-100%);animation:btnShine 2s linear infinite}
-@keyframes btnShine{to{transform:translateX(100%)}}
-.prompt-btn.primary:hover:not(:disabled){box-shadow:var(--glow);transform:translateY(-2px)}
-.prompt-btn.primary:disabled{background:var(--bg-3);color:var(--muted)}
-.prompt-btn.done{background:rgba(16,185,129,.15);color:var(--ok);border-color:var(--ok)}
-
 .msg.typing{display:inline-flex;align-items:center;gap:5px;padding:.85rem 1.15rem;min-width:65px}
 .msg.typing .t-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:typingBounce 1.4s ease-in-out infinite}
 .msg.typing .t-dot:nth-child(2){animation-delay:.2s;background:var(--accent-2)}
@@ -181,7 +166,7 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .msg-meta{display:flex;gap:.4rem;margin-top:.45rem;padding:0 .4rem;font-size:.72rem;color:var(--muted);align-items:center;flex-wrap:wrap;opacity:0;transition:opacity .25s}
 .msg-row:hover .msg-meta{opacity:1}
 
-.msg-action{background:var(--bg-3);border:1px solid var(--border-2);color:var(--muted);cursor:pointer;font-size:.72rem;padding:.32rem .65rem;border-radius:999px;display:inline-flex;align-items:center;gap:.3rem;transition:all .3s cubic-bezier(.4,0,.2,1);font-family:inherit;font-weight:600;position:relative;overflow:hidden}
+.msg-action{background:var(--bg-3);border:1px solid var(--border-2);color:var(--muted);cursor:pointer;font-size:.72rem;padding:.32rem .65rem;border-radius:999px;display:inline-flex;align-items:center;gap:.3rem;transition:all .3s;font-family:inherit;font-weight:600;position:relative;overflow:hidden}
 .msg-action:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 16px rgba(99,102,241,.25)}
 .msg-action:active{transform:translateY(0) scale(.95)}
 .msg-action.done{color:var(--ok);border-color:var(--ok);background:rgba(16,185,129,.1)}
@@ -202,7 +187,149 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .msg-image img:hover{transform:scale(1.01)}
 .msg-video video{max-width:100%;width:100%;border-radius:14px;display:block;background:#000}
 
-/* ============ 3D PROGRESS ============ */
+/* ============================================================
+   3D PREPARING (RUNNING SIMULATION) — replaces "Click to generate"
+   ============================================================ */
+.prep3d{
+  position:relative;overflow:hidden;
+  padding:1.3rem 1.4rem;
+  border-radius:18px;
+  background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(6,182,212,.1),rgba(168,85,247,.12));
+  border:1px solid var(--border-2);
+  margin-top:.6rem;
+  min-width:280px;
+  perspective:800px;
+  isolation:isolate;
+}
+.prep3d::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 20% 30%,rgba(99,102,241,.3),transparent 45%),
+    radial-gradient(circle at 80% 70%,rgba(168,85,247,.3),transparent 45%);
+  pointer-events:none;z-index:0;
+  animation:prepGlow 3s ease-in-out infinite alternate;
+}
+@keyframes prepGlow{0%{opacity:.6}100%{opacity:1}}
+.prep3d::after{
+  content:'';position:absolute;inset:-50%;
+  background:conic-gradient(from 0deg,transparent 0deg,rgba(99,102,241,.2) 60deg,transparent 120deg,rgba(6,182,212,.2) 180deg,transparent 240deg,rgba(168,85,247,.2) 300deg,transparent 360deg);
+  animation:prepRotate 6s linear infinite;pointer-events:none;z-index:0;
+}
+@keyframes prepRotate{to{transform:rotate(360deg)}}
+
+.prep3d-inner{position:relative;z-index:2;display:flex;align-items:center;gap:1rem}
+.prep3d-scene{
+  width:64px;height:64px;
+  display:flex;align-items:center;justify-content:center;
+  perspective:600px;flex-shrink:0;
+}
+.prep3d-cube{
+  width:36px;height:36px;position:relative;
+  transform-style:preserve-3d;
+  animation:prepCubeRotate 3.5s linear infinite;
+}
+@keyframes prepCubeRotate{
+  0%{transform:rotateX(-25deg) rotateY(0deg)}
+  100%{transform:rotateX(-25deg) rotateY(360deg)}
+}
+.prep3d-face{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(99,102,241,.95),rgba(6,182,212,.95));
+  border:1.5px solid rgba(255,255,255,.5);
+  border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;
+  box-shadow:0 0 12px rgba(99,102,241,.7) inset;
+}
+.prep3d-face-1{transform:translateZ(18px)}
+.prep3d-face-2{transform:rotateY(90deg) translateZ(18px)}
+.prep3d-face-3{transform:rotateY(180deg) translateZ(18px)}
+.prep3d-face-4{transform:rotateY(-90deg) translateZ(18px)}
+.prep3d-face-5{transform:rotateX(90deg) translateZ(18px)}
+.prep3d-face-6{transform:rotateX(-90deg) translateZ(18px)}
+
+.prep3d-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.prep3d-p{
+  position:absolute;width:4px;height:4px;border-radius:50%;
+  background:linear-gradient(135deg,#6366f1,#22d3ee);
+  box-shadow:0 0 8px currentColor;
+  animation:prepFloat 2.5s ease-in-out infinite;
+}
+@keyframes prepFloat{
+  0%{transform:translate3d(0,100%,0) scale(0);opacity:0}
+  30%{transform:translate3d(0,40%,0) scale(1);opacity:1}
+  100%{transform:translate3d(0,-120%,0) scale(0);opacity:0}
+}
+
+.prep3d-ring{
+  position:absolute;top:50%;left:32px;
+  width:56px;height:56px;border-radius:50%;
+  border:1.5px solid rgba(99,102,241,.4);
+  transform:translate(-50%,-50%) rotateX(75deg);
+  animation:prepRing 2.4s ease-out infinite;pointer-events:none;z-index:1;
+}
+@keyframes prepRing{
+  0%{transform:translate(-50%,-50%) rotateX(75deg) scale(.6);opacity:1}
+  100%{transform:translate(-50%,-50%) rotateX(75deg) scale(1.6);opacity:0}
+}
+
+.prep3d-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:.3rem}
+.prep3d-title{
+  font-size:.88rem;font-weight:800;color:var(--fg);
+  display:flex;align-items:center;gap:.5rem;
+}
+.prep3d-title .pulse-txt{
+  background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent));
+  background-size:300% auto;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:gradShift 2.5s linear infinite;
+}
+.prep3d-sub{
+  font-size:.72rem;color:var(--muted);display:flex;align-items:center;gap:.4rem;
+}
+.prep3d-dots{display:inline-flex;gap:3px}
+.prep3d-dots span{width:4px;height:4px;border-radius:50%;background:var(--accent);animation:bounce 1.2s ease-in-out infinite}
+.prep3d-dots span:nth-child(2){animation-delay:.15s;background:var(--accent-2)}
+.prep3d-dots span:nth-child(3){animation-delay:.3s;background:var(--accent-3)}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
+
+.prep3d-bar{
+  width:100%;height:5px;margin-top:.5rem;
+  background:rgba(127,127,127,.15);border-radius:999px;overflow:hidden;
+}
+.prep3d-bar-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,#6366f1,#06b6d4,#a855f7,#6366f1);
+  background-size:300% auto;border-radius:999px;
+  animation:gradShift 2s linear infinite,prepFill 3s ease-out forwards;
+  box-shadow:0 0 12px rgba(99,102,241,.7);
+}
+@keyframes prepFill{
+  0%{width:0%}
+  40%{width:45%}
+  100%{width:75%}
+}
+
+/* ============================================================
+   PROMPT BOX + BUTTONS
+   ============================================================ */
+.prompt-box{margin-top:.7rem;background:var(--bg-3);border:1px solid var(--border-2);border-radius:15px;padding:.9rem;animation:slideIn .25s}
+.prompt-text{font-size:.78rem;line-height:1.55;color:var(--fg);background:var(--bg-2);padding:.7rem;border-radius:11px;border:1px solid var(--border);margin-bottom:.65rem;max-height:130px;overflow-y:auto;font-family:'JetBrains Mono',monospace;white-space:pre-wrap;word-break:break-word}
+.prompt-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+.prompt-btn{flex:1;min-width:120px;background:transparent;border:1px solid var(--border-2);color:var(--accent);padding:.75rem .9rem;border-radius:11px;font-weight:800;font-size:.82rem;cursor:pointer;font-family:inherit;transition:all .25s;position:relative;overflow:hidden}
+.prompt-btn:hover:not(:disabled){border-color:var(--accent);background:rgba(99,102,241,.08);transform:translateY(-1px)}
+.prompt-btn:disabled{opacity:.75;cursor:not-allowed}
+.prompt-btn.primary{background:var(--grad);color:#fff;border-color:transparent;position:relative;overflow:hidden;box-shadow:0 6px 20px rgba(99,102,241,.35)}
+.prompt-btn.primary::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);transform:translateX(-100%);animation:btnShine 2s linear infinite}
+@keyframes btnShine{to{transform:translateX(100%)}}
+.prompt-btn.primary:hover:not(:disabled){box-shadow:0 10px 28px rgba(99,102,241,.55);transform:translateY(-2px)}
+.prompt-btn.primary:disabled{background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff;border-color:transparent;box-shadow:0 6px 20px rgba(245,158,11,.4)}
+.prompt-btn.primary:disabled::after{animation-duration:.8s}
+.prompt-btn.done{background:rgba(16,185,129,.15);color:var(--ok);border-color:var(--ok)}
+
+/* ============================================================
+   3D PROGRESS (GENERATION)
+   ============================================================ */
 .u3d-gen{position:relative;overflow:hidden;padding:1.6rem;border-radius:22px;background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(6,182,212,.08),rgba(168,85,247,.1));border:1px solid var(--border-2);min-width:340px;max-width:100%;display:flex;flex-direction:column;gap:1rem;perspective:800px}
 .u3d-gen::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(99,102,241,.25),transparent 50%),radial-gradient(circle at 70% 80%,rgba(168,85,247,.2),transparent 50%);pointer-events:none}
 .u3d-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
@@ -237,18 +364,51 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .u3d-stat.accent .u3d-stat-val{color:var(--accent)}
 .u3d-stat.ok .u3d-stat-val{color:var(--ok)}
 
-/* ============ CHAT INPUT ============ */
+/* ============================================================
+   CONFETTI
+   ============================================================ */
+.confetti-container{position:fixed;inset:0;pointer-events:none;z-index:2500;overflow:hidden}
+.confetti-piece{
+  position:absolute;width:10px;height:10px;
+  animation:confettiFall 3s ease-in forwards;
+  opacity:.9;
+}
+@keyframes confettiFall{
+  0%{transform:translateY(-20vh) rotate(0deg);opacity:1}
+  100%{transform:translateY(110vh) rotate(720deg);opacity:0}
+}
+
+/* ============================================================
+   IMAGE VIEWER
+   ============================================================ */
+.viewer-modal{position:fixed;inset:0;background:rgba(5,6,15,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:2500;display:none;align-items:center;justify-content:center;padding:1rem;flex-direction:column;gap:1rem}
+.viewer-modal.show{display:flex;animation:fadeIn .25s}
+.viewer-modal img{max-width:95vw;max-height:80vh;border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.6);animation:viewerZoom .3s cubic-bezier(.4,0,.2,1)}
+@keyframes viewerZoom{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.viewer-actions{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
+.viewer-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:.7rem 1.3rem;border-radius:12px;font-weight:700;font-size:.82rem;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;gap:.5rem}
+.viewer-btn:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+.viewer-btn.close{background:rgba(225,29,72,.2);border-color:rgba(225,29,72,.5);color:#fca5a5}
+.viewer-btn.close:hover{background:var(--err);color:#fff}
+.viewer-close{position:absolute;top:1rem;right:1rem;width:44px;height:44px;border-radius:50%;background:rgba(225,29,72,.2);border:1px solid rgba(225,29,72,.5);color:#fca5a5;font-size:1.4rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.viewer-close:hover{background:var(--err);color:#fff}
+
+/* ============================================================
+   CHAT INPUT
+   ============================================================ */
 .chat-input{display:flex;border-top:1px solid var(--border);background:var(--bg-2);flex-shrink:0;align-items:center;gap:.5rem;padding:.65rem .8rem}
 .chat-input input[type="text"]{flex:1;outline:none;padding:.75rem 1rem;color:var(--fg);font-family:inherit;font-size:.9rem;min-width:0;border-radius:14px;background:var(--bg-3);border:1px solid var(--border);transition:all .2s}
 .chat-input input[type="text"]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.15)}
 .chat-input input[type="text"]::placeholder{color:var(--muted)}
-.send-btn{height:54px;padding:0 1.6rem;border-radius:27px;background:var(--grad);border:none;color:#fff;font-weight:800;font-size:.8rem;letter-spacing:2px;cursor:pointer;font-family:inherit;transition:all .25s;white-space:nowrap;flex-shrink:0;box-shadow:0 6px 20px rgba(99,102,241,.35);position:relative;overflow:hidden}
+.send-btn{height:54px;padding:0 1.6rem;border-radius:27px;background:var(--grad);border:none;color:#fff;font-weight:800;font-size:.8rem;letter-spacing:2px;cursor:pointer;font-family:inherit;transition:all .25s;white-space:nowrap;flex-shrink:0;box-shadow:0 6px 20px rgba(99,102,241,.35)}
 .send-btn:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(99,102,241,.5)}
 .send-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .send-btn.stop{background:linear-gradient(135deg,var(--err),#f43f5e);animation:stopPulse 1s ease-in-out infinite}
 @keyframes stopPulse{0%,100%{box-shadow:0 6px 20px rgba(225,29,72,.4)}50%{box-shadow:0 6px 30px rgba(225,29,72,.8)}}
 
-/* ============ MODALS (z-index fixed) ============ */
+/* ============================================================
+   MODALS
+   ============================================================ */
 .modal-bg{position:fixed;inset:0;background:rgba(5,8,16,.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:2000;display:none;align-items:center;justify-content:center;padding:1rem;animation:fadeIn .25s}
 .modal-bg.show{display:flex}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -313,12 +473,11 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .size-opt.active{border-color:var(--accent);background:var(--grad);color:#fff}
 .size-opt small{font-size:.68rem;opacity:.85}
 
-/* ============ FULLSCREEN AD ============ */
 .ad-fullscreen{position:fixed;inset:0;background:rgba(5,8,16,.98);backdrop-filter:blur(20px);z-index:1800;display:none;flex-direction:column;align-items:center;justify-content:center;padding:1rem}
 .ad-fullscreen.show{display:flex;animation:fadeIn .3s}
 .ad-content{max-width:680px;width:100%;background:var(--bg-2);border:2px solid var(--accent);border-radius:26px;padding:1.5rem;text-align:center;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.6),var(--glow);overflow:hidden}
 .ad-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;gap:.5rem;flex-wrap:wrap}
-.ad-badge{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#fff;padding:.3rem .8rem;border-radius:999px;font-size:.68rem;font-weight:800;letter-spacing:1px;animation:pulse 1.5s ease-in-out infinite}
+.ad-badge{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#fff;padding:.3rem .8rem;border-radius:999px;font-size:.68rem;font-weight:800;letter-spacing:1px}
 .ad-time-left{font-size:.75rem;color:var(--muted);font-weight:700;font-variant-numeric:tabular-nums;padding:.35rem .7rem;background:var(--bg-3);border-radius:999px;border:1px solid var(--border-2)}
 .ad-media-wrap{width:100%;max-height:420px;border-radius:16px;overflow:hidden;margin-bottom:1rem;background:#000;position:relative}
 .ad-media-wrap img,.ad-media-wrap video{width:100%;height:100%;max-height:420px;object-fit:contain;display:block;border-radius:16px}
@@ -333,12 +492,10 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .ad-skip:disabled{opacity:.5;cursor:not-allowed}
 .ad-skip.ready{background:var(--err);color:#fff;animation:pulse 1s ease-in-out infinite}
 
-/* ============ ADMIN FLOATING ============ */
 .admin-float{position:fixed;top:70px;right:16px;z-index:100;background:linear-gradient(135deg,var(--err),var(--gold));color:#fff;border:none;padding:.65rem 1rem;border-radius:14px;font-weight:800;font-size:.78rem;cursor:pointer;font-family:inherit;box-shadow:0 10px 30px rgba(251,191,36,.5);display:none;align-items:center;gap:.4rem;animation:superPulse 2s ease-in-out infinite;transition:all .25s}
 .admin-float.show{display:flex}
 .admin-float:hover{transform:scale(1.05)}
 
-/* ============ SUPER ADMIN ============ */
 .super-panel{position:fixed;inset:0;background:radial-gradient(circle at 15% 0%,rgba(99,102,241,.18),transparent 50%),radial-gradient(circle at 85% 100%,rgba(168,85,247,.18),transparent 50%),radial-gradient(circle at 50% 50%,rgba(6,182,212,.08),transparent 70%),rgba(5,6,15,.98);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);z-index:1500;display:none;flex-direction:column;overflow:hidden}
 .super-panel.show{display:flex;animation:fadeIn .3s}
 .sa-hero{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.6rem;background:linear-gradient(135deg,rgba(225,29,72,.2),rgba(251,191,36,.18),rgba(99,102,241,.2));border-bottom:1px solid rgba(251,191,36,.35);flex-wrap:wrap;position:relative}
@@ -370,6 +527,7 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .sa-kpi.ads{color:#fbbf24}
 .sa-kpi.msgs{color:#a855f7}
 .sa-kpi.visits{color:#10b981}
+.sa-kpi.images{color:#f472b6}
 .sa-kpi-icon{width:42px;height:42px;border-radius:12px;background:currentColor;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.15rem;margin-bottom:.75rem;box-shadow:0 8px 20px rgba(0,0,0,.3)}
 .sa-kpi-value{font-size:2.1rem;font-weight:900;color:#fff;font-variant-numeric:tabular-nums;line-height:1;margin-bottom:.3rem}
 .sa-kpi-label{font-size:.7rem;color:rgba(255,255,255,.55);letter-spacing:1.5px;text-transform:uppercase;font-weight:600}
@@ -423,7 +581,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(90px);background:var(--bg-2);border:1px solid var(--accent);color:var(--accent);padding:.8rem 1.6rem;border-radius:999px;font-size:.85rem;font-weight:700;z-index:3000;transition:transform .4s cubic-bezier(.4,0,.2,1);pointer-events:none;max-width:90vw;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.3),var(--glow)}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
-/* ============ RESPONSIVE ============ */
 @media (max-width:900px){
   .layout{padding:.75rem;gap:.75rem}
   .sidebar{position:fixed;top:62px;left:0;bottom:0;width:285px;z-index:90;border-radius:0 22px 22px 0;transform:translateX(-100%);transition:transform .3s ease}
@@ -452,6 +609,16 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   .sa-users-table thead th,.sa-users-table tbody td{padding:.5rem .4rem}
   .auth-btn{padding:.5rem .8rem;font-size:.72rem;height:36px}
   .user-chip .u-name{display:none}
+  .prep3d{min-width:240px;padding:1rem}
+  .prep3d-scene{width:48px;height:48px}
+  .prep3d-cube{width:28px;height:28px}
+  .prep3d-face-1{transform:translateZ(14px)}
+  .prep3d-face-2{transform:rotateY(90deg) translateZ(14px)}
+  .prep3d-face-3{transform:rotateY(180deg) translateZ(14px)}
+  .prep3d-face-4{transform:rotateY(-90deg) translateZ(14px)}
+  .prep3d-face-5{transform:rotateX(90deg) translateZ(14px)}
+  .prep3d-face-6{transform:rotateX(-90deg) translateZ(14px)}
+  .prep3d-face{font-size:.7rem}
 }
 ::-webkit-scrollbar{width:8px;height:8px}
 ::-webkit-scrollbar-track{background:transparent}
@@ -466,6 +633,8 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   <div class="blob blob-3"></div>
   <div class="grid-overlay"></div>
 </div>
+
+<div class="confetti-container" id="confettiContainer"></div>
 
 <header>
   <div class="nav">
@@ -539,6 +708,17 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   </div>
 </div>
 
+<!-- IMAGE VIEWER -->
+<div class="viewer-modal" id="viewerModal">
+  <button class="viewer-close" id="viewerClose" type="button">✕</button>
+  <img id="viewerImg" src="" alt="" />
+  <div class="viewer-actions">
+    <button class="viewer-btn" id="viewerDownload" type="button">⬇ Download</button>
+    <button class="viewer-btn" id="viewerCopy" type="button">📋 Copy URL</button>
+    <button class="viewer-btn close" id="viewerCloseBtn" type="button">✕ Close</button>
+  </div>
+</div>
+
 <!-- AUTH MODAL -->
 <div class="modal-bg" id="authModal">
   <div class="modal auth-modal">
@@ -574,8 +754,9 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
     <label>Image Size</label>
     <div class="size-grid" id="sizeGrid"></div>
     <h3>Behavior</h3>
-    <div class="voice-row"><div class="toggle" id="autoGenToggle"></div><span>Auto-generate images (no button needed)</span></div>
+    <div class="voice-row"><div class="toggle" id="autoGenToggle"></div><span>Auto-generate images</span></div>
     <div class="voice-row"><div class="toggle" id="autoSpeakToggle"></div><span>Auto-speak AI replies</span></div>
+    <div class="voice-row"><div class="toggle" id="confettiToggle"></div><span>Confetti on image success 🎉</span></div>
     <h3>Appearance</h3>
     <div class="voice-row"><div class="toggle" id="themeToggle"></div><span>Dark mode</span></div>
     <div class="modal-actions">
@@ -702,6 +883,7 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
         <div class="sa-kpi visits"><div class="sa-kpi-icon">🔁</div><div class="sa-kpi-value" id="saTotalVisits">0</div><div class="sa-kpi-label">Total Visits</div></div>
         <div class="sa-kpi chats"><div class="sa-kpi-icon">💬</div><div class="sa-kpi-value" id="saTotalChats">0</div><div class="sa-kpi-label">Chats</div></div>
         <div class="sa-kpi msgs"><div class="sa-kpi-icon">📨</div><div class="sa-kpi-value" id="saTotalMsgs">0</div><div class="sa-kpi-label">Messages</div></div>
+        <div class="sa-kpi images"><div class="sa-kpi-icon">🎨</div><div class="sa-kpi-value" id="saTotalImages">0</div><div class="sa-kpi-label">Images Made</div></div>
         <div class="sa-kpi ads"><div class="sa-kpi-icon">📢</div><div class="sa-kpi-value" id="saTotalAds">0</div><div class="sa-kpi-label">Ads</div></div>
       </div>
       <div class="sa-section">
@@ -806,7 +988,7 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 
 <script>
 /* ============================================================
-   DARK AI v26 — FIXED EDITION
+   DARK AI v27 — 3D RUNNING SIMULATION
    ============================================================ */
 (function () {
   'use strict';
@@ -873,11 +1055,11 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     { icon:'🖼️', text:'Finalizing your image' }
   ];
 
-  // STATE
   let preferredLang = localStorage.getItem('dark-lang') || 'auto';
   let preferredSize = localStorage.getItem('dark-size') || 'hd';
   let autoSpeak = localStorage.getItem('dark-autospeak') === 'true';
   let autoGenImages = localStorage.getItem('dark-autogen') !== 'false';
+  let confettiEnabled = localStorage.getItem('dark-confetti') !== 'false';
   let theme = localStorage.getItem('dark-theme') || 'light';
   let systemPrompt = localStorage.getItem('dark-prompt') || DEFAULT_SYSTEM_PROMPT;
   let learnedRules = localStorage.getItem('dark-learned-rules') || '';
@@ -891,6 +1073,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   let searchQuery = '';
   let ads = JSON.parse(localStorage.getItem('dark-ads') || '[]');
   let messageCounter = parseInt(localStorage.getItem('dark-msg-counter') || '0', 10);
+  let imageCounter = parseInt(localStorage.getItem('dark-image-counter') || '0', 10);
   let voiceRecognition = null;
   let isRecording = false;
   let isSpeaking = false;
@@ -927,27 +1110,15 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     if (/[a-zA-Z]/.test(text)) return 'en';
     return null;
   }
-
-  // SPEAK
   function speak(text, updateBtn = true) {
     if (!window.speechSynthesis) return;
     speechSynthesis.cancel();
-    const clean = text
-      .replace(/\[IMAGE_PROMPT\][\s\S]*?\[\/IMAGE_PROMPT\]/g, '')
-      .replace(/\[VIDEO_PROMPT\][\s\S]*?\[\/VIDEO_PROMPT\]/g, '')
-      .replace(/```[\s\S]*?```/g, 'code block')
-      .replace(/`([^`]+)`/g, '$1')
-      .replace(/[*_#>]/g, '').trim();
+    const clean = text.replace(/\[IMAGE_PROMPT\][\s\S]*?\[\/IMAGE_PROMPT\]/g, '').replace(/\[VIDEO_PROMPT\][\s\S]*?\[\/VIDEO_PROMPT\]/g, '').replace(/```[\s\S]*?```/g, 'code block').replace(/`([^`]+)`/g, '$1').replace(/[*_#>]/g, '').trim();
     if (!clean) return;
     const detected = detectLanguage(clean);
     let langCode = 'en-US';
-    if (detected) {
-      const l = LANGUAGES.find(x => x.code === detected);
-      if (l && l.tts) langCode = l.tts;
-    } else if (preferredLang !== 'auto') {
-      const l = LANGUAGES.find(x => x.code === preferredLang);
-      if (l && l.tts) langCode = l.tts;
-    }
+    if (detected) { const l = LANGUAGES.find(x => x.code === detected); if (l && l.tts) langCode = l.tts; }
+    else if (preferredLang !== 'auto') { const l = LANGUAGES.find(x => x.code === preferredLang); if (l && l.tts) langCode = l.tts; }
     const u = new SpeechSynthesisUtterance(clean);
     u.lang = langCode; u.rate = 1.05; u.pitch = 1.0;
     if (updateBtn) {
@@ -963,7 +1134,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     isSpeaking = false;
     $('speakBtn').classList.remove('speaking');
   }
-
   function renderMarkdown(text) {
     let html = escapeHtml(text);
     const codeBlocks = [];
@@ -1002,7 +1172,61 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     });
   };
 
-  // LEARNING
+  /* ============ CONFETTI ============ */
+  function launchConfetti() {
+    if (!confettiEnabled) return;
+    const container = $('confettiContainer');
+    const colors = ['#6366f1','#06b6d4','#a855f7','#fbbf24','#10b981','#e11d48','#f472b6'];
+    const shapes = ['■','●','▲','◆','★'];
+    for (let i = 0; i < 80; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const shape = shapes[Math.floor(Math.random() * shapes.length)];
+      const size = 8 + Math.random() * 10;
+      piece.style.cssText = `
+        left:${Math.random() * 100}%;
+        top:${-10 - Math.random() * 20}%;
+        width:${size}px;height:${size}px;
+        background:${Math.random() > 0.5 ? color : 'transparent'};
+        color:${color};
+        font-size:${size}px;line-height:1;
+        font-weight:900;
+        border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
+        animation-delay:${Math.random() * 0.8}s;
+        animation-duration:${2.5 + Math.random() * 1.5}s;
+      `;
+      piece.textContent = Math.random() > 0.5 ? shape : '';
+      container.appendChild(piece);
+      setTimeout(() => piece.remove(), 4500);
+    }
+  }
+
+  /* ============ IMAGE VIEWER ============ */
+  function openViewer(url) {
+    $('viewerImg').src = url;
+    $('viewerModal').classList.add('show');
+    $('viewerDownload').onclick = () => downloadImage(url);
+    $('viewerCopy').onclick = () => {
+      navigator.clipboard.writeText(url).then(() => toast('URL copied'));
+    };
+  }
+  function closeViewer() {
+    $('viewerModal').classList.remove('show');
+    $('viewerImg').src = '';
+  }
+  async function downloadImage(url) {
+    try {
+      const res = await fetch(url);
+      const blob = await res.blob();
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'dark-' + Date.now() + '.png';
+      a.click(); toast('Downloaded');
+    } catch { window.open(url, '_blank'); }
+  }
+
+  /* ============ LEARNING ============ */
   function recordFeedback(messageText, isPositive) {
     const db = JSON.parse(localStorage.getItem('dark-learn-db') || '{"positive":0,"negative":0,"patterns":{}}');
     if (isPositive) db.positive++; else db.negative++;
@@ -1039,7 +1263,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     return systemPrompt + '\n\nLEARNED BEHAVIOR RULES:\n' + learnedRules;
   }
 
-  // FINGERPRINT
+  /* ============ FINGERPRINT ============ */
   async function getFingerprint() {
     try {
       const canvas = document.createElement('canvas');
@@ -1086,7 +1310,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     return currentVisit;
   }
 
-  // VOICE
+  /* ============ VOICE ============ */
   function initVoice() {
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SR) { $('voiceBtn').style.display = 'none'; return; }
@@ -1128,7 +1352,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     };
   }
 
-  // THREADS
+  /* ============ THREADS ============ */
   function loadThreads() {
     try { threads = JSON.parse(localStorage.getItem('dark-threads') || '{}') || {}; }
     catch { threads = {}; }
@@ -1193,7 +1417,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     });
   }
 
-  // RENDER
+  /* ============ RENDER ============ */
   function hideWelcome() { const w = $('welcome'); if (w) w.remove(); }
   function scrollBottom() { const cb = $('chatBody'); cb.scrollTop = cb.scrollHeight; }
   function renderUserMsg(text) {
@@ -1211,6 +1435,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   function buildMeta(text, tokens, originalPrompt) {
     const meta = document.createElement('div');
     meta.className = 'msg-meta';
+
     const copyBtn = document.createElement('button');
     copyBtn.type = 'button'; copyBtn.className = 'msg-action copy-btn';
     copyBtn.innerHTML = '<span>📋</span><span>Copy</span>';
@@ -1237,7 +1462,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       recordFeedback(originalPrompt || '', true);
       likeBtn.classList.add('liked');
       dislikeBtn.classList.remove('disliked');
-      toast('👍 Thanks! DARK is learning.');
+      toast('👍 Thanks!');
     };
     meta.appendChild(likeBtn);
 
@@ -1248,7 +1473,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       recordFeedback(originalPrompt || '', false);
       dislikeBtn.classList.add('disliked');
       likeBtn.classList.remove('liked');
-      toast('👎 Noted. DARK will improve.');
+      toast('👎 Noted.');
     };
     meta.appendChild(dislikeBtn);
 
@@ -1296,7 +1521,9 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     row.appendChild(col); $('chatBody').appendChild(row); scrollBottom();
   }
 
-  // ===== FIXED: Clean prompt handler with working button + optional auto-gen =====
+  /* ============================================================
+     THE 3D RUNNING SIMULATION
+     ============================================================ */
   function handleImagePrompt(text, prompt, type, tokens, col, row, originalPrompt) {
     prompt = (prompt || '').trim();
     const tagRe = type === 'image' ? /\[IMAGE_PROMPT\][\s\S]*?\[\/IMAGE_PROMPT\]/g : /\[VIDEO_PROMPT\][\s\S]*?\[\/VIDEO_PROMPT\]/g;
@@ -1304,8 +1531,62 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
 
     const m = document.createElement('div');
     m.className = 'msg ai';
-    m.innerHTML = renderMarkdown(clean || (type === 'image' ? 'Ready to generate your image:' : 'Ready to generate your video:'));
+    const cleanHtml = clean ? renderMarkdown(clean) : '';
+    m.innerHTML = cleanHtml;
 
+    // === THE 3D RUNNING SIMULATION (replaces "Click to generate") ===
+    const prep = document.createElement('div');
+    prep.className = 'prep3d';
+    prep.innerHTML = `
+      <div class="prep3d-particles" id="prep-p-${Date.now()}"></div>
+      <div class="prep3d-ring"></div>
+      <div class="prep3d-ring" style="animation-delay:.8s;border-color:rgba(6,182,212,.4)"></div>
+      <div class="prep3d-inner">
+        <div class="prep3d-scene">
+          <div class="prep3d-cube">
+            <div class="prep3d-face prep3d-face-1">🧠</div>
+            <div class="prep3d-face prep3d-face-2">🎨</div>
+            <div class="prep3d-face prep3d-face-3">✨</div>
+            <div class="prep3d-face prep3d-face-4">🌈</div>
+            <div class="prep3d-face prep3d-face-5">🔍</div>
+            <div class="prep3d-face prep3d-face-6">🖼️</div>
+          </div>
+        </div>
+        <div class="prep3d-text">
+          <div class="prep3d-title">
+            <span class="pulse-txt">DARK AI is preparing…</span>
+          </div>
+          <div class="prep3d-sub">
+            <span>Analyzing prompt</span>
+            <div class="prep3d-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="prep3d-bar"><div class="prep3d-bar-fill"></div></div>
+        </div>
+      </div>
+    `;
+
+    // Add floating particles
+    setTimeout(() => {
+      const pContainer = prep.querySelector('.prep3d-particles');
+      if (pContainer) {
+        for (let i = 0; i < 10; i++) {
+          const p = document.createElement('div');
+          p.className = 'prep3d-p';
+          p.style.left = (Math.random() * 100) + '%';
+          p.style.bottom = '0%';
+          p.style.animationDelay = (Math.random() * 2.5) + 's';
+          p.style.animationDuration = (1.8 + Math.random() * 1.5) + 's';
+          const hue = 200 + Math.random() * 100;
+          p.style.background = `hsl(${hue},80%,65%)`;
+          p.style.color = `hsl(${hue},80%,65%)`;
+          pContainer.appendChild(p);
+        }
+      }
+    }, 50);
+
+    m.appendChild(prep);
+
+    // Prompt box with copy + generate
     const box = document.createElement('div');
     box.className = 'prompt-box';
     box.innerHTML = '<div class="prompt-text">' + escapeHtml(prompt) + '</div>';
@@ -1313,7 +1594,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const actions = document.createElement('div');
     actions.className = 'prompt-actions';
 
-    // Copy button
     const copyBtn = document.createElement('button');
     copyBtn.className = 'prompt-btn';
     copyBtn.innerHTML = '📋 Copy';
@@ -1325,51 +1605,57 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     };
     actions.appendChild(copyBtn);
 
-    // GENERATE BUTTON (main)
     const genBtn = document.createElement('button');
     genBtn.className = 'prompt-btn primary';
     const btnLabel = type === 'image' ? '🎨 Generate Image' : '🎬 Generate Video';
     genBtn.innerHTML = btnLabel;
-    genBtn.dataset.state = 'idle';
 
-    // Prevent double-click
     genBtn.onclick = (ev) => {
       ev.preventDefault();
       ev.stopPropagation();
       if (genBtn.disabled) return;
       genBtn.disabled = true;
-      genBtn.innerHTML = type === 'image' ? '⏳ Generating…' : '⏳ Generating…';
+      genBtn.innerHTML = '⏳ Generating…';
+      // Remove the prep3d when clicking generate
+      prep.style.transition = 'opacity .3s, transform .3s';
+      prep.style.opacity = '0';
+      prep.style.transform = 'scale(.95)';
+      setTimeout(() => prep.remove(), 320);
 
       if (type === 'image') generateImage(prompt).finally(() => {
         genBtn.disabled = false;
-        genBtn.innerHTML = btnLabel;
+        genBtn.innerHTML = '🔄 Regenerate';
       });
       else generateVideo(prompt).finally(() => {
         genBtn.disabled = false;
-        genBtn.innerHTML = btnLabel;
+        genBtn.innerHTML = '🔄 Regenerate';
       });
     };
     actions.appendChild(genBtn);
 
     box.appendChild(actions);
     m.appendChild(box);
+
     col.appendChild(m);
     col.appendChild(buildMeta(text, tokens, originalPrompt));
     row.appendChild(col);
     $('chatBody').appendChild(row);
     scrollBottom();
 
-    // AUTO-GENERATE if enabled (only for images)
+    // AUTO-GENERATE
     if (autoGenImages && type === 'image') {
-      // Disable button while auto-generating
       genBtn.disabled = true;
       genBtn.innerHTML = '⏳ Auto-generating…';
       setTimeout(() => {
+        prep.style.transition = 'opacity .3s, transform .3s';
+        prep.style.opacity = '0';
+        prep.style.transform = 'scale(.95)';
+        setTimeout(() => prep.remove(), 320);
         generateImage(prompt).finally(() => {
           genBtn.disabled = false;
           genBtn.innerHTML = '🔄 Regenerate';
         });
-      }, 200);
+      }, 800);
     }
   }
 
@@ -1387,7 +1673,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     return row;
   }
 
-  // ===== IMAGE GENERATION =====
+  /* ============ IMAGE GENERATION ============ */
   async function generateImage(userPrompt) {
     const t = threads[activeId];
     if (!t) return;
@@ -1516,7 +1802,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       wrap.innerHTML = '';
       const img = document.createElement('img');
       img.src = url; img.alt = prompt;
-      img.onclick = () => window.open(url, '_blank');
+      img.onclick = () => openViewer(url);
       wrap.appendChild(img);
 
       const meta = document.createElement('div');
@@ -1525,17 +1811,14 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       const dlBtn = document.createElement('button');
       dlBtn.type = 'button'; dlBtn.className = 'msg-action copy-btn';
       dlBtn.innerHTML = '<span>⬇</span><span>Download</span>';
-      dlBtn.onclick = async () => {
-        try {
-          const res = await fetch(url);
-          const blob = await res.blob();
-          const a = document.createElement('a');
-          a.href = URL.createObjectURL(blob);
-          a.download = 'dark-' + Date.now() + '.png';
-          a.click(); toast('Downloaded');
-        } catch { window.open(url, '_blank'); }
-      };
+      dlBtn.onclick = () => downloadImage(url);
       meta.appendChild(dlBtn);
+
+      const zoomBtn = document.createElement('button');
+      zoomBtn.type = 'button'; zoomBtn.className = 'msg-action copy-btn';
+      zoomBtn.innerHTML = '<span>🔍</span><span>Zoom</span>';
+      zoomBtn.onclick = () => openViewer(url);
+      meta.appendChild(zoomBtn);
 
       const reBtn = document.createElement('button');
       reBtn.type = 'button'; reBtn.className = 'msg-action retry-action-btn';
@@ -1548,6 +1831,9 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       saveThreads();
       setStatus('Online • image ready');
       toast('✨ Image ready');
+      launchConfetti();
+      imageCounter++;
+      localStorage.setItem('dark-image-counter', imageCounter);
     } catch (err) {
       clearInterval(tick);
       const safe = userPrompt.replace(/'/g, "\\'");
@@ -1645,6 +1931,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       saveThreads();
       setStatus('Online • video ready');
       toast('🎬 Video ready');
+      launchConfetti();
     } catch (err) {
       clearInterval(tTick);
       const safe = userPrompt.replace(/'/g, "\\'");
@@ -1656,7 +1943,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   }
   window.DARK_RETRY_VID = (p) => generateVideo(p);
 
-  // CHAT
+  /* ============ CHAT ============ */
   async function sendMsg() {
     if (busy) return;
     const text = $('chatInput').value.trim();
@@ -1714,7 +2001,15 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       lastAiReply = reply;
 
       if (autoSpeak) speak(reply, false);
-      await typewriterRender(reply, tokens, originalPrompt);
+
+      // Check if reply contains image/video prompt — if yes, skip typewriter
+      const hasMedia = /\[IMAGE_PROMPT\]/.test(reply) || /\[VIDEO_PROMPT\]/.test(reply);
+      if (hasMedia) {
+        // Skip typewriter, render directly with the 3D running simulation
+        renderAiMsg(reply, tokens, originalPrompt);
+      } else {
+        await typewriterRender(reply, tokens, originalPrompt);
+      }
       setStatus(tokens ? 'Online • ' + tokens + ' tokens' : 'Online');
     } catch (err) {
       typing.remove();
@@ -1742,8 +2037,8 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     $('chatBody').appendChild(row);
 
     const len = fullText.length;
-    const batchSize = len > 1500 ? 20 : len > 800 ? 12 : len > 300 ? 8 : 4;
-    const frameDelay = len > 1500 ? 8 : len > 800 ? 12 : len > 300 ? 18 : 22;
+    const batchSize = len > 1500 ? 25 : len > 800 ? 15 : len > 300 ? 10 : 5;
+    const frameDelay = len > 1500 ? 6 : len > 800 ? 9 : len > 300 ? 14 : 18;
 
     for (let i = 0; i < len; i += batchSize) {
       if (typewriterCancelled) {
@@ -1809,7 +2104,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const wrap = document.createElement('div');
     wrap.className = 'msg ai msg-image';
     const img = document.createElement('img');
-    img.src = url; img.onclick = () => window.open(url, '_blank');
+    img.src = url; img.onclick = () => openViewer(url);
     wrap.appendChild(img);
     col.appendChild(wrap); row.appendChild(col);
     $('chatBody').appendChild(row); scrollBottom();
@@ -1831,7 +2126,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     localStorage.setItem('dark-theme', theme);
   }
 
-  // AUTH
+  /* ============ AUTH ============ */
   function isSuperAdminCheck(name, email) {
     const _e = (email || '').toLowerCase();
     const _n = (name || '').toLowerCase();
@@ -1873,7 +2168,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   }
   function closeModals() { document.querySelectorAll('.modal-bg').forEach(m => m.classList.remove('show')); }
   function openAuthModal() { $('authModal').classList.add('show'); }
-
   async function doSignIn() {
     try {
       await puter.auth.signIn();
@@ -1942,7 +2236,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     c.appendChild(card);
   }
 
-  // SETTINGS
+  /* ============ SETTINGS ============ */
   function buildLangGrid() {
     const grid = $('langGrid'); grid.innerHTML = '';
     LANGUAGES.forEach(l => {
@@ -1980,6 +2274,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     buildLangGrid(); buildSizeGrid(); renderAuthBox();
     $('autoGenToggle').classList.toggle('on', autoGenImages);
     $('autoSpeakToggle').classList.toggle('on', autoSpeak);
+    $('confettiToggle').classList.toggle('on', confettiEnabled);
     $('themeToggle').classList.toggle('on', theme === 'dark');
     $('settingsModal').classList.add('show');
   }
@@ -1988,14 +2283,15 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     localStorage.setItem('dark-autogen', autoGenImages);
     autoSpeak = $('autoSpeakToggle').classList.contains('on');
     localStorage.setItem('dark-autospeak', autoSpeak);
+    confettiEnabled = $('confettiToggle').classList.contains('on');
+    localStorage.setItem('dark-confetti', confettiEnabled);
     theme = $('themeToggle').classList.contains('on') ? 'dark' : 'light';
     applyTheme();
     closeModals();
     toast('Settings saved');
   }
 
-  // ===== ADS =====
-  // FIXED: openAdEditor now works from inside super panel (higher z-index)
+  /* ============ ADS ============ */
   function openAdEditor(index = -1) {
     const isNew = index === -1;
     const ad = isNew ? {} : ads[index];
@@ -2075,7 +2371,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     if (!due) return;
     showFullscreenAd(due);
   }
-
   let __adInterval = null;
   let __adVideo = null;
   function cleanupAd() {
@@ -2089,24 +2384,20 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const isGif = ad.type === 'gif';
     const total = Math.max(5, Math.min(60, ad.duration || 10));
     const skipAfter = Math.max(1, Math.min(total, ad.skipAfter || 10));
-
     $('adFsTitle').textContent = ad.title || 'Sponsored';
     $('adFsDesc').textContent = ad.desc || '';
     const cta = $('adFsCta');
     cta.textContent = ad.cta || 'Learn More';
     cta.href = ad.link || '#';
     cta.style.display = ad.link ? 'inline-block' : 'none';
-
     const img = $('adFsImage');
     const vid = $('adFsVideo');
     const wrap = $('adMediaWrap');
     img.style.display = 'none'; img.src = '';
     vid.style.display = 'none'; vid.pause(); vid.src = '';
     wrap.querySelectorAll('.ad-media-tag').forEach(e => e.remove());
-
-    if (!ad.media) {
-      wrap.style.display = 'none';
-    } else {
+    if (!ad.media) { wrap.style.display = 'none'; }
+    else {
       wrap.style.display = 'block';
       if (isVideo) {
         vid.src = ad.media;
@@ -2123,20 +2414,16 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       tag.textContent = isVideo ? '🎬 VIDEO' : isGif ? '🎞️ GIF' : '🖼️ IMAGE';
       wrap.appendChild(tag);
     }
-
     overlay.classList.add('show');
-
     const skipBtn = $('adSkip');
     const skipText = $('adSkipText');
     const timerBar = $('adTimerBar');
     const timeLeft = $('adTimeLeft');
-
     skipBtn.disabled = true;
     skipBtn.classList.remove('ready');
     skipText.textContent = '⏱ Skip in ' + Math.ceil(skipAfter) + 's';
     timerBar.style.width = '0%';
     timeLeft.textContent = Math.ceil(total) + 's left';
-
     let elapsed = 0;
     __adInterval = setInterval(() => {
       elapsed += 0.1;
@@ -2161,7 +2448,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     $('adFullscreen').classList.remove('show');
   }
 
-  // SUPER ADMIN
+  /* ============ SUPER ADMIN ============ */
   function openSuperPanel() {
     if (!isSuperAdmin) { toast('❌ Super Admin only'); return; }
     refreshSuperStats();
@@ -2191,6 +2478,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     $('saTotalVisits').textContent = totalVisits;
     $('saTotalChats').textContent = totalChats;
     $('saTotalMsgs').textContent = totalMsgs;
+    $('saTotalImages').textContent = imageCounter;
     $('saTotalAds').textContent = ads.length;
     const uc = $('saUsersCount'); if (uc) uc.textContent = totalUsers;
     updateAdsCount();
@@ -2302,14 +2590,22 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     $('settingsSave').onclick = saveSettings;
     $('autoGenToggle').onclick = () => $('autoGenToggle').classList.toggle('on');
     $('autoSpeakToggle').onclick = () => $('autoSpeakToggle').classList.toggle('on');
+    $('confettiToggle').onclick = () => $('confettiToggle').classList.toggle('on');
     $('themeToggle').onclick = () => $('themeToggle').classList.toggle('on');
     $('adSkip').onclick = () => { if (!$('adSkip').disabled) closeAd(); };
+
+    // Image viewer
+    $('viewerClose').onclick = closeViewer;
+    $('viewerCloseBtn').onclick = closeViewer;
+    $('viewerModal').addEventListener('click', (e) => { if (e.target === $('viewerModal')) closeViewer(); });
+
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.shiftKey && e.key === 'A') {
         e.preventDefault();
         if (isSuperAdmin) openSuperPanel();
       }
       if (e.key === 'Escape') {
+        if ($('viewerModal').classList.contains('show')) { closeViewer(); return; }
         if ($('adFullscreen').classList.contains('show') && !$('adSkip').disabled) closeAd();
       }
     });
@@ -2320,7 +2616,8 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     $('saResetStats').onclick = () => {
       if (!confirm('Reset counters?')) return;
       localStorage.setItem('dark-msg-counter', '0');
-      messageCounter = 0;
+      localStorage.setItem('dark-image-counter', '0');
+      messageCounter = 0; imageCounter = 0;
       refreshSuperStats();
       toast('✓ Reset');
     };
@@ -2366,7 +2663,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       toast('✓ Reset');
     };
     $('saExportAll').onclick = () => {
-      const data = { exportDate: new Date().toISOString(), version: '26.0', systemPrompt, learnedRules, threads, ads, users: JSON.parse(localStorage.getItem('dark-users-db') || '{}'), learning: JSON.parse(localStorage.getItem('dark-learn-db') || '{}'), settings: { preferredLang, preferredSize, theme, autoSpeak, autoGenImages }, stats: { msgCounter: messageCounter } };
+      const data = { exportDate: new Date().toISOString(), version: '27.0', systemPrompt, learnedRules, threads, ads, users: JSON.parse(localStorage.getItem('dark-users-db') || '{}'), learning: JSON.parse(localStorage.getItem('dark-learn-db') || '{}'), settings: { preferredLang, preferredSize, theme, autoSpeak, autoGenImages, confettiEnabled }, stats: { msgCounter: messageCounter, imageCounter } };
       const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
@@ -2394,6 +2691,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
               if (data.settings.theme) { theme = data.settings.theme; applyTheme(); }
               if (typeof data.settings.autoSpeak === 'boolean') autoSpeak = data.settings.autoSpeak;
               if (typeof data.settings.autoGenImages === 'boolean') autoGenImages = data.settings.autoGenImages;
+              if (typeof data.settings.confettiEnabled === 'boolean') confettiEnabled = data.settings.confettiEnabled;
             }
             renderThreads(); rebuildUI(); refreshSuperStats(); renderAdsList(); renderUsersTable(); updateLearnUI();
             $('saPromptArea').value = systemPrompt;

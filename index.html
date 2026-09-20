@@ -11,9 +11,9 @@
 <script src="https://js.puter.com/v2/"></script>
 <style>
 /* ============================================================
-   DARK AI v23 — SUPER EDITION
+   DARK AI v24 — SMART EDITION
    ============================================================ */
-:root {
+:root{
   --bg:#f6f8ff;--bg-2:#fff;--bg-3:#eef2ff;--surface:rgba(255,255,255,.75);
   --fg:#0f1733;--muted:#6b7499;--accent:#6366f1;--accent-2:#06b6d4;--accent-3:#a855f7;
   --ok:#10b981;--err:#e11d48;--warn:#f59e0b;--gold:#fbbf24;
@@ -51,19 +51,49 @@ body{
 }
 @keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(60px,-50px) scale(1.18)}66%{transform:translate(-50px,60px) scale(.88)}}
 
-/* HEADER */
 header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%);-webkit-backdrop-filter:blur(var(--blur)) saturate(180%);border-bottom:1px solid var(--border);flex-shrink:0;z-index:50}
-.nav{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.25rem}
+.nav{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.25rem;gap:.5rem}
 .nav-left{display:flex;align-items:center;gap:.6rem}
 .nav-actions{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:.6rem;font-size:1.15rem;font-weight:900;letter-spacing:5px;color:var(--fg);text-decoration:none}
 .brand-mark{width:38px;height:38px;border-radius:12px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:#fff;box-shadow:0 8px 24px rgba(99,102,241,.4);animation:brandPulse 3s ease-in-out infinite}
 @keyframes brandPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07);box-shadow:0 12px 32px rgba(99,102,241,.6)}}
-.auth-badge{display:flex;align-items:center;gap:.4rem;background:var(--bg-3);border:1px solid var(--border-2);color:var(--accent);padding:.4rem .8rem;border-radius:11px;font-size:.75rem;font-weight:700;height:38px;white-space:nowrap;max-width:180px;overflow:hidden;text-overflow:ellipsis;cursor:pointer;transition:all .2s}
-.auth-badge:hover{border-color:var(--accent);box-shadow:var(--glow)}
-.auth-badge .avatar-sm{width:20px;height:20px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.65rem;font-weight:800;flex-shrink:0}
-.auth-badge.super{background:linear-gradient(135deg,var(--err),var(--gold));color:#fff;border-color:transparent;animation:superPulse 2s ease-in-out infinite}
-@keyframes superPulse{0%,100%{box-shadow:0 0 8px rgba(251,191,36,.6)}50%{box-shadow:0 0 28px rgba(251,191,36,1)}}
+
+/* AUTH BUTTON */
+.auth-btn{
+  display:flex;align-items:center;gap:.5rem;
+  background:var(--grad);color:#fff;border:none;
+  padding:.55rem 1.1rem;border-radius:12px;
+  font-size:.8rem;font-weight:800;font-family:inherit;
+  cursor:pointer;transition:all .25s;
+  box-shadow:0 6px 18px rgba(99,102,241,.35);
+  white-space:nowrap;height:40px;
+}
+.auth-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(99,102,241,.55)}
+.auth-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.user-chip{
+  display:flex;align-items:center;gap:.5rem;
+  background:var(--bg-3);border:1px solid var(--border-2);
+  padding:.3rem .7rem .3rem .3rem;border-radius:999px;
+  cursor:pointer;transition:all .2s;height:40px;
+  max-width:200px;
+}
+.user-chip:hover{border-color:var(--accent);box-shadow:var(--glow)}
+.user-chip .u-av{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--grad);display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:900;font-size:.8rem;flex-shrink:0;
+}
+.user-chip .u-name{
+  font-size:.78rem;font-weight:700;color:var(--fg);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.user-chip.super{
+  background:linear-gradient(135deg,rgba(225,29,72,.15),rgba(251,191,36,.15));
+  border-color:rgba(251,191,36,.5);
+  animation:superPulse 2s ease-in-out infinite;
+}
+@keyframes superPulse{0%,100%{box-shadow:0 0 8px rgba(251,191,36,.5)}50%{box-shadow:0 0 24px rgba(251,191,36,.9)}}
 
 .icon-tool{width:42px;height:42px;border-radius:13px;background:transparent;border:1px solid var(--border-2);color:var(--accent);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;flex-shrink:0}
 .icon-tool svg{width:18px;height:18px;transition:transform .35s;stroke-width:2;stroke:currentColor;fill:none;stroke-linecap:round;stroke-linejoin:round;position:relative;z-index:1}
@@ -92,14 +122,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .sidebar{width:270px;flex-shrink:0;background:var(--surface);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border:1px solid var(--border-2);border-radius:var(--r);padding:1rem;display:flex;flex-direction:column;gap:.75rem;overflow:hidden;transition:width .3s ease,opacity .3s}
 .sidebar.hidden{width:0;padding:1rem 0;opacity:0;border-width:0;pointer-events:none}
 .sidebar > *{min-width:230px}
-.user-card{background:var(--bg-3);border:1px solid var(--border-2);border-radius:var(--r-sm);padding:.75rem;display:flex;align-items:center;gap:.6rem;flex-shrink:0;cursor:pointer;transition:all .25s}
-.user-card:hover{border-color:var(--accent);box-shadow:var(--glow)}
-.user-card .avatar-lg{width:38px;height:38px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1rem;flex-shrink:0}
-.user-card.super .avatar-lg{background:linear-gradient(135deg,var(--err),var(--gold))}
-.user-card .info{display:flex;flex-direction:column;gap:.05rem;min-width:0;flex:1}
-.user-card .name{font-size:.82rem;font-weight:700;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.user-card .sub{font-size:.68rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.user-card .crown{font-size:1rem;color:var(--gold);filter:drop-shadow(0 0 6px rgba(251,191,36,.7))}
 .new-chat{background:var(--grad);color:#fff;border:none;padding:.8rem 1rem;border-radius:var(--r-sm);font-weight:700;font-size:.88rem;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:.4rem;transition:all .25s;box-shadow:0 6px 18px rgba(99,102,241,.3);flex-shrink:0}
 .new-chat:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(99,102,241,.5)}
 .search-box{background:var(--bg-3);border:1px solid var(--border-2);border-radius:11px;padding:.6rem .9rem;color:var(--fg);font-family:inherit;font-size:.85rem;outline:none;flex-shrink:0}
@@ -114,7 +136,6 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .sidebar-footer{border-top:1px solid var(--border);padding-top:.75rem;display:flex;flex-direction:column;gap:.4rem;flex-shrink:0}
 .sidebar-btn{background:transparent;border:1px solid var(--border-2);color:var(--fg);padding:.6rem;border-radius:11px;font-size:.8rem;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:.5rem;transition:all .2s;font-weight:500}
 .sidebar-btn:hover{background:var(--bg-3);border-color:var(--accent);color:var(--accent)}
-.sidebar-btn.super{background:linear-gradient(135deg,var(--err),var(--gold));color:#fff;border-color:transparent;font-weight:700;animation:superPulse 2s ease-in-out infinite}
 
 .chat-area{flex:1;min-width:0;display:flex;flex-direction:column;overflow:hidden}
 .chat-wrap{flex:1;background:var(--surface);backdrop-filter:blur(26px) saturate(160%);-webkit-backdrop-filter:blur(26px) saturate(160%);border:1px solid var(--border-2);border-radius:26px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:0;position:relative}
@@ -189,6 +210,8 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .msg-action{background:var(--bg-3);border:1px solid var(--border-2);color:var(--muted);cursor:pointer;font-size:.72rem;padding:.32rem .65rem;border-radius:999px;display:inline-flex;align-items:center;gap:.3rem;transition:all .2s;font-family:inherit;font-weight:600}
 .msg-action:hover{border-color:var(--accent);color:var(--accent)}
 .msg-action.done{color:var(--ok);border-color:var(--ok);background:rgba(16,185,129,.1)}
+.msg-action.liked{color:#10b981;border-color:#10b981;background:rgba(16,185,129,.15)}
+.msg-action.disliked{color:#e11d48;border-color:#e11d48;background:rgba(225,29,72,.15)}
 
 .msg-image,.msg-video{background:var(--bg-2)!important;border:1px solid var(--border-2)!important;padding:.55rem!important;display:flex;flex-direction:column;gap:.55rem;max-width:100%}
 .msg-image img{max-width:100%;width:100%;height:auto;border-radius:14px;display:block;cursor:pointer;transition:transform .3s}
@@ -196,140 +219,127 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .msg-video video{max-width:100%;width:100%;border-radius:14px;display:block;background:#000}
 
 /* ============================================================
-   ULTIMATE IMAGE PROGRESS (v23)
+   ULTRA 3D IMAGE PROGRESS (v24)
    ============================================================ */
-.ultra-gen{
+.u3d-gen{
   position:relative;overflow:hidden;
-  padding:1.6rem 1.6rem 1.4rem;
-  background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(6,182,212,.08),rgba(168,85,247,.06));
-  border:1px solid var(--border-2);border-radius:20px;
-  min-width:340px;display:flex;flex-direction:column;gap:1.1rem;
+  padding:1.6rem;border-radius:22px;
+  background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(6,182,212,.08),rgba(168,85,247,.1));
+  border:1px solid var(--border-2);
+  min-width:340px;max-width:100%;
+  display:flex;flex-direction:column;gap:1rem;
+  perspective:800px;
 }
-.ultra-gen::before{
+.u3d-gen::before{
   content:'';position:absolute;inset:0;
-  background:radial-gradient(circle at 50% 0%,rgba(99,102,241,.25),transparent 55%);
+  background:
+    radial-gradient(circle at 30% 20%,rgba(99,102,241,.25),transparent 50%),
+    radial-gradient(circle at 70% 80%,rgba(168,85,247,.2),transparent 50%);
   pointer-events:none;
 }
-.ultra-gen::after{
-  content:'';position:absolute;inset:-50%;
-  background:conic-gradient(from 0deg,transparent,rgba(99,102,241,.15),transparent 30%);
-  animation:rotateBG 8s linear infinite;pointer-events:none;
+.u3d-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.u3d-p{position:absolute;width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#06b6d4);box-shadow:0 0 8px currentColor;animation:u3dFloat 3s ease-in-out infinite}
+@keyframes u3dFloat{
+  0%{transform:translate3d(0,100%,0) scale(0);opacity:0}
+  30%{transform:translate3d(0,50%,0) scale(1);opacity:1}
+  100%{transform:translate3d(0,-120%,0) scale(0);opacity:0}
 }
-@keyframes rotateBG{to{transform:rotate(360deg)}}
-.ultra-head{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
-.ultra-title{display:flex;align-items:center;gap:.65rem;font-size:.9rem;font-weight:800;color:var(--fg);letter-spacing:.3px}
-.ultra-orb{
-  width:44px;height:44px;border-radius:14px;
-  background:linear-gradient(135deg,#6366f1,#06b6d4,#a855f7);
-  background-size:200% auto;
-  display:flex;align-items:center;justify-content:center;
-  color:#fff;font-size:1.15rem;
-  box-shadow:0 8px 26px rgba(99,102,241,.55),0 0 0 4px rgba(99,102,241,.1);
-  animation:orbPulse 2s ease-in-out infinite,gradShift 3s linear infinite;
+.u3d-stage{
+  position:relative;z-index:2;
+  height:90px;display:flex;align-items:center;justify-content:center;
+  transform-style:preserve-3d;
+}
+.u3d-cube{
+  width:64px;height:64px;
   position:relative;
+  transform-style:preserve-3d;
+  animation:u3dRotate 6s linear infinite;
 }
-.ultra-orb::after{
-  content:'';position:absolute;inset:-4px;border-radius:18px;
-  border:2px solid rgba(99,102,241,.4);
-  animation:orbRing 2s ease-out infinite;
+@keyframes u3dRotate{
+  0%{transform:rotateX(-20deg) rotateY(0deg)}
+  100%{transform:rotateX(-20deg) rotateY(360deg)}
 }
-@keyframes orbPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
-@keyframes orbRing{0%{transform:scale(.9);opacity:1}100%{transform:scale(1.4);opacity:0}}
-.ultra-percent{
-  font-size:2.1rem;font-weight:900;
+.u3d-face{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(99,102,241,.9),rgba(6,182,212,.9));
+  border:2px solid rgba(255,255,255,.4);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;
+  box-shadow:0 0 20px rgba(99,102,241,.6) inset;
+  backface-visibility:visible;
+}
+.u3d-face-1{transform:translateZ(32px)}
+.u3d-face-2{transform:rotateY(90deg) translateZ(32px)}
+.u3d-face-3{transform:rotateY(180deg) translateZ(32px)}
+.u3d-face-4{transform:rotateY(-90deg) translateZ(32px)}
+.u3d-face-5{transform:rotateX(90deg) translateZ(32px)}
+.u3d-face-6{transform:rotateX(-90deg) translateZ(32px)}
+
+.u3d-head{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2}
+.u3d-title{font-size:.88rem;font-weight:800;color:var(--fg);display:flex;align-items:center;gap:.5rem}
+.u3d-percent{
+  font-size:2rem;font-weight:900;
   background:linear-gradient(90deg,#6366f1,#06b6d4,#a855f7,#6366f1);
   background-size:300% auto;
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
   animation:gradShift 2s linear infinite;
   font-variant-numeric:tabular-nums;letter-spacing:-1px;
 }
-.ultra-bar-wrap{position:relative;z-index:2}
-.ultra-bar{
-  width:100%;height:14px;background:rgba(127,127,127,.15);
-  border-radius:999px;overflow:hidden;position:relative;
+.u3d-bar{
+  width:100%;height:12px;background:rgba(127,127,127,.15);
+  border-radius:999px;overflow:hidden;
   box-shadow:inset 0 2px 4px rgba(0,0,0,.15);
+  position:relative;z-index:2;
 }
-.ultra-fill{
+.u3d-fill{
   height:100%;width:0%;
   background:linear-gradient(90deg,#6366f1,#06b6d4,#a855f7,#6366f1);
   background-size:300% auto;border-radius:999px;
-  transition:width .55s cubic-bezier(.4,0,.2,1);
+  transition:width .5s cubic-bezier(.4,0,.2,1);
   animation:gradShift 2s linear infinite;
   box-shadow:0 0 20px rgba(99,102,241,.7);
   position:relative;
 }
-.ultra-fill::after{
-  content:'';position:absolute;top:0;right:0;bottom:0;width:50px;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);
-  animation:shine 1.6s linear infinite;
-}
+.u3d-fill::after{content:'';position:absolute;top:0;right:0;bottom:0;width:50px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);animation:shine 1.6s linear infinite}
 @keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
-.ultra-sparkles{
-  position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:inherit;
-}
-.ultra-sparkle{
-  position:absolute;width:4px;height:4px;border-radius:50%;
-  background:linear-gradient(135deg,#6366f1,#06b6d4);
-  animation:sparkleFloat 3s ease-in-out infinite;
-  box-shadow:0 0 6px currentColor;
-}
-@keyframes sparkleFloat{
-  0%{transform:translateY(0) scale(0);opacity:0}
-  20%{transform:translateY(-10px) scale(1);opacity:1}
-  100%{transform:translateY(-60px) scale(0);opacity:0}
-}
-.ultra-step{
+
+.u3d-step{
   display:flex;align-items:center;gap:.7rem;
-  font-size:.85rem;color:var(--fg);
+  padding:.7rem .9rem;
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--border);
+  border-radius:12px;
+  font-size:.82rem;color:var(--fg);font-weight:600;
   position:relative;z-index:2;
-  min-height:1.5em;font-weight:600;
 }
-.ultra-step-icon{
-  width:26px;height:26px;border-radius:8px;
+[data-theme="light"] .u3d-step{background:rgba(99,102,241,.06)}
+.u3d-step-icon{
+  width:28px;height:28px;border-radius:9px;
   background:var(--grad);color:#fff;
   display:flex;align-items:center;justify-content:center;
-  font-size:.85rem;flex-shrink:0;
+  font-size:.9rem;flex-shrink:0;
   animation:stepPulse 1.5s ease-in-out infinite;
 }
 @keyframes stepPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-.ultra-step-text{flex:1}
-.ultra-dots{display:inline-flex;gap:3px;margin-left:auto}
-.ultra-dots span{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:bounce 1.2s ease-in-out infinite}
-.ultra-dots span:nth-child(2){animation-delay:.15s;background:var(--accent-2)}
-.ultra-dots span:nth-child(3){animation-delay:.3s;background:var(--accent-3)}
-@keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
-.ultra-stats{
+.u3d-stats{
   display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;
   position:relative;z-index:2;
 }
-.ultra-stat{
+.u3d-stat{
   background:rgba(255,255,255,.05);
   border:1px solid var(--border);
-  border-radius:10px;padding:.55rem .6rem;text-align:center;
+  border-radius:10px;padding:.5rem;text-align:center;
 }
-[data-theme="light"] .ultra-stat{background:rgba(99,102,241,.06)}
-.ultra-stat-val{
-  font-size:.95rem;font-weight:800;color:var(--fg);
-  font-variant-numeric:tabular-nums;
-}
-.ultra-stat-lbl{
-  font-size:.65rem;color:var(--muted);
-  text-transform:uppercase;letter-spacing:.8px;
-  margin-top:.1rem;
-}
-.ultra-stat.accent .ultra-stat-val{color:var(--accent)}
-.ultra-stat.ok .ultra-stat-val{color:var(--ok)}
-.ultra-cancel{
-  align-self:flex-end;
-  background:transparent;border:1px solid rgba(225,29,72,.4);
-  color:var(--err);padding:.5rem 1rem;border-radius:10px;
-  font-size:.75rem;font-weight:700;cursor:pointer;
-  font-family:inherit;transition:all .2s;
-  position:relative;z-index:2;
-}
-.ultra-cancel:hover{background:var(--err);color:#fff;border-color:var(--err)}
+[data-theme="light"] .u3d-stat{background:rgba(99,102,241,.06)}
+.u3d-stat-val{font-size:.9rem;font-weight:800;color:var(--fg);font-variant-numeric:tabular-nums}
+.u3d-stat-lbl{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-top:.1rem}
+.u3d-stat.accent .u3d-stat-val{color:var(--accent)}
+.u3d-stat.ok .u3d-stat-val{color:var(--ok)}
 
-/* CHAT INPUT */
+/* ============================================================
+   CHAT INPUT
+   ============================================================ */
 .chat-input{display:flex;border-top:1px solid var(--border);background:var(--bg-2);flex-shrink:0;align-items:center;gap:.5rem;padding:.65rem .8rem}
 .chat-input input[type="text"]{flex:1;outline:none;padding:.75rem 1rem;color:var(--fg);font-family:inherit;font-size:.9rem;min-width:0;border-radius:14px;background:var(--bg-3);border:1px solid var(--border);transition:all .2s}
 .chat-input input[type="text"]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.15)}
@@ -339,8 +349,10 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .send-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .send-btn.stop{background:linear-gradient(135deg,var(--err),#f43f5e)}
 
-/* MODALS */
-.modal-bg{position:fixed;inset:0;background:rgba(5,8,16,.65);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem;animation:fadeIn .25s}
+/* ============================================================
+   MODALS
+   ============================================================ */
+.modal-bg{position:fixed;inset:0;background:rgba(5,8,16,.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem;animation:fadeIn .25s}
 .modal-bg.show{display:flex}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .modal{background:var(--bg-2);border:1px solid var(--border-2);border-radius:var(--r);max-width:560px;width:100%;padding:1.7rem;box-shadow:0 30px 90px rgba(0,0,0,.45),var(--glow);max-height:90vh;overflow-y:auto}
@@ -357,6 +369,46 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .modal-actions .save{background:var(--grad);color:#fff}
 .modal-actions .save:hover{box-shadow:var(--glow)}
 
+/* AUTH MODAL */
+.auth-modal{max-width:420px;text-align:center}
+.auth-modal-logo{width:70px;height:70px;border-radius:20px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:#fff;margin:0 auto 1rem;box-shadow:0 15px 40px rgba(99,102,241,.45);animation:brandPulse 3s ease-in-out infinite}
+.auth-modal h2{font-size:1.4rem;margin-bottom:.4rem}
+.auth-modal p{color:var(--muted);font-size:.85rem;margin-bottom:1.5rem}
+.auth-providers{display:flex;flex-direction:column;gap:.6rem}
+.auth-provider{
+  display:flex;align-items:center;gap:.8rem;
+  background:var(--bg-3);border:1px solid var(--border-2);
+  padding:.9rem 1.2rem;border-radius:14px;
+  cursor:pointer;font-family:inherit;font-size:.9rem;
+  color:var(--fg);font-weight:700;
+  transition:all .25s;
+}
+.auth-provider:hover{border-color:var(--accent);background:var(--bg-3);transform:translateY(-2px);box-shadow:var(--glow)}
+.auth-provider svg{width:22px;height:22px;flex-shrink:0}
+.auth-provider .arrow{margin-left:auto;color:var(--muted);font-size:1.1rem;transition:transform .2s}
+.auth-provider:hover .arrow{transform:translateX(4px);color:var(--accent)}
+.auth-provider.google svg{fill:#4285f4}
+.auth-provider.github svg{fill:var(--fg)}
+.auth-provider.email svg{stroke:var(--accent);fill:none;stroke-width:2}
+.auth-skip{background:transparent;border:none;color:var(--muted);font-size:.8rem;cursor:pointer;font-family:inherit;margin-top:1rem;padding:.5rem;text-decoration:underline}
+.auth-skip:hover{color:var(--accent)}
+
+/* PROFILE */
+.profile-header{display:flex;align-items:center;gap:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.profile-avatar{width:64px;height:64px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.6rem;flex-shrink:0;position:relative;box-shadow:0 12px 30px rgba(99,102,241,.35)}
+.profile-avatar.super{background:linear-gradient(135deg,var(--err),var(--gold));animation:superPulse 2s ease-in-out infinite}
+.profile-avatar.super::after{content:'👑';position:absolute;top:-10px;right:-10px;font-size:1.3rem}
+.profile-info{display:flex;flex-direction:column;gap:.2rem}
+.profile-name{font-size:1.15rem;font-weight:800}
+.profile-email{font-size:.82rem;color:var(--muted)}
+.profile-role{display:inline-flex;align-items:center;gap:.3rem;background:linear-gradient(135deg,var(--err),var(--gold));color:#fff;padding:.2rem .6rem;border-radius:999px;font-size:.7rem;font-weight:800;margin-top:.3rem;width:fit-content;letter-spacing:.5px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.7rem;margin-top:1rem}
+.stat-card{background:var(--bg-3);border:1px solid var(--border-2);border-radius:var(--r-sm);padding:1rem .8rem;text-align:center;transition:all .25s}
+.stat-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--glow)}
+.stat-value{font-size:1.6rem;font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:.68rem;color:var(--muted);letter-spacing:.8px;margin-top:.35rem;text-transform:uppercase}
+
+/* SETTINGS */
 .voice-row{display:flex;align-items:center;gap:.7rem;padding:.75rem 0;font-size:.88rem}
 .toggle{position:relative;width:46px;height:26px;background:var(--bg-3);border:1px solid var(--border-2);border-radius:999px;cursor:pointer;transition:all .25s;flex-shrink:0}
 .toggle::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:var(--muted);transition:all .25s}
@@ -373,40 +425,30 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .size-opt.active{border-color:var(--accent);background:var(--grad);color:#fff}
 .size-opt small{font-size:.68rem;opacity:.85}
 
-.profile-header{display:flex;align-items:center;gap:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
-.profile-avatar{width:64px;height:64px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.6rem;flex-shrink:0;position:relative;box-shadow:0 12px 30px rgba(99,102,241,.35)}
-.profile-avatar.super{background:linear-gradient(135deg,var(--err),var(--gold));animation:superPulse 2s ease-in-out infinite}
-.profile-avatar.super::after{content:'👑';position:absolute;top:-10px;right:-10px;font-size:1.3rem}
-.profile-info{display:flex;flex-direction:column;gap:.2rem}
-.profile-name{font-size:1.15rem;font-weight:800}
-.profile-email{font-size:.82rem;color:var(--muted)}
-.profile-role{display:inline-flex;align-items:center;gap:.3rem;background:linear-gradient(135deg,var(--err),var(--gold));color:#fff;padding:.2rem .6rem;border-radius:999px;font-size:.7rem;font-weight:800;margin-top:.3rem;width:fit-content;letter-spacing:.5px}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.7rem;margin-top:1rem}
-.stat-card{background:var(--bg-3);border:1px solid var(--border-2);border-radius:var(--r-sm);padding:1rem .8rem;text-align:center;transition:all .25s}
-.stat-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--glow)}
-.stat-value{font-size:1.6rem;font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.stat-label{font-size:.68rem;color:var(--muted);letter-spacing:.8px;margin-top:.35rem;text-transform:uppercase}
-.auth-box{background:var(--bg-3);border:1px solid var(--border-2);border-radius:var(--r-sm);padding:1rem;text-align:center;margin-top:.5rem}
-
-/* ADS FULLSCREEN */
-.ad-fullscreen{position:fixed;inset:0;background:rgba(5,8,16,.97);backdrop-filter:blur(20px);z-index:1000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:2rem}
+/* ============================================================
+   FULLSCREEN AD v24 (Advanced)
+   ============================================================ */
+.ad-fullscreen{position:fixed;inset:0;background:rgba(5,8,16,.98);backdrop-filter:blur(20px);z-index:1000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:1rem}
 .ad-fullscreen.show{display:flex;animation:fadeIn .3s}
-.ad-content{max-width:640px;width:100%;background:var(--bg-2);border:2px solid var(--accent);border-radius:26px;padding:1.6rem;text-align:center;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.5)}
-.ad-badge{position:absolute;top:1rem;left:1rem;background:linear-gradient(135deg,var(--gold),#f59e0b);color:#fff;padding:.28rem .75rem;border-radius:999px;font-size:.7rem;font-weight:800;letter-spacing:1px;z-index:10}
-.ad-media-wrap{width:100%;max-height:400px;border-radius:16px;overflow:hidden;margin-bottom:1rem;background:#000;position:relative}
-.ad-media-wrap img,.ad-media-wrap video{width:100%;height:100%;max-height:400px;object-fit:contain;display:block;border-radius:16px}
-.ad-timer-bar{position:absolute;bottom:0;left:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:0 4px 4px 0;transition:width .1s linear;box-shadow:0 0 12px var(--accent)}
+.ad-content{max-width:680px;width:100%;background:var(--bg-2);border:2px solid var(--accent);border-radius:26px;padding:1.5rem;text-align:center;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.6),var(--glow);overflow:hidden}
+.ad-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;gap:.5rem;flex-wrap:wrap}
+.ad-badge{background:linear-gradient(135deg,var(--gold),#f59e0b);color:#fff;padding:.3rem .8rem;border-radius:999px;font-size:.68rem;font-weight:800;letter-spacing:1px;animation:pulse 1.5s ease-in-out infinite}
+.ad-time-left{font-size:.75rem;color:var(--muted);font-weight:700;font-variant-numeric:tabular-nums;padding:.35rem .7rem;background:var(--bg-3);border-radius:999px;border:1px solid var(--border-2)}
+.ad-media-wrap{width:100%;max-height:420px;border-radius:16px;overflow:hidden;margin-bottom:1rem;background:#000;position:relative}
+.ad-media-wrap img,.ad-media-wrap video{width:100%;height:100%;max-height:420px;object-fit:contain;display:block;border-radius:16px}
+.ad-timer-bar{position:absolute;bottom:0;left:0;height:5px;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:0 5px 5px 0;transition:width .15s linear;box-shadow:0 0 15px var(--accent);z-index:3}
+.ad-media-tag{position:absolute;top:.7rem;right:.7rem;background:rgba(0,0,0,.7);color:#fff;padding:.25rem .7rem;border-radius:8px;font-size:.65rem;font-weight:700;letter-spacing:1px;backdrop-filter:blur(10px);z-index:3}
 .ad-title{font-size:1.4rem;font-weight:900;margin-bottom:.5rem;background:var(--grad-3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .ad-desc{font-size:.92rem;color:var(--muted);margin-bottom:1.3rem;line-height:1.6}
 .ad-cta{display:inline-block;padding:.95rem 2.2rem;border-radius:999px;background:var(--grad);color:#fff;text-decoration:none;font-weight:800;transition:all .25s;box-shadow:0 10px 30px rgba(99,102,241,.4)}
 .ad-cta:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(99,102,241,.6)}
-.ad-skip{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;min-width:46px;height:46px;padding:0 .9rem;border-radius:999px;cursor:pointer;font-size:.9rem;font-weight:800;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:10;font-family:inherit}
-.ad-skip:hover:not(:disabled){background:rgba(255,255,255,.22)}
-.ad-skip:disabled{opacity:.6;cursor:not-allowed}
-.ad-media-tag{position:absolute;top:.6rem;right:.6rem;background:rgba(0,0,0,.6);color:#fff;padding:.2rem .6rem;border-radius:6px;font-size:.65rem;font-weight:700;letter-spacing:1px;backdrop-filter:blur(8px)}
+.ad-skip{background:rgba(225,29,72,.15);border:1px solid rgba(225,29,72,.5);color:#fca5a5;padding:.6rem 1.1rem;border-radius:999px;cursor:pointer;font-size:.8rem;font-weight:800;font-family:inherit;transition:all .2s;display:flex;align-items:center;gap:.4rem}
+.ad-skip:hover:not(:disabled){background:var(--err);color:#fff;transform:scale(1.03)}
+.ad-skip:disabled{opacity:.5;cursor:not-allowed}
+.ad-skip.ready{background:var(--err);color:#fff;animation:pulse 1s ease-in-out infinite}
 
 /* ============================================================
-   SUPER ADMIN v23 — PRO TABBED DASHBOARD
+   SUPER ADMIN v24 — PRO TABBED
    ============================================================ */
 .super-panel{
   position:fixed;inset:0;
@@ -419,15 +461,7 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   z-index:1500;display:none;flex-direction:column;overflow:hidden;
 }
 .super-panel.show{display:flex;animation:fadeIn .3s}
-
-.sa-hero{
-  display:flex;align-items:center;gap:1rem;
-  padding:1.2rem 1.6rem;
-  background:linear-gradient(135deg,rgba(225,29,72,.2),rgba(251,191,36,.18),rgba(99,102,241,.2));
-  border-bottom:1px solid rgba(251,191,36,.35);
-  flex-wrap:wrap;position:relative;
-  box-shadow:0 20px 60px rgba(225,29,72,.15);
-}
+.sa-hero{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.6rem;background:linear-gradient(135deg,rgba(225,29,72,.2),rgba(251,191,36,.18),rgba(99,102,241,.2));border-bottom:1px solid rgba(251,191,36,.35);flex-wrap:wrap;position:relative;box-shadow:0 20px 60px rgba(225,29,72,.15)}
 .sa-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--err),var(--gold),var(--accent),var(--err));background-size:200% auto;animation:topShine 3s linear infinite}
 .sa-crown{width:52px;height:52px;border-radius:15px;background:linear-gradient(135deg,var(--err),var(--gold));display:flex;align-items:center;justify-content:center;font-size:1.7rem;box-shadow:0 12px 36px rgba(251,191,36,.55);animation:crownFloat 3s ease-in-out infinite}
 @keyframes crownFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-4px) rotate(3deg)}}
@@ -436,16 +470,14 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .sa-hero-sub{font-size:.78rem;color:rgba(255,255,255,.65);letter-spacing:1px;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
 .sa-live-badge{display:inline-flex;align-items:center;gap:.35rem;background:rgba(16,185,129,.2);color:#10b981;padding:.2rem .6rem;border-radius:999px;font-size:.68rem;font-weight:700;border:1px solid rgba(16,185,129,.4)}
 .sa-live-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:#10b981;animation:pulse 1.5s ease-in-out infinite;box-shadow:0 0 8px #10b981}
-.sa-close{background:rgba(225,29,72,.15);border:1px solid rgba(225,29,72,.4);color:#fca5a5;padding:.6rem 1.1rem;border-radius:11px;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;gap:.4rem}
+.sa-close{background:rgba(225,29,72,.15);border:1px solid rgba(225,29,72,.4);color:#fca5a5;padding:.6rem 1.1rem;border-radius:11px;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
 .sa-close:hover{background:var(--err);color:#fff;transform:translateY(-1px)}
-
 .sa-tabs{display:flex;gap:.4rem;padding:.9rem 1.4rem 0;overflow-x:auto;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.08)}
 .sa-tab{background:transparent;border:1px solid transparent;color:rgba(255,255,255,.55);padding:.65rem 1.1rem;border-radius:11px 11px 0 0;font-weight:700;font-size:.82rem;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:.4rem;position:relative}
 .sa-tab:hover{color:#fff;background:rgba(255,255,255,.05)}
 .sa-tab.active{color:#fff;background:linear-gradient(180deg,rgba(99,102,241,.25),rgba(99,102,241,.05));border-color:rgba(99,102,241,.4)}
 .sa-tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--grad);box-shadow:0 0 12px var(--accent)}
 .sa-tab .sa-tab-count{background:rgba(255,255,255,.12);padding:.1rem .45rem;border-radius:999px;font-size:.68rem}
-
 .sa-content{flex:1;overflow-y:auto;padding:1.4rem}
 .sa-tab-panel{display:none;animation:fadeIn .25s}
 .sa-tab-panel.active{display:block}
@@ -462,24 +494,21 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .sa-kpi-icon{width:42px;height:42px;border-radius:12px;background:currentColor;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.15rem;margin-bottom:.75rem;box-shadow:0 8px 20px rgba(0,0,0,.3)}
 .sa-kpi-value{font-size:2.1rem;font-weight:900;color:#fff;font-variant-numeric:tabular-nums;line-height:1;margin-bottom:.3rem}
 .sa-kpi-label{font-size:.7rem;color:rgba(255,255,255,.55);letter-spacing:1.5px;text-transform:uppercase;font-weight:600}
-.sa-kpi-trend{position:absolute;top:1.1rem;right:1.2rem;font-size:.7rem;font-weight:700;padding:.2rem .5rem;border-radius:999px;background:rgba(16,185,129,.15);color:#10b981}
 
 .sa-section{background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:1.3rem;margin-bottom:1rem;transition:all .25s}
 .sa-section:hover{border-color:rgba(99,102,241,.3)}
 .sa-section.danger{border-color:rgba(225,29,72,.35);background:linear-gradient(135deg,rgba(225,29,72,.08),rgba(225,29,72,.02))}
 .sa-section-head{display:flex;align-items:center;gap:.7rem;margin-bottom:.75rem}
 .sa-section-icon{width:38px;height:38px;border-radius:11px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:#fff;box-shadow:0 6px 18px rgba(99,102,241,.35)}
-.sa-section.danger .sa-section-icon{background:linear-gradient(135deg,var(--err),#f43f5e);box-shadow:0 6px 18px rgba(225,29,72,.35)}
+.sa-section.danger .sa-section-icon{background:linear-gradient(135deg,var(--err),#f43f5e)}
 .sa-section-title{font-size:.98rem;font-weight:800;color:#fff;letter-spacing:.3px}
 .sa-section-desc{font-size:.78rem;color:rgba(255,255,255,.5);margin-bottom:1rem;line-height:1.5}
 .sa-btns{display:flex;gap:.5rem;flex-wrap:wrap}
 .sa-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;padding:.65rem 1rem;border-radius:11px;font-weight:700;font-size:.8rem;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;gap:.4rem;flex:1;min-width:120px;justify-content:center}
 .sa-btn:hover{background:rgba(255,255,255,.12);border-color:rgba(99,102,241,.5);transform:translateY(-1px)}
 .sa-btn.primary{background:var(--grad);border-color:transparent;box-shadow:0 6px 18px rgba(99,102,241,.35)}
-.sa-btn.primary:hover{box-shadow:0 10px 28px rgba(99,102,241,.55)}
-.sa-btn.warn{background:linear-gradient(135deg,#f59e0b,#f97316);border-color:transparent;box-shadow:0 6px 18px rgba(245,158,11,.35)}
-.sa-btn.danger{background:linear-gradient(135deg,#e11d48,#f43f5e);border-color:transparent;box-shadow:0 6px 18px rgba(225,29,72,.35)}
-.sa-btn.danger:hover{box-shadow:0 10px 28px rgba(225,29,72,.55)}
+.sa-btn.warn{background:linear-gradient(135deg,#f59e0b,#f97316);border-color:transparent}
+.sa-btn.danger{background:linear-gradient(135deg,#e11d48,#f43f5e);border-color:transparent}
 
 .sa-users-table{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:.82rem}
 .sa-users-table thead th{text-align:left;padding:.6rem .8rem;color:rgba(255,255,255,.5);font-size:.7rem;text-transform:uppercase;letter-spacing:1px;font-weight:700}
@@ -506,19 +535,16 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 .sa-ad-actions .del{color:#fca5a5}
 .sa-ad-actions .del:hover{background:var(--err);color:#fff}
 
-.sa-chart{margin-top:.75rem;height:80px;display:flex;align-items:flex-end;gap:4px;padding:0 .25rem}
-.sa-chart-bar{flex:1;background:var(--grad);border-radius:4px 4px 0 0;min-height:4px;opacity:.75;transition:all .3s;animation:barGrow .6s cubic-bezier(.4,0,.2,1) backwards;position:relative}
-.sa-chart-bar:hover{opacity:1;transform:scaleY(1.05)}
-.sa-chart-bar::after{content:attr(data-v);position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:.6rem;color:rgba(255,255,255,.6);opacity:0;transition:opacity .2s}
-.sa-chart-bar:hover::after{opacity:1}
-@keyframes barGrow{from{height:0!important}}
-
 .sa-form-row{margin-bottom:1rem}
 .sa-form-label{display:block;font-size:.78rem;color:rgba(255,255,255,.6);margin-bottom:.4rem;font-weight:600}
 .sa-form-input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:11px;padding:.75rem .9rem;color:#fff;font-family:inherit;font-size:.85rem;outline:none;transition:all .2s}
 .sa-form-input:focus{border-color:var(--accent);background:rgba(99,102,241,.08)}
 .sa-form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
 @media(max-width:640px){.sa-form-row-2{grid-template-columns:1fr}}
+
+.sa-insight{background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.25);border-radius:12px;padding:.75rem 1rem;margin-bottom:.75rem;font-size:.8rem;color:rgba(255,255,255,.85);display:flex;gap:.5rem;align-items:flex-start}
+.sa-insight-icon{font-size:1.1rem;flex-shrink:0}
+.sa-insight b{color:#c7d2fe}
 
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(90px);background:var(--bg-2);border:1px solid var(--accent);color:var(--accent);padding:.8rem 1.6rem;border-radius:999px;font-size:.85rem;font-weight:700;z-index:2000;transition:transform .4s cubic-bezier(.4,0,.2,1);pointer-events:none;max-width:90vw;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.3),var(--glow)}
 .toast.show{transform:translateX(-50%) translateY(0)}
@@ -532,6 +558,7 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 @media (max-width:640px){
   .nav{padding:.7rem 1rem}
   .brand{font-size:1rem;letter-spacing:3px}
+  .brand-mark{width:34px;height:34px;font-size:.9rem}
   .chat-wrap{border-radius:20px}
   .msg-col{max-width:92%}
   .icon-tool{width:38px;height:38px}
@@ -543,10 +570,12 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   .sa-hero-title{font-size:1.05rem;letter-spacing:2px}
   .sa-crown{width:42px;height:42px;font-size:1.3rem}
   .sa-kpi-value{font-size:1.6rem}
-  .ultra-gen{min-width:280px;padding:1.2rem}
-  .ultra-percent{font-size:1.7rem}
+  .u3d-gen{min-width:280px;padding:1.2rem}
+  .u3d-percent{font-size:1.7rem}
   .sa-users-table{font-size:.72rem}
   .sa-users-table thead th,.sa-users-table tbody td{padding:.5rem .4rem}
+  .auth-btn{padding:.5rem .8rem;font-size:.72rem;height:36px}
+  .user-chip .u-name{display:none}
 }
 ::-webkit-scrollbar{width:8px;height:8px}
 ::-webkit-scrollbar-track{background:transparent}
@@ -574,10 +603,15 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
       </a>
     </div>
     <div class="nav-actions">
-      <div class="auth-badge" id="authBadge" style="display:none">
-        <span class="avatar-sm" id="authAvatar">U</span>
-        <span id="authName">User</span>
-      </div>
+      <!-- AUTH BUTTON (always visible) -->
+      <button class="auth-btn" id="authBtn" type="button">
+        <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        <span id="authBtnText">Sign In</span>
+      </button>
+      <button class="user-chip" id="userChip" type="button" style="display:none">
+        <span class="u-av" id="userChipAv">U</span>
+        <span class="u-name" id="userChipName">User</span>
+      </button>
       <button class="icon-tool" id="btnSettings" title="Settings" type="button">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       </button>
@@ -587,19 +621,10 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 
 <div class="layout">
   <aside class="sidebar" id="sidebar">
-    <div class="user-card" id="userCard" style="display:none">
-      <div class="avatar-lg" id="userAvatar">U</div>
-      <div class="info">
-        <div class="name" id="userName">User</div>
-        <div class="sub" id="userSub">Signed in</div>
-      </div>
-      <span class="crown" id="userCrown" style="display:none">👑</span>
-    </div>
     <button class="new-chat" id="newChat" type="button">＋ New Chat</button>
     <input type="text" class="search-box" id="searchBox" placeholder="Search chats…" />
     <div class="chat-list" id="chatList"></div>
     <div class="sidebar-footer">
-      <button class="sidebar-btn super" id="superBtn" type="button" style="display:none">👑 SUPER ADMIN</button>
       <button class="sidebar-btn" id="exportAllBtn" type="button">⬇ Export all</button>
       <button class="sidebar-btn" id="clearAllBtn" type="button">🗑 Clear all</button>
     </div>
@@ -636,11 +661,39 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   </div>
 </div>
 
+<!-- AUTH MODAL -->
+<div class="modal-bg" id="authModal">
+  <div class="modal auth-modal">
+    <div class="auth-modal-logo">◆</div>
+    <h2>Welcome to DARK</h2>
+    <p>Sign in to sync chats across devices</p>
+    <div class="auth-providers">
+      <button class="auth-provider google" id="authGoogle" type="button">
+        <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+        <span class="arrow">→</span>
+      </button>
+      <button class="auth-provider github" id="authGithub" type="button">
+        <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        Continue with GitHub
+        <span class="arrow">→</span>
+      </button>
+      <button class="auth-provider email" id="authEmail" type="button">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Continue with Email
+        <span class="arrow">→</span>
+      </button>
+    </div>
+    <button class="auth-skip" id="authSkip" type="button">Continue as Guest</button>
+  </div>
+</div>
+
+<!-- SETTINGS MODAL -->
 <div class="modal-bg" id="settingsModal">
   <div class="modal">
     <h2>⚙ SETTINGS</h2>
     <h3>👤 Account</h3>
-    <div id="authBox" class="auth-box"></div>
+    <div id="authBox" style="background:var(--bg-3);border:1px solid var(--border-2);border-radius:14px;padding:1rem;text-align:center;margin-top:.5rem"></div>
     <label>Preferred Reply Language</label>
     <div class="lang-grid" id="langGrid"></div>
     <label>Image Size</label>
@@ -656,6 +709,7 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
   </div>
 </div>
 
+<!-- PROFILE MODAL -->
 <div class="modal-bg" id="profileModal">
   <div class="modal">
     <h2>👤 PROFILE</h2>
@@ -670,11 +724,12 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
     <div class="stats-grid" id="profileStats"></div>
     <div class="modal-actions">
       <button class="cancel" id="profileClose" type="button">Close</button>
+      <button class="save" id="profileSignOut" type="button">🚪 Sign Out</button>
     </div>
   </div>
 </div>
 
-<!-- AD EDITOR with media type + duration -->
+<!-- AD EDITOR -->
 <div class="modal-bg" id="adEditModal">
   <div class="modal">
     <h2 id="adEditTitle">📢 NEW AD</h2>
@@ -696,17 +751,23 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
     <input type="text" id="adCta" placeholder="Learn More" />
     <div class="sa-form-row-2">
       <div>
-        <label>Duration (seconds, 5-20)</label>
-        <input type="number" id="adDuration" value="5" min="5" max="20" />
+        <label>Total Duration (5-60s)</label>
+        <input type="number" id="adDuration" value="10" min="5" max="60" />
       </div>
       <div>
-        <label>Show every N messages</label>
-        <input type="number" id="adFreq" value="10" min="1" />
+        <label>Skip After (5/10/15s)</label>
+        <select id="adSkipAfter">
+          <option value="5">After 5 seconds</option>
+          <option value="10" selected>After 10 seconds</option>
+          <option value="15">After 15 seconds</option>
+        </select>
       </div>
     </div>
+    <label>Show Every N Messages</label>
+    <input type="number" id="adFreq" value="10" min="1" />
     <div class="modal-actions">
       <button class="cancel" id="adEditCancel" type="button">Cancel</button>
-      <button class="save" id="adEditSave" type="button">Save</button>
+      <button class="save" id="adEditSave" type="button">Save Ad</button>
     </div>
   </div>
 </div>
@@ -714,8 +775,10 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 <!-- FULLSCREEN AD -->
 <div class="ad-fullscreen" id="adFullscreen">
   <div class="ad-content">
-    <div class="ad-badge">SPONSORED</div>
-    <button class="ad-skip" id="adSkip" disabled>5s</button>
+    <div class="ad-topbar">
+      <div class="ad-badge">SPONSORED</div>
+      <div class="ad-time-left" id="adTimeLeft">10s left</div>
+    </div>
     <div class="ad-media-wrap" id="adMediaWrap">
       <img class="ad-image" id="adFsImage" src="" alt="" style="display:none" />
       <video id="adFsVideo" style="display:none" muted playsinline></video>
@@ -724,11 +787,16 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
     <h2 class="ad-title" id="adFsTitle">Special Offer</h2>
     <p class="ad-desc" id="adFsDesc">Check out this deal!</p>
     <a class="ad-cta" id="adFsCta" href="#" target="_blank" rel="noopener">Learn More</a>
+    <div style="margin-top:1rem">
+      <button class="ad-skip" id="adSkip" disabled type="button">
+        <span id="adSkipText">⏱ Skip in 10s</span>
+      </button>
+    </div>
   </div>
 </div>
 
 <!-- ============================================================
-     SUPER ADMIN v23 — TABBED PRO DASHBOARD
+     SUPER ADMIN v24
      ============================================================ -->
 <div class="super-panel" id="superPanel">
   <div class="sa-hero">
@@ -737,7 +805,7 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
       <div class="sa-hero-title">SUPER ADMIN</div>
       <div class="sa-hero-sub">
         <span class="sa-live-badge">LIVE</span>
-        <span>System Owner Console</span>
+        <span id="saOwnerName">seyaboss1</span>
         <span>•</span>
         <span id="saClock">--:--:--</span>
       </div>
@@ -749,80 +817,41 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
     <button class="sa-tab active" data-tab="overview" type="button">📊 Overview</button>
     <button class="sa-tab" data-tab="users" type="button">👥 Users <span class="sa-tab-count" id="saUsersCount">0</span></button>
     <button class="sa-tab" data-tab="ads" type="button">📢 Ads <span class="sa-tab-count" id="saAdsCount">0</span></button>
-    <button class="sa-tab" data-tab="ai" type="button">🧠 AI Personality</button>
+    <button class="sa-tab" data-tab="ai" type="button">🧠 AI</button>
+    <button class="sa-tab" data-tab="learn" type="button">📚 Learning</button>
     <button class="sa-tab" data-tab="data" type="button">💾 Data</button>
     <button class="sa-tab" data-tab="danger" type="button">⚠️ Danger</button>
   </div>
 
   <div class="sa-content">
 
-    <!-- OVERVIEW TAB -->
+    <!-- OVERVIEW -->
     <div class="sa-tab-panel active" data-panel="overview">
       <div class="sa-kpis">
-        <div class="sa-kpi users">
-          <div class="sa-kpi-icon">👥</div>
-          <div class="sa-kpi-value" id="saTotalUsers">0</div>
-          <div class="sa-kpi-label">Unique Users</div>
-        </div>
-        <div class="sa-kpi visits">
-          <div class="sa-kpi-icon">🔁</div>
-          <div class="sa-kpi-value" id="saTotalVisits">0</div>
-          <div class="sa-kpi-label">Total Visits</div>
-        </div>
-        <div class="sa-kpi chats">
-          <div class="sa-kpi-icon">💬</div>
-          <div class="sa-kpi-value" id="saTotalChats">0</div>
-          <div class="sa-kpi-label">Active Chats</div>
-        </div>
-        <div class="sa-kpi msgs">
-          <div class="sa-kpi-icon">📨</div>
-          <div class="sa-kpi-value" id="saTotalMsgs">0</div>
-          <div class="sa-kpi-label">Messages</div>
-        </div>
-        <div class="sa-kpi ads">
-          <div class="sa-kpi-icon">📢</div>
-          <div class="sa-kpi-value" id="saTotalAds">0</div>
-          <div class="sa-kpi-label">Active Ads</div>
-        </div>
+        <div class="sa-kpi users"><div class="sa-kpi-icon">👥</div><div class="sa-kpi-value" id="saTotalUsers">0</div><div class="sa-kpi-label">Unique Users</div></div>
+        <div class="sa-kpi visits"><div class="sa-kpi-icon">🔁</div><div class="sa-kpi-value" id="saTotalVisits">0</div><div class="sa-kpi-label">Total Visits</div></div>
+        <div class="sa-kpi chats"><div class="sa-kpi-icon">💬</div><div class="sa-kpi-value" id="saTotalChats">0</div><div class="sa-kpi-label">Active Chats</div></div>
+        <div class="sa-kpi msgs"><div class="sa-kpi-icon">📨</div><div class="sa-kpi-value" id="saTotalMsgs">0</div><div class="sa-kpi-label">Messages</div></div>
+        <div class="sa-kpi ads"><div class="sa-kpi-icon">📢</div><div class="sa-kpi-value" id="saTotalAds">0</div><div class="sa-kpi-label">Active Ads</div></div>
       </div>
-
       <div class="sa-section">
-        <div class="sa-section-head">
-          <div class="sa-section-icon">📈</div>
-          <div class="sa-section-title">Messages Activity</div>
-        </div>
-        <div class="sa-section-desc">Last 12 sessions message count</div>
-        <div class="sa-chart" id="saMsgChart"></div>
-        <div class="sa-btns" style="margin-top:1rem">
+        <div class="sa-section-head"><div class="sa-section-icon">⚡</div><div class="sa-section-title">Quick Actions</div></div>
+        <div class="sa-btns">
           <button class="sa-btn primary" id="saRefreshStats" type="button">🔄 Refresh</button>
-          <button class="sa-btn warn" id="saResetStats" type="button">↻ Reset Stats</button>
+          <button class="sa-btn warn" id="saResetStats" type="button">↻ Reset Counters</button>
         </div>
       </div>
     </div>
 
-    <!-- USERS TAB -->
+    <!-- USERS -->
     <div class="sa-tab-panel" data-panel="users">
       <div class="sa-section">
-        <div class="sa-section-head">
-          <div class="sa-section-icon">👥</div>
-          <div class="sa-section-title">User Tracking</div>
-        </div>
-        <div class="sa-section-desc">Every device is tracked by fingerprint + IP. See who returned and how many times.</div>
+        <div class="sa-section-head"><div class="sa-section-icon">👥</div><div class="sa-section-title">User Tracking</div></div>
+        <div class="sa-section-desc">Every device tracked by fingerprint + IP. See who returned and how many times.</div>
         <div style="overflow-x:auto">
           <table class="sa-users-table">
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Fingerprint</th>
-                <th>IP</th>
-                <th>Visits</th>
-                <th>First Seen</th>
-                <th>Last Seen</th>
-              </tr>
-            </thead>
-            <tbody id="saUsersBody">
-              <tr><td colspan="6" class="sa-empty">No users tracked yet</td></tr>
-            </tbody>
+            <thead><tr><th>User</th><th>Fingerprint</th><th>IP</th><th>Visits</th><th>First</th><th>Last</th></tr></thead>
+            <tbody id="saUsersBody"><tr><td colspan="6" class="sa-empty">No users tracked yet</td></tr></tbody>
           </table>
         </div>
         <div class="sa-btns" style="margin-top:1rem">
@@ -832,96 +861,90 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
       </div>
     </div>
 
-    <!-- ADS TAB -->
+    <!-- ADS -->
     <div class="sa-tab-panel" data-panel="ads">
       <div class="sa-section">
-        <div class="sa-section-head">
-          <div class="sa-section-icon">📢</div>
-          <div class="sa-section-title">Advertisements Manager</div>
-        </div>
-        <div class="sa-section-desc">Add image / GIF / video ads (5-20 seconds). Shown to users every N messages.</div>
+        <div class="sa-section-head"><div class="sa-section-icon">📢</div><div class="sa-section-title">Advertisements</div></div>
+        <div class="sa-section-desc">Add image / GIF / video ads (5-60 seconds). Users can skip after 5/10/15s.</div>
         <div class="sa-btns" style="margin-bottom:1rem">
           <button class="sa-btn primary" id="saAddAd" type="button">＋ New Ad</button>
-          <button class="sa-btn" id="saPreviewAds" type="button">👁 Preview</button>
         </div>
         <div id="saAdsList"></div>
       </div>
     </div>
 
-    <!-- AI TAB -->
+    <!-- AI -->
     <div class="sa-tab-panel" data-panel="ai">
       <div class="sa-section">
-        <div class="sa-section-head">
-          <div class="sa-section-icon">🧠</div>
-          <div class="sa-section-title">System Prompt</div>
-        </div>
-        <div class="sa-section-desc">This defines DARK's personality and behavior for all conversations.</div>
+        <div class="sa-section-head"><div class="sa-section-icon">🧠</div><div class="sa-section-title">System Prompt</div></div>
+        <div class="sa-section-desc">Defines DARK's personality and behavior for all conversations.</div>
         <div class="sa-form-row">
           <label class="sa-form-label">Prompt</label>
           <textarea id="saPromptArea" class="sa-form-input" style="min-height:220px;font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.6"></textarea>
         </div>
         <div class="sa-btns">
-          <button class="sa-btn primary" id="saSavePrompt" type="button">💾 Save Prompt</button>
+          <button class="sa-btn primary" id="saSavePrompt" type="button">💾 Save</button>
           <button class="sa-btn warn" id="saResetPrompt" type="button">↻ Reset Default</button>
         </div>
       </div>
     </div>
 
-    <!-- DATA TAB -->
+    <!-- LEARNING -->
+    <div class="sa-tab-panel" data-panel="learn">
+      <div class="sa-section">
+        <div class="sa-section-head"><div class="sa-section-icon">📚</div><div class="sa-section-title">AI Learning Insights</div></div>
+        <div class="sa-section-desc">DARK AI learns from user feedback. Positive patterns reinforce good behavior.</div>
+        <div id="saLearnInsights"></div>
+        <div class="sa-btns" style="margin-top:1rem">
+          <button class="sa-btn primary" id="saApplyLearning" type="button">✨ Apply Learning</button>
+          <button class="sa-btn warn" id="saResetLearning" type="button">↻ Reset Learning</button>
+        </div>
+      </div>
+      <div class="sa-section">
+        <div class="sa-section-head"><div class="sa-section-icon">💡</div><div class="sa-section-title">Learned Rules</div></div>
+        <div class="sa-section-desc">These rules are auto-appended to the system prompt.</div>
+        <textarea id="saLearnedRules" class="sa-form-input" style="min-height:150px;font-family:'JetBrains Mono',monospace;font-size:.78rem" readonly></textarea>
+      </div>
+    </div>
+
+    <!-- DATA -->
     <div class="sa-tab-panel" data-panel="data">
       <div class="sa-section">
-        <div class="sa-section-head">
-          <div class="sa-section-icon">💾</div>
-          <div class="sa-section-title">Backup & Restore</div>
-        </div>
-        <div class="sa-section-desc">Full platform export including chats, users, ads, and settings.</div>
+        <div class="sa-section-head"><div class="sa-section-icon">💾</div><div class="sa-section-title">Backup & Restore</div></div>
         <div class="sa-btns">
           <button class="sa-btn primary" id="saExportAll" type="button">⬇ Export Full Backup</button>
           <button class="sa-btn" id="saImportAll" type="button">⬆ Import Backup</button>
         </div>
       </div>
       <div class="sa-section">
-        <div class="sa-section-head">
-          <div class="sa-section-icon">🎨</div>
-          <div class="sa-section-title">Branding</div>
-        </div>
-        <div class="sa-section-desc">Customize accent colors and logo of the platform.</div>
+        <div class="sa-section-head"><div class="sa-section-icon">🎨</div><div class="sa-section-title">Branding</div></div>
         <div class="sa-btns">
-          <button class="sa-btn primary" id="saChangeColors" type="button">🎨 Change Colors</button>
-          <button class="sa-btn" id="saChangeLogo" type="button">◆ Change Logo</button>
-          <button class="sa-btn warn" id="saResetBranding" type="button">↻ Reset Branding</button>
+          <button class="sa-btn primary" id="saChangeColors" type="button">🎨 Colors</button>
+          <button class="sa-btn" id="saChangeLogo" type="button">◆ Logo</button>
+          <button class="sa-btn warn" id="saResetBranding" type="button">↻ Reset</button>
         </div>
       </div>
       <div class="sa-section">
-        <div class="sa-section-head">
-          <div class="sa-section-icon">⚡</div>
-          <div class="sa-section-title">Quick Actions</div>
-        </div>
+        <div class="sa-section-head"><div class="sa-section-icon">⚡</div><div class="sa-section-title">System</div></div>
         <div class="sa-btns">
-          <button class="sa-btn" id="saReload" type="button">🔄 Reload Site</button>
+          <button class="sa-btn" id="saReload" type="button">🔄 Reload</button>
           <button class="sa-btn warn" id="saToggleTheme" type="button">🌗 Toggle Theme</button>
         </div>
       </div>
     </div>
 
-    <!-- DANGER TAB -->
+    <!-- DANGER -->
     <div class="sa-tab-panel" data-panel="danger">
       <div class="sa-section danger">
-        <div class="sa-section-head">
-          <div class="sa-section-icon">🗑</div>
-          <div class="sa-section-title">Clear All Chats</div>
-        </div>
-        <div class="sa-section-desc">Delete every chat thread. Ads and settings stay.</div>
+        <div class="sa-section-head"><div class="sa-section-icon">🗑</div><div class="sa-section-title">Clear Chats</div></div>
+        <div class="sa-section-desc">Delete all chat threads. Ads and settings remain.</div>
         <div class="sa-btns">
-          <button class="sa-btn warn" id="saClearChats" type="button">🗑 Clear Chats</button>
+          <button class="sa-btn warn" id="saClearChats" type="button">🗑 Clear All Chats</button>
         </div>
       </div>
       <div class="sa-section danger">
-        <div class="sa-section-head">
-          <div class="sa-section-icon">💥</div>
-          <div class="sa-section-title">Factory Reset</div>
-        </div>
-        <div class="sa-section-desc">Erases EVERYTHING permanently — chats, users, ads, settings, branding.</div>
+        <div class="sa-section-head"><div class="sa-section-icon">💥</div><div class="sa-section-title">Factory Reset</div></div>
+        <div class="sa-section-desc">Erases EVERYTHING permanently.</div>
         <div class="sa-btns">
           <button class="sa-btn danger" id="saFactoryReset" type="button">💥 FACTORY RESET</button>
         </div>
@@ -935,13 +958,13 @@ header{background:var(--surface);backdrop-filter:blur(var(--blur)) saturate(180%
 
 <script>
 /* ============================================================
-   DARK AI v23 — SUPER EDITION
+   DARK AI v24 — SMART EDITION
    ============================================================ */
 (function () {
   'use strict';
 
   const PROXY_URL = '/chat';
-  const SUPER_ADMINS = ['seyaboss1', 'seyaboss1@gmail.com', 'creative_mountain_405049'];
+  const SUPER_ADMIN_USER = 'seyaboss1';  // ← super admin only
 
   const LANGUAGES = [
     { code:'auto', name:'Auto-detect', native:'Auto',     flag:'🌐', tts:'' },
@@ -996,22 +1019,21 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     { emoji:'💻', title:'Code',         desc:'Python, JS',       prompt:'اكتب دالة بايثون لقلب نص' }
   ];
 
-  // Professional steps — Arabic + English
   const IMG_STEPS = [
     { icon:'🧠', text:'Analyzing your prompt' },
-    { icon:'🎨', text:'Composing visual composition' },
+    { icon:'🎨', text:'Composing visual scene' },
     { icon:'✨', text:'Rendering fine details' },
-    { icon:'🌈', text:'Polishing colors & lighting' },
-    { icon:'🔍', text:'Enhancing texture resolution' },
+    { icon:'🌈', text:'Polishing colors & light' },
+    { icon:'🔍', text:'Enhancing resolution' },
     { icon:'🖼️', text:'Finalizing your image' }
   ];
 
-  // STATE
   let preferredLang = localStorage.getItem('dark-lang') || 'auto';
   let preferredSize = localStorage.getItem('dark-size') || 'hd';
   let autoSpeak = localStorage.getItem('dark-autospeak') === 'true';
   let theme = localStorage.getItem('dark-theme') || 'light';
   let systemPrompt = localStorage.getItem('dark-prompt') || DEFAULT_SYSTEM_PROMPT;
+  let learnedRules = localStorage.getItem('dark-learned-rules') || '';
   let currentUser = null;
   let isSuperAdmin = false;
   let threads = {};
@@ -1033,7 +1055,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
     }[c]));
   }
-
   function toast(msg) {
     const t = $('toast');
     t.textContent = msg;
@@ -1041,13 +1062,11 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     clearTimeout(window.__toastTimer);
     window.__toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
   }
-
   function setStatus(t, ok = true) {
     const el = $('chatStatus');
     el.textContent = t;
     el.style.color = ok ? 'var(--muted)' : 'var(--err)';
   }
-
   function detectLanguage(text) {
     if (!text) return null;
     if (/[\u1200-\u137F\u1380-\u139F\u2D80-\u2DDF\uAB00-\uAB2F]/.test(text)) return 'am';
@@ -1062,7 +1081,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     if (/[a-zA-Z]/.test(text)) return 'en';
     return null;
   }
-
   function speak(text) {
     if (!window.speechSynthesis) return;
     speechSynthesis.cancel();
@@ -1086,7 +1104,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     u.lang = langCode; u.rate = 1.0; u.pitch = 1.0;
     speechSynthesis.speak(u);
   }
-
   function renderMarkdown(text) {
     let html = escapeHtml(text);
     const codeBlocks = [];
@@ -1115,7 +1132,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     });
     return html;
   }
-
   window.DARK_COPY_CODE = function (btn) {
     const pre = btn.closest('pre');
     const code = decodeURIComponent(pre.dataset.code);
@@ -1127,7 +1143,69 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   };
 
   /* ============================================================
-     USER TRACKING (Fingerprint + IP)
+     LEARNING SYSTEM
+     ============================================================ */
+  function recordFeedback(messageText, isPositive) {
+    const db = JSON.parse(localStorage.getItem('dark-learn-db') || '{"positive":0,"negative":0,"patterns":{}}');
+    if (isPositive) db.positive++; else db.negative++;
+
+    // Extract simple pattern: first 60 chars of prompt that led to this response
+    const key = messageText.slice(0, 60).toLowerCase().replace(/[^\w\s\u0600-\u06FF]/g, '').trim().slice(0, 40);
+    if (key.length > 5) {
+      if (!db.patterns[key]) db.patterns[key] = { pos: 0, neg: 0 };
+      if (isPositive) db.patterns[key].pos++; else db.patterns[key].neg++;
+    }
+    localStorage.setItem('dark-learn-db', JSON.stringify(db));
+  }
+
+  function generateLearnedRules() {
+    const db = JSON.parse(localStorage.getItem('dark-learn-db') || '{"positive":0,"negative":0,"patterns":{}}');
+    const rules = [];
+
+    // Global quality rule
+    const total = db.positive + db.negative;
+    if (total >= 5) {
+      const ratio = db.positive / total;
+      if (ratio >= 0.8) {
+        rules.push('• Continue with current high-quality response style — users are satisfied.');
+      } else if (ratio <= 0.5) {
+        rules.push('• Be more concise and direct. Users prefer shorter, clearer answers.');
+      }
+    }
+
+    // Top positive patterns
+    const sortedPatterns = Object.entries(db.patterns)
+      .sort((a, b) => (b[1].pos - b[1].neg) - (a[1].pos - a[1].neg))
+      .slice(0, 5);
+
+    const topGood = sortedPatterns.filter(([, v]) => v.pos > v.neg && v.pos >= 2);
+    if (topGood.length > 0) {
+      rules.push('• Topics users often appreciate: ' + topGood.map(([k]) => `"${k}"`).join(', '));
+    }
+
+    // Top negative patterns
+    const topBad = sortedPatterns.filter(([, v]) => v.neg > v.pos && v.neg >= 2);
+    if (topBad.length > 0) {
+      rules.push('• Be extra careful with: ' + topBad.map(([k]) => `"${k}"`).join(', '));
+    }
+
+    return rules.join('\n');
+  }
+
+  function applyLearning() {
+    const rules = generateLearnedRules();
+    learnedRules = rules;
+    localStorage.setItem('dark-learned-rules', rules);
+    return rules;
+  }
+
+  function getEffectiveSystemPrompt() {
+    if (!learnedRules) return systemPrompt;
+    return systemPrompt + '\n\nLEARNED BEHAVIOR RULES:\n' + learnedRules;
+  }
+
+  /* ============================================================
+     USER TRACKING
      ============================================================ */
   async function getFingerprint() {
     try {
@@ -1138,23 +1216,17 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       ctx.fillStyle = '#6366f1';
       ctx.fillRect(0, 0, 100, 30);
       ctx.fillStyle = '#fff';
-      ctx.fillText('DARK-AI-fp', 4, 6);
+      ctx.fillText('DARK-fp', 4, 6);
       const canvasData = canvas.toDataURL();
       const data = [
-        navigator.userAgent,
-        navigator.language,
-        screen.width + 'x' + screen.height,
-        screen.colorDepth,
-        new Date().getTimezoneOffset(),
-        navigator.hardwareConcurrency || 0,
-        navigator.platform || '',
-        navigator.deviceMemory || 0,
-        canvasData
+        navigator.userAgent, navigator.language,
+        screen.width + 'x' + screen.height, screen.colorDepth,
+        new Date().getTimezoneOffset(), navigator.hardwareConcurrency || 0,
+        navigator.platform || '', canvasData
       ].join('|');
       const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(data));
       return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 16);
     } catch {
-      // Fallback fingerprint
       const s = navigator.userAgent + screen.width + navigator.language + Date.now();
       let h = 0;
       for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
@@ -1178,11 +1250,8 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
 
     if (!db[currentFingerprint]) {
       db[currentFingerprint] = {
-        fp: currentFingerprint,
-        ip,
-        firstSeen: now,
-        lastSeen: now,
-        visits: 1,
+        fp: currentFingerprint, ip,
+        firstSeen: now, lastSeen: now, visits: 1,
         userAgent: navigator.userAgent,
         platform: navigator.platform || 'unknown',
         screen: screen.width + 'x' + screen.height,
@@ -1210,34 +1279,23 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     voiceRecognition.continuous = false;
     voiceRecognition.interimResults = true;
     voiceRecognition.lang = preferredLang === 'auto' ? 'ar-SA' : (LANGUAGES.find(l => l.code === preferredLang)?.tts || 'en-US');
-
-    voiceRecognition.onstart = () => {
-      isRecording = true;
-      $('voiceBtn').classList.add('recording');
-      setStatus('🎤 Listening…');
-    };
+    voiceRecognition.onstart = () => { isRecording = true; $('voiceBtn').classList.add('recording'); setStatus('🎤 Listening…'); };
     voiceRecognition.onresult = (e) => {
-      let finalText = '', interimText = '';
+      let f = '', i2 = '';
       for (let i = e.resultIndex; i < e.results.length; i++) {
         const t = e.results[i][0].transcript;
-        if (e.results[i].isFinal) finalText += t;
-        else interimText += t;
+        if (e.results[i].isFinal) f += t; else i2 += t;
       }
       const input = $('chatInput');
-      input.value = finalText || interimText;
-      if (finalText) setTimeout(() => { if (input.value.trim()) sendMsg(); }, 300);
+      input.value = f || i2;
+      if (f) setTimeout(() => { if (input.value.trim()) sendMsg(); }, 300);
     };
     voiceRecognition.onerror = (e) => {
-      isRecording = false;
-      $('voiceBtn').classList.remove('recording');
+      isRecording = false; $('voiceBtn').classList.remove('recording');
       if (e.error !== 'no-speech' && e.error !== 'aborted') toast('🎤 Voice error: ' + e.error);
       setStatus('Online');
     };
-    voiceRecognition.onend = () => {
-      isRecording = false;
-      $('voiceBtn').classList.remove('recording');
-      setStatus('Online');
-    };
+    voiceRecognition.onend = () => { isRecording = false; $('voiceBtn').classList.remove('recording'); setStatus('Online'); };
     $('voiceBtn').onclick = () => {
       if (isRecording) voiceRecognition.stop();
       else {
@@ -1260,7 +1318,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       else activeId = Object.keys(threads)[0];
     }
   }
-
   async function saveThreads() {
     localStorage.setItem('dark-threads', JSON.stringify(threads));
     localStorage.setItem('dark-active', activeId);
@@ -1271,10 +1328,9 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       }
     } catch {}
   }
-
   function createThread(silent = false) {
     const id = 't_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
-    threads[id] = { title:'New chat', messages:[{ role:'system', content:systemPrompt }], createdAt:Date.now() };
+    threads[id] = { title:'New chat', messages:[{ role:'system', content:getEffectiveSystemPrompt() }], createdAt:Date.now() };
     activeId = id;
     saveThreads();
     if (!silent) {
@@ -1282,7 +1338,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       if (window.innerWidth <= 900) $('sidebar').classList.remove('open');
     }
   }
-
   function deleteThread(id, e) {
     if (e) e.stopPropagation();
     if (!confirm('Delete this chat?')) return;
@@ -1294,13 +1349,11 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     }
     saveThreads(); renderThreads(); rebuildUI(); toast('Chat deleted');
   }
-
   function switchThread(id) {
     if (busy) { toast('Wait for current reply'); return; }
     activeId = id; saveThreads(); renderThreads(); rebuildUI();
     if (window.innerWidth <= 900) $('sidebar').classList.remove('open');
   }
-
   function renderThreads() {
     const list = $('chatList'); list.innerHTML = '';
     const ids = Object.keys(threads)
@@ -1321,11 +1374,10 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   }
 
   /* ============================================================
-     RENDER HELPERS
+     RENDER
      ============================================================ */
   function hideWelcome() { const w = $('welcome'); if (w) w.remove(); }
   function scrollBottom() { const cb = $('chatBody'); cb.scrollTop = cb.scrollHeight; }
-
   function renderUserMsg(text) {
     hideWelcome();
     const row = document.createElement('div');
@@ -1338,9 +1390,10 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     $('chatBody').appendChild(row); scrollBottom();
   }
 
-  function buildMeta(text, tokens) {
+  function buildMeta(text, tokens, originalPrompt) {
     const meta = document.createElement('div');
     meta.className = 'msg-meta';
+
     const copyBtn = document.createElement('button');
     copyBtn.type = 'button'; copyBtn.className = 'msg-action';
     copyBtn.innerHTML = '<span>📋</span><span>Copy</span>';
@@ -1354,16 +1407,44 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       });
     };
     meta.appendChild(copyBtn);
+
     const speakBtn = document.createElement('button');
     speakBtn.type = 'button'; speakBtn.className = 'msg-action';
     speakBtn.innerHTML = '<span>🔊</span><span>Speak</span>';
     speakBtn.onclick = () => speak(text);
     meta.appendChild(speakBtn);
+
+    // LIKE / DISLIKE for learning
+    const likeBtn = document.createElement('button');
+    likeBtn.type = 'button'; likeBtn.className = 'msg-action';
+    likeBtn.innerHTML = '<span>👍</span>';
+    likeBtn.title = 'Good response (learns)';
+    likeBtn.onclick = () => {
+      recordFeedback(originalPrompt || '', true);
+      likeBtn.classList.add('liked');
+      dislikeBtn.classList.remove('disliked');
+      toast('👍 Thanks! DARK is learning.');
+    };
+    meta.appendChild(likeBtn);
+
+    const dislikeBtn = document.createElement('button');
+    dislikeBtn.type = 'button'; dislikeBtn.className = 'msg-action';
+    dislikeBtn.innerHTML = '<span>👎</span>';
+    dislikeBtn.title = 'Bad response (learns)';
+    dislikeBtn.onclick = () => {
+      recordFeedback(originalPrompt || '', false);
+      dislikeBtn.classList.add('disliked');
+      likeBtn.classList.remove('liked');
+      toast('👎 Noted. DARK will improve.');
+    };
+    meta.appendChild(dislikeBtn);
+
     const retryBtn = document.createElement('button');
     retryBtn.type = 'button'; retryBtn.className = 'msg-action';
     retryBtn.innerHTML = '<span>↻</span><span>Retry</span>';
     retryBtn.onclick = retryLast;
     meta.appendChild(retryBtn);
+
     if (tokens) {
       const ti = document.createElement('span');
       ti.textContent = '• ' + tokens + ' tokens';
@@ -1373,7 +1454,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     return meta;
   }
 
-  function renderAiMsg(text, tokens) {
+  function renderAiMsg(text, tokens, originalPrompt) {
     hideWelcome();
     const row = document.createElement('div');
     row.className = 'msg-row ai';
@@ -1394,15 +1475,15 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
         else imgMatch = [desc, desc];
       }
     }
-    if (imgMatch) return renderMediaPrompt(text, imgMatch[1], 'image', tokens, col, row);
-    if (vidMatch) return renderMediaPrompt(text, vidMatch[1], 'video', tokens, col, row);
+    if (imgMatch) return renderMediaPrompt(text, imgMatch[1], 'image', tokens, col, row, originalPrompt);
+    if (vidMatch) return renderMediaPrompt(text, vidMatch[1], 'video', tokens, col, row, originalPrompt);
     const m = document.createElement('div');
     m.className = 'msg ai'; m.innerHTML = renderMarkdown(text);
-    col.appendChild(m); col.appendChild(buildMeta(text, tokens));
+    col.appendChild(m); col.appendChild(buildMeta(text, tokens, originalPrompt));
     row.appendChild(col); $('chatBody').appendChild(row); scrollBottom();
   }
 
-  function renderMediaPrompt(text, prompt, type, tokens, col, row) {
+  function renderMediaPrompt(text, prompt, type, tokens, col, row, originalPrompt) {
     prompt = (prompt || '').trim();
     const tagRe = type === 'image' ? /\[IMAGE_PROMPT\][\s\S]*?\[\/IMAGE_PROMPT\]/g : /\[VIDEO_PROMPT\][\s\S]*?\[\/VIDEO_PROMPT\]/g;
     const clean = text.replace(tagRe, '').replace(/Click the button below.*/gi, '').replace(/اضغط الزر.*/gi, '').trim();
@@ -1414,6 +1495,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     box.innerHTML = '<div class="prompt-text">' + escapeHtml(prompt) + '</div>';
     const actions = document.createElement('div');
     actions.className = 'prompt-actions';
+
     const copyBtn = document.createElement('button');
     copyBtn.className = 'prompt-btn';
     copyBtn.innerHTML = '📋 Copy Prompt';
@@ -1424,6 +1506,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       });
     };
     actions.appendChild(copyBtn);
+
     const genBtn = document.createElement('button');
     genBtn.className = 'prompt-btn primary';
     if (type === 'image') {
@@ -1436,7 +1519,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     actions.appendChild(genBtn);
     box.appendChild(actions);
     m.appendChild(box);
-    col.appendChild(m); col.appendChild(buildMeta(text, tokens));
+    col.appendChild(m); col.appendChild(buildMeta(text, tokens, originalPrompt));
     row.appendChild(col); $('chatBody').appendChild(row); scrollBottom();
   }
 
@@ -1455,7 +1538,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   }
 
   /* ============================================================
-     ULTIMATE IMAGE GENERATION
+     3D ULTRA IMAGE GENERATION
      ============================================================ */
   async function generateImage(userPrompt) {
     const t = threads[activeId];
@@ -1482,119 +1565,90 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const uid = 'p_' + Date.now();
 
     wrap.innerHTML = `
-      <div class="ultra-gen" id="ug-${uid}">
-        <div class="ultra-sparkles" id="spark-${uid}"></div>
-        <div class="ultra-head">
-          <div class="ultra-title">
-            <div class="ultra-orb" id="orb-${uid}">🧠</div>
-            <span>AI Image Generation</span>
-          </div>
-          <div class="ultra-percent" id="pct-${uid}">0%</div>
-        </div>
-        <div class="ultra-bar-wrap">
-          <div class="ultra-bar">
-            <div class="ultra-fill" id="fill-${uid}"></div>
+      <div class="u3d-gen">
+        <div class="u3d-particles" id="particles-${uid}"></div>
+        <div class="u3d-stage">
+          <div class="u3d-cube">
+            <div class="u3d-face u3d-face-1">🧠</div>
+            <div class="u3d-face u3d-face-2">🎨</div>
+            <div class="u3d-face u3d-face-3">✨</div>
+            <div class="u3d-face u3d-face-4">🌈</div>
+            <div class="u3d-face u3d-face-5">🔍</div>
+            <div class="u3d-face u3d-face-6">🖼️</div>
           </div>
         </div>
-        <div class="ultra-step">
-          <div class="ultra-step-icon" id="sico-${uid}">🧠</div>
-          <div class="ultra-step-text" id="stxt-${uid}">Initializing…</div>
-          <div class="ultra-dots"><span></span><span></span><span></span></div>
+        <div class="u3d-head">
+          <div class="u3d-title"><span>DARK AI</span><span style="opacity:.6">Image Generation</span></div>
+          <div class="u3d-percent" id="pct-${uid}">0%</div>
         </div>
-        <div class="ultra-stats">
-          <div class="ultra-stat accent">
-            <div class="ultra-stat-val" id="time-${uid}">0.0s</div>
-            <div class="ultra-stat-lbl">Elapsed</div>
-          </div>
-          <div class="ultra-stat ok">
-            <div class="ultra-stat-val" id="eta-${uid}">--</div>
-            <div class="ultra-stat-lbl">ETA</div>
-          </div>
-          <div class="ultra-stat">
-            <div class="ultra-stat-val" id="step-${uid}">0/${IMG_STEPS.length}</div>
-            <div class="ultra-stat-lbl">Step</div>
-          </div>
+        <div class="u3d-bar"><div class="u3d-fill" id="fill-${uid}"></div></div>
+        <div class="u3d-step">
+          <div class="u3d-step-icon" id="sico-${uid}">🧠</div>
+          <div id="stxt-${uid}">Analyzing your prompt…</div>
         </div>
-        <button class="ultra-cancel" id="cancel-${uid}" type="button">✕ Cancel</button>
+        <div class="u3d-stats">
+          <div class="u3d-stat accent"><div class="u3d-stat-val" id="time-${uid}">0.0s</div><div class="u3d-stat-lbl">Elapsed</div></div>
+          <div class="u3d-stat ok"><div class="u3d-stat-val" id="eta-${uid}">~20s</div><div class="u3d-stat-lbl">ETA</div></div>
+          <div class="u3d-stat"><div class="u3d-stat-val" id="step-${uid}">1/${IMG_STEPS.length}</div><div class="u3d-stat-lbl">Step</div></div>
+        </div>
       </div>`;
 
     col.appendChild(wrap); row.appendChild(col);
     $('chatBody').appendChild(row); scrollBottom();
     setStatus('Generating image…');
 
-    const $pct  = $('pct-'  + uid), $fill = $('fill-' + uid);
-    const $time = $('time-' + uid), $eta  = $('eta-'  + uid);
-    const $sico = $('sico-' + uid), $stxt = $('stxt-' + uid);
-    const $step = $('step-' + uid), $orb  = $('orb-'  + uid);
-    const $cancel = $('cancel-' + uid);
+    const $pct = $('pct-'+uid), $fill = $('fill-'+uid);
+    const $time = $('time-'+uid), $eta = $('eta-'+uid);
+    const $sico = $('sico-'+uid), $stxt = $('stxt-'+uid), $step = $('step-'+uid);
+    const $particles = $('particles-'+uid);
 
-    // Sparkles
-    const $spark = $('spark-' + uid);
-    for (let i = 0; i < 12; i++) {
-      const s = document.createElement('div');
-      s.className = 'ultra-sparkle';
-      s.style.left = (Math.random() * 100) + '%';
-      s.style.bottom = (Math.random() * 40) + '%';
-      s.style.animationDelay = (Math.random() * 3) + 's';
-      s.style.animationDuration = (2 + Math.random() * 2) + 's';
+    // 3D particles
+    for (let i = 0; i < 15; i++) {
+      const p = document.createElement('div');
+      p.className = 'u3d-p';
+      p.style.left = (Math.random() * 100) + '%';
+      p.style.bottom = '0%';
+      p.style.animationDelay = (Math.random() * 3) + 's';
+      p.style.animationDuration = (2 + Math.random() * 2) + 's';
       const hue = 200 + Math.random() * 100;
-      s.style.background = `hsl(${hue}, 80%, 65%)`;
-      s.style.color = `hsl(${hue}, 80%, 65%)`;
-      $spark.appendChild(s);
+      p.style.background = `hsl(${hue},80%,65%)`;
+      p.style.color = `hsl(${hue},80%,65%)`;
+      $particles.appendChild(p);
     }
 
     const startTime = Date.now();
     let fakeProgress = 0;
-    let currentStep = -1;
-    let lastStepChange = 0;
-    let cancelled = false;
-    let expectedTime = 22; // base expected seconds
-
-    $cancel.onclick = () => {
-      cancelled = true;
-      clearInterval(tick);
-      wrap.innerHTML = '<div class="ultra-gen"><div class="ultra-head"><div class="ultra-title"><div class="ultra-orb" style="background:linear-gradient(135deg,#e11d48,#f43f5e)">✕</div><span>Cancelled</span></div></div></div>';
-      busy = false; $('sendBtn').disabled = false;
-      setStatus('Cancelled');
-    };
+    let currentStep = 0;
+    const expectedTime = 22;
 
     const tick = setInterval(() => {
-      if (cancelled) return;
       const elapsed = (Date.now() - startTime) / 1000;
       $time.textContent = elapsed.toFixed(1) + 's';
 
-      // ETA calculation
-      if (fakeProgress > 8) {
-        const remaining = expectedTime * (1 - fakeProgress / 100);
-        $eta.textContent = remaining > 0 ? remaining.toFixed(0) + 's' : '~1s';
-      } else {
-        $eta.textContent = '--';
+      // ETA
+      if (fakeProgress > 5) {
+        const remaining = Math.max(1, expectedTime * (1 - fakeProgress / 100));
+        $eta.textContent = '~' + Math.ceil(remaining) + 's';
       }
 
       if (fakeProgress < 96) {
-        // Adaptive speed — fast early, slower later
-        const speed = fakeProgress < 30 ? 2.8 :
-                      fakeProgress < 60 ? 1.6 :
-                      fakeProgress < 85 ? 0.9 : 0.35;
+        const speed = fakeProgress < 40 ? 3.2 : fakeProgress < 75 ? 1.4 : 0.5;
         fakeProgress = Math.min(fakeProgress + speed, 96);
-        const rounded = Math.floor(fakeProgress);
-        $pct.textContent = rounded + '%';
-        $fill.style.width = rounded + '%';
+        $pct.textContent = Math.floor(fakeProgress) + '%';
+        $fill.style.width = fakeProgress + '%';
       }
 
-      // Step progression
       const targetStep = Math.min(Math.floor((fakeProgress / 96) * IMG_STEPS.length), IMG_STEPS.length - 1);
       if (targetStep !== currentStep) {
         currentStep = targetStep;
         const s = IMG_STEPS[currentStep];
         $sico.textContent = s.icon;
         $stxt.textContent = s.text;
-        $orb.textContent = s.icon;
         $step.textContent = (currentStep + 1) + '/' + IMG_STEPS.length;
         $sico.style.transform = 'scale(1.25)';
         setTimeout(() => $sico.style.transform = '', 250);
       }
-    }, 180);
+    }, 200);
 
     try {
       const seed = Math.floor(Math.random() * 1e6);
@@ -1602,24 +1656,19 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=${s.w}&height=${s.h}&seed=${seed}&model=flux&enhance=true&safe=false&private=true&nologo=true`;
 
       const loaded = await new Promise((resolve) => {
-        if (cancelled) return resolve(false);
         const img = new Image();
         img.onload = () => resolve(true);
         img.onerror = () => resolve(false);
         img.src = url;
         setTimeout(() => resolve(false), 90000);
       });
-
       clearInterval(tick);
-      if (cancelled) return;
       if (!loaded) throw new Error('Timeout');
 
-      // Complete to 100%
       $pct.textContent = '100%';
       $fill.style.width = '100%';
       $stxt.textContent = 'Complete ✨';
       $sico.textContent = '✅';
-      $orb.textContent = '✅';
       $eta.textContent = 'Done';
       await new Promise(r => setTimeout(r, 350));
 
@@ -1660,15 +1709,13 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       toast('✨ Image ready');
     } catch (err) {
       clearInterval(tick);
-      if (cancelled) return;
       const safe = userPrompt.replace(/'/g, "\\'");
-      wrap.innerHTML = '<div class="ultra-gen"><div class="ultra-head"><div class="ultra-title"><div class="ultra-orb" style="background:linear-gradient(135deg,#e11d48,#f43f5e)">⚠️</div><span>Generation Failed</span></div></div><div style="font-size:.82rem;color:var(--muted);margin-top:.5rem">Something went wrong. <button class="msg-action" onclick="DARK_RETRY_IMG(\'' + safe + '\')" style="color:var(--accent);margin-left:.5rem;">↻ Try again</button></div></div>';
+      wrap.innerHTML = '<div class="u3d-gen"><div class="u3d-head"><div class="u3d-title"><span>⚠️ Failed</span></div></div><div style="font-size:.82rem;color:var(--muted);margin-top:.5rem">Try again: <button class="msg-action" onclick="DARK_RETRY_IMG(\'' + safe + '\')" style="color:var(--accent);margin-left:.5rem;">↻ Retry</button></div></div>';
       setStatus('Image error', false);
     } finally {
       busy = false; $('sendBtn').disabled = false; $('chatInput').focus();
     }
   }
-
   window.DARK_RETRY_IMG = (p) => generateImage(p);
 
   async function generateVideo(userPrompt) {
@@ -1691,22 +1738,28 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     wrap.className = 'msg ai msg-video';
     const uid = 'v_' + Date.now();
     wrap.innerHTML = `
-      <div class="ultra-gen">
-        <div class="ultra-head">
-          <div class="ultra-title">
-            <div class="ultra-orb">🎬</div>
-            <span>AI Video Generation</span>
+      <div class="u3d-gen">
+        <div class="u3d-stage">
+          <div class="u3d-cube">
+            <div class="u3d-face u3d-face-1">🎬</div>
+            <div class="u3d-face u3d-face-2">🎞️</div>
+            <div class="u3d-face u3d-face-3">✨</div>
+            <div class="u3d-face u3d-face-4">🎨</div>
+            <div class="u3d-face u3d-face-5">🎥</div>
+            <div class="u3d-face u3d-face-6">🎭</div>
           </div>
         </div>
-        <div class="ultra-step">
-          <div class="ultra-step-icon">🎞️</div>
-          <div class="ultra-step-text">Rendering frames…</div>
-          <div class="ultra-dots"><span></span><span></span><span></span></div>
+        <div class="u3d-head">
+          <div class="u3d-title"><span>DARK AI</span><span style="opacity:.6">Video Generation</span></div>
         </div>
-        <div class="ultra-stats">
-          <div class="ultra-stat accent"><div class="ultra-stat-val" id="vtime-${uid}">0.0s</div><div class="ultra-stat-lbl">Elapsed</div></div>
-          <div class="ultra-stat"><div class="ultra-stat-val">30-90s</div><div class="ultra-stat-lbl">Typical</div></div>
-          <div class="ultra-stat ok"><div class="ultra-stat-val">HD</div><div class="ultra-stat-lbl">Quality</div></div>
+        <div class="u3d-step">
+          <div class="u3d-step-icon">🎞️</div>
+          <div>Rendering frames… this can take 30-90s</div>
+        </div>
+        <div class="u3d-stats">
+          <div class="u3d-stat accent"><div class="u3d-stat-val" id="vtime-${uid}">0.0s</div><div class="u3d-stat-lbl">Elapsed</div></div>
+          <div class="u3d-stat"><div class="u3d-stat-val">30-90s</div><div class="u3d-stat-lbl">Typical</div></div>
+          <div class="u3d-stat ok"><div class="u3d-stat-val">HD</div><div class="u3d-stat-lbl">Quality</div></div>
         </div>
       </div>`;
     col.appendChild(wrap); row.appendChild(col);
@@ -1715,7 +1768,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
 
     const startT = Date.now();
     const tTick = setInterval(() => {
-      const el = $('vtime-' + uid);
+      const el = $('vtime-'+uid);
       if (el) el.textContent = ((Date.now() - startT) / 1000).toFixed(1) + 's';
     }, 100);
 
@@ -1764,7 +1817,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     } catch (err) {
       clearInterval(tTick);
       const safe = userPrompt.replace(/'/g, "\\'");
-      wrap.innerHTML = '<div class="ultra-gen"><div class="ultra-head"><div class="ultra-title"><div class="ultra-orb" style="background:linear-gradient(135deg,#e11d48,#f43f5e)">⚠️</div><span>Video Failed</span></div></div><div style="font-size:.82rem;color:var(--muted);margin-top:.5rem">' + (err.message || 'Error') + ' <button class="msg-action" onclick="DARK_RETRY_VID(\'' + safe + '\')" style="color:var(--accent);margin-left:.5rem;">↻ Try</button></div></div>';
+      wrap.innerHTML = '<div class="u3d-gen"><div class="u3d-head"><div class="u3d-title"><span>⚠️ Video Failed</span></div></div><div style="font-size:.82rem;color:var(--muted);margin-top:.5rem">' + (err.message || 'Error') + ' <button class="msg-action" onclick="DARK_RETRY_VID(\'' + safe + '\')" style="color:var(--accent);margin-left:.5rem;">↻ Retry</button></div></div>';
       setStatus('Video error', false);
     } finally {
       busy = false; $('sendBtn').disabled = false; $('chatInput').focus();
@@ -1789,13 +1842,13 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     $('chatInput').value = '';
     t.messages.push({ role:'user', content:text });
     await saveThreads();
-    await streamReply();
+    await streamReply(text);
     messageCounter++;
     localStorage.setItem('dark-msg-counter', messageCounter);
     checkAndShowAd();
   }
 
-  async function streamReply() {
+  async function streamReply(originalPrompt) {
     const t = threads[activeId];
     if (!t) return;
     busy = true;
@@ -1805,6 +1858,12 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const typing = renderTyping();
     setStatus('Thinking…');
     abortController = new AbortController();
+
+    // Make sure system prompt is fresh with learned rules
+    if (t.messages[0]?.role === 'system') {
+      t.messages[0].content = getEffectiveSystemPrompt();
+    }
+
     try {
       const res = await fetch(PROXY_URL, {
         method:'POST',
@@ -1822,7 +1881,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       const tokens = data.usage?.total_tokens;
       t.messages.push({ role:'assistant', content:reply });
       await saveThreads();
-      await typewriterRender(reply, tokens);
+      await typewriterRender(reply, tokens, originalPrompt);
       setStatus(tokens ? 'Online • ' + tokens + ' tokens' : 'Online');
       if (autoSpeak) speak(reply);
     } catch (err) {
@@ -1836,7 +1895,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     }
   }
 
-  async function typewriterRender(fullText, tokens) {
+  async function typewriterRender(fullText, tokens, originalPrompt) {
     hideWelcome();
     const row = document.createElement('div');
     row.className = 'msg-row ai';
@@ -1858,7 +1917,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     }
     cursor.remove();
     m.innerHTML = renderMarkdown(fullText);
-    col.appendChild(buildMeta(fullText, tokens));
+    col.appendChild(buildMeta(fullText, tokens, originalPrompt));
     scrollBottom();
   }
 
@@ -1929,12 +1988,29 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
   }
 
   /* ============================================================
-     AUTH
+     AUTH (via Puter — Google/GitHub/Email)
      ============================================================ */
-  function isSuperAdminCheck(name, email) {
-    const _e = (email || '').toLowerCase();
-    const _n = (name || '').toLowerCase();
-    return SUPER_ADMINS.some(u => { const lu = u.toLowerCase(); return _e === lu || _n === lu; });
+  function updateAuthUI() {
+    const authBtn = $('authBtn');
+    const userChip = $('userChip');
+    if (currentUser) {
+      const name = currentUser.username || currentUser.email || 'User';
+      authBtn.style.display = 'none';
+      userChip.style.display = 'flex';
+      userChip.classList.toggle('super', isSuperAdmin);
+      $('userChipAv').textContent = name.charAt(0).toUpperCase();
+      $('userChipName').textContent = name;
+      // Auto open Super Admin for owner
+      if (isSuperAdmin && !window.__saAutoOpened) {
+        window.__saAutoOpened = true;
+        setTimeout(() => openSuperPanel(), 800);
+      }
+    } else {
+      authBtn.style.display = 'flex';
+      userChip.style.display = 'none';
+      $('authBtnText').textContent = 'Sign In';
+    }
+    renderAuthBox();
   }
 
   function renderAuthBox() {
@@ -1944,21 +2020,45 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       const name = currentUser.username || currentUser.email || 'User';
       const email = currentUser.email || currentUser.username || '';
       box.innerHTML =
-        '<div style="font-size:.85rem;font-weight:700;margin-bottom:.7rem;color:var(--fg);">✓ Signed in as <br><b>' +
+        '<div style="font-size:.85rem;font-weight:700;color:var(--fg);">✓ Signed in as <br><b>' +
         escapeHtml(name) + '</b><br><small style="color:var(--muted);font-weight:400">' + escapeHtml(email) + '</small>' +
         (isSuperAdmin ? '<br><span style="color:var(--gold);font-size:.72rem">👑 SUPER ADMIN</span>' : '') +
-        '</div>' +
-        '<button id="settingsSignOut" style="background:transparent;border:1px solid rgba(225,29,72,.4);color:var(--err);padding:.75rem 1.5rem;border-radius:11px;font-weight:700;font-size:.85rem;cursor:pointer;font-family:inherit;width:100%;">🚪 Sign Out</button>';
-      setTimeout(() => { const btn = $('settingsSignOut'); if (btn) btn.onclick = handleSignOut; }, 0);
+        '</div>';
     } else {
-      box.innerHTML =
-        '<p style="font-size:.82rem;color:var(--muted);margin-bottom:.7rem;">Sign in to sync your chats.</p>' +
-        '<button id="settingsSignIn" style="background:linear-gradient(135deg,var(--accent),var(--accent-2));color:white;border:none;padding:.75rem 1.5rem;border-radius:11px;font-weight:700;font-size:.85rem;cursor:pointer;font-family:inherit;width:100%;">👤 Sign In with Puter</button>';
-      setTimeout(() => { const btn = $('settingsSignIn'); if (btn) btn.onclick = handleSignIn; }, 0);
+      box.innerHTML = '<p style="font-size:.82rem;color:var(--muted);margin-bottom:.7rem;">Sign in to sync your chats.</p>' +
+        '<button id="settingsSignIn" style="background:var(--grad);color:#fff;border:none;padding:.75rem 1.5rem;border-radius:11px;font-weight:700;font-size:.85rem;cursor:pointer;font-family:inherit;width:100%;">👤 Sign In</button>';
+      setTimeout(() => {
+        const btn = $('settingsSignIn');
+        if (btn) btn.onclick = () => { closeModal(); openAuthModal(); };
+      }, 0);
     }
   }
 
-  async function updateAuthUI() {
+  function closeModal() {
+    document.querySelectorAll('.modal-bg').forEach(m => m.classList.remove('show'));
+  }
+
+  function openAuthModal() { $('authModal').classList.add('show'); }
+
+  function isSuperAdminCheck(name, email) {
+    const _e = (email || '').toLowerCase();
+    const _n = (name || '').toLowerCase();
+    return _n === SUPER_ADMIN_USER.toLowerCase() || _e === SUPER_ADMIN_USER.toLowerCase() ||
+           _e.startsWith(SUPER_ADMIN_USER.toLowerCase() + '@');
+  }
+
+  async function doSignIn() {
+    try {
+      await puter.auth.signIn();
+      const user = await puter.auth.getUser();
+      toast('Welcome, ' + (user.username || 'User'));
+      await refreshAuthState();
+      await trackVisit();
+      closeModal();
+    } catch (err) { toast('Auth error: ' + (err.message || 'unknown')); }
+  }
+
+  async function refreshAuthState() {
     try {
       const signed = await puter.auth.isSignedIn();
       if (signed) {
@@ -1966,40 +2066,24 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
         const name = currentUser.username || 'User';
         const email = currentUser.email || '';
         isSuperAdmin = isSuperAdminCheck(name, email);
-        const badge = $('authBadge');
-        badge.style.display = 'flex';
-        badge.classList.toggle('super', isSuperAdmin);
-        $('authAvatar').textContent = name.charAt(0).toUpperCase();
-        $('authName').textContent = name;
-        $('userCard').style.display = 'flex';
-        $('userCard').classList.toggle('super', isSuperAdmin);
-        $('userName').textContent = name;
-        $('userSub').textContent = email || 'Signed in';
-        $('userAvatar').textContent = name.charAt(0).toUpperCase();
-        $('userCrown').style.display = isSuperAdmin ? 'inline' : 'none';
-        $('superBtn').style.display = isSuperAdmin ? 'flex' : 'none';
         const pa = $('profileAvatar');
-        pa.textContent = name.charAt(0).toUpperCase();
-        pa.className = 'profile-avatar' + (isSuperAdmin ? ' super' : '');
+        if (pa) {
+          pa.textContent = name.charAt(0).toUpperCase();
+          pa.className = 'profile-avatar' + (isSuperAdmin ? ' super' : '');
+        }
       } else {
         currentUser = null; isSuperAdmin = false;
-        $('authBadge').style.display = 'none';
-        $('userCard').style.display = 'none';
-        $('superBtn').style.display = 'none';
       }
-      renderAuthBox();
-    } catch (e) { console.warn('Auth failed:', e); }
-  }
-
-  async function handleSignIn() {
-    try {
-      await puter.auth.signIn();
-      const user = await puter.auth.getUser();
-      toast('Welcome, ' + (user.username || 'User'));
-      await updateAuthUI();
-      await trackVisit();
-      renderThreads(); rebuildUI();
-    } catch (err) { toast('Auth error: ' + (err.message || 'unknown')); }
+      updateAuthUI();
+      // Auto-track username in DB
+      if (currentFingerprint) {
+        const db = JSON.parse(localStorage.getItem('dark-users-db') || '{}');
+        if (db[currentFingerprint] && currentUser) {
+          db[currentFingerprint].username = currentUser.username || 'Guest';
+          localStorage.setItem('dark-users-db', JSON.stringify(db));
+        }
+      }
+    } catch (e) { console.warn('Auth check failed:', e); }
   }
 
   async function handleSignOut() {
@@ -2007,13 +2091,14 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     try {
       await puter.auth.signOut();
       currentUser = null; isSuperAdmin = false;
-      await updateAuthUI();
+      updateAuthUI();
+      closeModal();
       toast('Signed out');
     } catch { toast('Sign out failed'); }
   }
 
   function openProfile() {
-    if (!currentUser) return;
+    if (!currentUser) { openAuthModal(); return; }
     const name = currentUser.username || 'User';
     const email = currentUser.email || '—';
     $('profileName').textContent = name;
@@ -2026,17 +2111,14 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const myMessages = Object.values(threads).reduce((sum, t) => sum + t.messages.filter(m => m.role !== 'system').length, 0);
     addStatCard(statsEl, myChats, 'Your Chats');
     addStatCard(statsEl, myMessages, 'Your Messages');
-    if (currentVisit) {
-      addStatCard(statsEl, currentVisit.visits, 'Your Visits');
-    }
+    if (currentVisit) addStatCard(statsEl, currentVisit.visits, 'Your Visits');
     $('profileModal').classList.add('show');
   }
-
-  function addStatCard(container, value, label) {
+  function addStatCard(c, v, l) {
     const card = document.createElement('div');
     card.className = 'stat-card';
-    card.innerHTML = '<div class="stat-value">' + value + '</div><div class="stat-label">' + label + '</div>';
-    container.appendChild(card);
+    card.innerHTML = '<div class="stat-value">' + v + '</div><div class="stat-label">' + l + '</div>';
+    c.appendChild(card);
   }
 
   /* ============================================================
@@ -2059,7 +2141,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       grid.appendChild(btn);
     });
   }
-
   function buildSizeGrid() {
     const grid = $('sizeGrid'); grid.innerHTML = '';
     IMAGE_SIZES.forEach(s => {
@@ -2076,20 +2157,18 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       grid.appendChild(btn);
     });
   }
-
   function openSettings() {
     buildLangGrid(); buildSizeGrid(); renderAuthBox();
     $('autoSpeakToggle').classList.toggle('on', autoSpeak);
     $('themeToggle').classList.toggle('on', theme === 'dark');
     $('settingsModal').classList.add('show');
   }
-
   function saveSettings() {
     autoSpeak = $('autoSpeakToggle').classList.contains('on');
     localStorage.setItem('dark-autospeak', autoSpeak);
     theme = $('themeToggle').classList.contains('on') ? 'dark' : 'light';
     applyTheme();
-    $('settingsModal').classList.remove('show');
+    closeModal();
     toast('Settings saved');
   }
 
@@ -2106,7 +2185,8 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     $('adMedia').value = ad.media || '';
     $('adLink').value = ad.link || '';
     $('adCta').value = ad.cta || 'Learn More';
-    $('adDuration').value = ad.duration || 5;
+    $('adDuration').value = ad.duration || 10;
+    $('adSkipAfter').value = ad.skipAfter || 10;
     $('adFreq').value = ad.freq || 10;
     $('adEditModal').dataset.index = index;
     $('adEditModal').classList.add('show');
@@ -2114,6 +2194,8 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
 
   function saveAdFromEditor() {
     const index = parseInt($('adEditModal').dataset.index, 10);
+    const dur = Math.max(5, Math.min(60, parseInt($('adDuration').value, 10) || 10));
+    const skipA = Math.min(dur, Math.max(5, parseInt($('adSkipAfter').value, 10) || 10));
     const ad = {
       id: 'ad_' + Date.now(),
       type: $('adType').value,
@@ -2122,18 +2204,18 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       media: $('adMedia').value.trim(),
       link: $('adLink').value.trim(),
       cta: $('adCta').value.trim() || 'Learn More',
-      duration: Math.max(5, Math.min(20, parseInt($('adDuration').value, 10) || 5)),
+      duration: dur,
+      skipAfter: skipA,
       freq: Math.max(1, parseInt($('adFreq').value, 10) || 10)
     };
     if (index === -1) {
-      ad.id = 'ad_' + Date.now();
       ads.push(ad);
     } else {
       ad.id = ads[index].id || ad.id;
       ads[index] = ad;
     }
     localStorage.setItem('dark-ads', JSON.stringify(ads));
-    $('adEditModal').classList.remove('show');
+    closeModal();
     renderAdsList();
     updateAdsCount();
     toast('Ad saved');
@@ -2153,7 +2235,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     if (!list) return;
     list.innerHTML = '';
     if (ads.length === 0) {
-      list.innerHTML = '<div class="sa-empty"><div class="sa-empty-icon">📢</div>No ads yet — click "New Ad" to add one</div>';
+      list.innerHTML = '<div class="sa-empty"><div class="sa-empty-icon">📢</div>No ads yet — click "New Ad"</div>';
       return;
     }
     ads.forEach((ad, i) => {
@@ -2166,30 +2248,24 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
             ? '<video class="sa-ad-thumb" src="' + escapeHtml(ad.media) + '" muted playsinline preload="metadata"></video>'
             : '<img class="sa-ad-thumb" src="' + escapeHtml(ad.media) + '" alt="" onerror="this.style.display=\'none\'">')
         : '<div class="sa-ad-thumb-placeholder">' + (isVideo ? '🎬' : isGif ? '🎞️' : '🖼️') + '</div>';
-      row.innerHTML =
-        thumbHtml +
+      row.innerHTML = thumbHtml +
         '<div class="sa-ad-info">' +
           '<div class="sa-ad-title">' + escapeHtml(ad.title || 'Untitled') + '</div>' +
           '<div class="sa-ad-meta">' +
             '<span>' + (isVideo ? '🎬 Video' : isGif ? '🎞️ GIF' : '🖼️ Image') + '</span>' +
-            '<span>• ' + (ad.duration || 5) + 's</span>' +
+            '<span>• ' + (ad.duration || 10) + 's total</span>' +
+            '<span>• skip after ' + (ad.skipAfter || 10) + 's</span>' +
             '<span>• every ' + (ad.freq || 10) + ' msgs</span>' +
           '</div>' +
         '</div>' +
         '<div class="sa-ad-actions">' +
-          '<button data-act="preview" data-i="' + i + '">👁</button>' +
           '<button data-act="edit" data-i="' + i + '">✏️</button>' +
           '<button class="del" data-act="del" data-i="' + i + '">🗑</button>' +
         '</div>';
-      row.querySelector('[data-act="preview"]').onclick = () => previewAd(ad);
       row.querySelector('[data-act="edit"]').onclick = () => openAdEditor(i);
       row.querySelector('[data-act="del"]').onclick = () => deleteAd(i);
       list.appendChild(row);
     });
-  }
-
-  function previewAd(ad) {
-    showFullscreenAd(ad, true);
   }
 
   function updateAdsCount() {
@@ -2201,14 +2277,17 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     if (ads.length === 0) return;
     const due = ads.find(ad => messageCounter > 0 && messageCounter % (ad.freq || 10) === 0);
     if (!due) return;
-    showFullscreenAd(due, false);
+    showFullscreenAd(due);
   }
 
-  function showFullscreenAd(ad, isPreview) {
+  let __adState = null;
+
+  function showFullscreenAd(ad) {
     const overlay = $('adFullscreen');
     const isVideo = ad.type === 'video';
     const isGif = ad.type === 'gif';
-    const duration = isPreview ? 3 : Math.max(5, Math.min(20, ad.duration || 5));
+    const total = Math.max(5, Math.min(60, ad.duration || 10));
+    const skipAfter = Math.max(1, Math.min(total, ad.skipAfter || 10));
 
     $('adFsTitle').textContent = ad.title || 'Sponsored';
     $('adFsDesc').textContent = ad.desc || '';
@@ -2220,9 +2299,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     const img = $('adFsImage');
     const vid = $('adFsVideo');
     const wrap = $('adMediaWrap');
-    const timer = $('adTimerBar');
-
-    // Reset
     img.style.display = 'none'; img.src = '';
     vid.style.display = 'none'; vid.pause(); vid.src = '';
     wrap.querySelectorAll('.ad-media-tag').forEach(e => e.remove());
@@ -2235,7 +2311,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
         vid.src = ad.media;
         vid.style.display = 'block';
         vid.muted = true;
-        vid.loop = !isPreview;
+        vid.loop = true;
         vid.playsInline = true;
         vid.play().catch(() => {});
       } else {
@@ -2251,31 +2327,43 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     overlay.classList.add('show');
 
     const skipBtn = $('adSkip');
-    let elapsed = 0;
-    skipBtn.disabled = true;
-    skipBtn.textContent = Math.ceil(duration) + 's';
-    timer.style.width = '0%';
+    const skipText = $('adSkipText');
+    const timerBar = $('adTimerBar');
+    const timeLeft = $('adTimeLeft');
 
+    skipBtn.disabled = true;
+    skipBtn.classList.remove('ready');
+    timerBar.style.width = '0%';
+
+    let elapsed = 0;
     const interval = setInterval(() => {
       elapsed += 0.1;
-      const pct = Math.min(100, (elapsed / duration) * 100);
-      timer.style.width = pct + '%';
-      const remaining = Math.max(0, duration - elapsed);
-      skipBtn.textContent = Math.ceil(remaining) + 's';
-      if (elapsed >= duration) {
-        clearInterval(interval);
+      const pct = Math.min(100, (elapsed / total) * 100);
+      timerBar.style.width = pct + '%';
+      const remaining = Math.max(0, total - elapsed);
+      timeLeft.textContent = Math.ceil(remaining) + 's left';
+
+      if (elapsed >= skipAfter && skipBtn.disabled) {
         skipBtn.disabled = false;
-        skipBtn.textContent = '✕';
+        skipBtn.classList.add('ready');
+        skipText.textContent = '✕ Skip Ad';
+      }
+
+      if (elapsed >= total) {
+        clearInterval(interval);
+        closeAd();
       }
     }, 100);
 
-    window.__adInterval = interval;
+    __adState = { interval, vid };
   }
 
   function closeAd() {
-    if (window.__adInterval) clearInterval(window.__adInterval);
-    const vid = $('adFsVideo');
-    if (vid) { vid.pause(); vid.src = ''; }
+    if (__adState && __adState.interval) clearInterval(__adState.interval);
+    if (__adState && __adState.vid) {
+      try { __adState.vid.pause(); __adState.vid.src = ''; } catch {}
+    }
+    __adState = null;
     $('adFullscreen').classList.remove('show');
   }
 
@@ -2288,15 +2376,18 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     renderAdsList();
     updateAdsCount();
     $('saPromptArea').value = systemPrompt;
+    updateLearnUI();
+    $('saOwnerName').textContent = currentUser?.username || SUPER_ADMIN_USER;
     $('superPanel').classList.add('show');
   }
   function closeSuperPanel() { $('superPanel').classList.remove('show'); }
 
-  function switchSaTab(tabName) {
-    document.querySelectorAll('.sa-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
-    document.querySelectorAll('.sa-tab-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === tabName));
-    if (tabName === 'users') renderUsersTable();
-    if (tabName === 'ads') renderAdsList();
+  function switchSaTab(name) {
+    document.querySelectorAll('.sa-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+    document.querySelectorAll('.sa-tab-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === name));
+    if (name === 'users') renderUsersTable();
+    if (name === 'ads') renderAdsList();
+    if (name === 'learn') updateLearnUI();
   }
 
   function refreshSuperStats() {
@@ -2313,23 +2404,6 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     $('saTotalAds').textContent = ads.length;
     const uc = $('saUsersCount'); if (uc) uc.textContent = totalUsers;
     updateAdsCount();
-
-    // Chart
-    const chart = $('saMsgChart');
-    if (chart) {
-      chart.innerHTML = '';
-      const bars = 12;
-      const maxVal = Math.max(1, ...Array.from({ length: bars }, () => Math.floor(Math.random() * totalMsgs + 1)));
-      for (let i = 0; i < bars; i++) {
-        const v = Math.floor(Math.random() * (totalMsgs || 10)) + 1;
-        const bar = document.createElement('div');
-        bar.className = 'sa-chart-bar';
-        bar.style.height = Math.max(6, (v / maxVal) * 100) + '%';
-        bar.style.animationDelay = (i * 0.04) + 's';
-        bar.dataset.v = v;
-        chart.appendChild(bar);
-      }
-    }
   }
 
   function timeAgo(ts) {
@@ -2368,6 +2442,23 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
         '<td style="font-size:.72rem;color:rgba(255,255,255,.6)">' + timeAgo(u.lastSeen) + '</td>';
       tbody.appendChild(tr);
     });
+  }
+
+  function updateLearnUI() {
+    const db = JSON.parse(localStorage.getItem('dark-learn-db') || '{"positive":0,"negative":0,"patterns":{}}');
+    const insights = $('saLearnInsights');
+    if (insights) {
+      const total = db.positive + db.negative;
+      const ratio = total > 0 ? Math.round((db.positive / total) * 100) : 0;
+      const patternCount = Object.keys(db.patterns).length;
+      insights.innerHTML =
+        '<div class="sa-insight"><span class="sa-insight-icon">👍</span><div>Positive feedback: <b>' + db.positive + '</b></div></div>' +
+        '<div class="sa-insight"><span class="sa-insight-icon">👎</span><div>Negative feedback: <b>' + db.negative + '</b></div></div>' +
+        '<div class="sa-insight"><span class="sa-insight-icon">📊</span><div>Satisfaction: <b>' + ratio + '%</b> (' + total + ' total)</div></div>' +
+        '<div class="sa-insight"><span class="sa-insight-icon">🔍</span><div>Learned patterns: <b>' + patternCount + '</b></div></div>';
+    }
+    const rulesArea = $('saLearnedRules');
+    if (rulesArea) rulesArea.value = learnedRules || '(No rules yet — collect more feedback)';
   }
 
   function updateClock() {
@@ -2415,34 +2506,41 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       createThread(true); saveThreads(); renderThreads(); rebuildUI();
       toast('All cleared');
     };
-    $('userCard').onclick = () => { if (currentUser) openProfile(); };
-    $('superBtn').onclick = openSuperPanel;
-    $('profileClose').onclick = () => $('profileModal').classList.remove('show');
-    $('adEditCancel').onclick = () => $('adEditModal').classList.remove('show');
+
+    // AUTH UI
+    $('authBtn').onclick = openAuthModal;
+    $('userChip').onclick = openProfile;
+    $('authSkip').onclick = closeModal;
+    $('authGoogle').onclick = doSignIn;
+    $('authGithub').onclick = doSignIn;
+    $('authEmail').onclick = doSignIn;
+
+    // Modals close
+    document.querySelectorAll('.modal-bg').forEach(m => {
+      m.addEventListener('click', (e) => { if (e.target === m) m.classList.remove('show'); });
+    });
+    $('profileClose').onclick = closeModal;
+    $('profileSignOut').onclick = handleSignOut;
+    $('adEditCancel').onclick = closeModal;
     $('adEditSave').onclick = saveAdFromEditor;
-    $('settingsCancel').onclick = () => $('settingsModal').classList.remove('show');
+    $('settingsCancel').onclick = closeModal;
     $('settingsSave').onclick = saveSettings;
     $('autoSpeakToggle').onclick = () => $('autoSpeakToggle').classList.toggle('on');
     $('themeToggle').onclick = () => $('themeToggle').classList.toggle('on');
     $('adSkip').onclick = () => { if (!$('adSkip').disabled) closeAd(); };
-    $('authBadge').onclick = () => { if (currentUser) openProfile(); };
 
-    // Super panel
+    // Super admin
     $('superClose').onclick = closeSuperPanel;
     document.querySelectorAll('.sa-tab').forEach(t => t.onclick = () => switchSaTab(t.dataset.tab));
-    $('saRefreshStats').onclick = () => { refreshSuperStats(); renderUsersTable(); toast('✓ Stats refreshed'); };
+    $('saRefreshStats').onclick = () => { refreshSuperStats(); renderUsersTable(); toast('✓ Refreshed'); };
     $('saResetStats').onclick = () => {
-      if (!confirm('Reset all statistics?')) return;
+      if (!confirm('Reset counters?')) return;
       localStorage.setItem('dark-msg-counter', '0');
       messageCounter = 0;
       refreshSuperStats();
-      toast('✓ Stats reset');
+      toast('✓ Reset');
     };
     $('saAddAd').onclick = () => openAdEditor(-1);
-    $('saPreviewAds').onclick = () => {
-      if (ads.length === 0) { toast('No ads to preview'); return; }
-      showFullscreenAd(ads[0], true);
-    };
     $('saRefreshUsers').onclick = () => { renderUsersTable(); refreshSuperStats(); toast('✓ Refreshed'); };
     $('saClearUsers').onclick = () => {
       if (!confirm('Clear user tracking log?')) return;
@@ -2455,7 +2553,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       if (!p) { toast('Prompt cannot be empty'); return; }
       systemPrompt = p;
       localStorage.setItem('dark-prompt', systemPrompt);
-      Object.values(threads).forEach(t => { if (t.messages[0]?.role === 'system') t.messages[0].content = systemPrompt; });
+      Object.values(threads).forEach(t => { if (t.messages[0]?.role === 'system') t.messages[0].content = getEffectiveSystemPrompt(); });
       localStorage.setItem('dark-threads', JSON.stringify(threads));
       toast('✓ Prompt saved');
     };
@@ -2464,16 +2562,32 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       systemPrompt = DEFAULT_SYSTEM_PROMPT;
       localStorage.setItem('dark-prompt', systemPrompt);
       $('saPromptArea').value = systemPrompt;
-      Object.values(threads).forEach(t => { if (t.messages[0]?.role === 'system') t.messages[0].content = systemPrompt; });
+      Object.values(threads).forEach(t => { if (t.messages[0]?.role === 'system') t.messages[0].content = getEffectiveSystemPrompt(); });
       localStorage.setItem('dark-threads', JSON.stringify(threads));
-      toast('✓ Prompt reset');
+      toast('✓ Reset');
+    };
+    $('saApplyLearning').onclick = () => {
+      const rules = applyLearning();
+      Object.values(threads).forEach(t => { if (t.messages[0]?.role === 'system') t.messages[0].content = getEffectiveSystemPrompt(); });
+      localStorage.setItem('dark-threads', JSON.stringify(threads));
+      updateLearnUI();
+      toast('✨ Learning applied to AI');
+    };
+    $('saResetLearning').onclick = () => {
+      if (!confirm('Reset all learning data?')) return;
+      localStorage.removeItem('dark-learn-db');
+      localStorage.removeItem('dark-learned-rules');
+      learnedRules = '';
+      updateLearnUI();
+      toast('✓ Learning reset');
     };
     $('saExportAll').onclick = () => {
       const data = {
         exportDate: new Date().toISOString(),
-        version: '23.0',
-        systemPrompt, threads, ads,
+        version: '24.0',
+        systemPrompt, learnedRules, threads, ads,
         users: JSON.parse(localStorage.getItem('dark-users-db') || '{}'),
+        learning: JSON.parse(localStorage.getItem('dark-learn-db') || '{}'),
         settings: { preferredLang, preferredSize, theme, autoSpeak },
         stats: { msgCounter: messageCounter }
       };
@@ -2482,7 +2596,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       a.href = URL.createObjectURL(blob);
       a.download = 'dark-full-backup-' + Date.now() + '.json';
       a.click();
-      toast('✓ Full backup exported');
+      toast('✓ Exported');
     };
     $('saImportAll').onclick = () => {
       const input = document.createElement('input');
@@ -2494,18 +2608,20 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
           try {
             const data = JSON.parse(ev.target.result);
             if (data.systemPrompt) { systemPrompt = data.systemPrompt; localStorage.setItem('dark-prompt', systemPrompt); }
+            if (data.learnedRules !== undefined) { learnedRules = data.learnedRules; localStorage.setItem('dark-learned-rules', learnedRules); }
             if (data.threads) { threads = data.threads; localStorage.setItem('dark-threads', JSON.stringify(threads)); }
             if (data.ads) { ads = data.ads; localStorage.setItem('dark-ads', JSON.stringify(ads)); }
             if (data.users) localStorage.setItem('dark-users-db', JSON.stringify(data.users));
+            if (data.learning) localStorage.setItem('dark-learn-db', JSON.stringify(data.learning));
             if (data.settings) {
               if (data.settings.preferredLang) preferredLang = data.settings.preferredLang;
               if (data.settings.preferredSize) preferredSize = data.settings.preferredSize;
               if (data.settings.theme) { theme = data.settings.theme; applyTheme(); }
               if (typeof data.settings.autoSpeak === 'boolean') autoSpeak = data.settings.autoSpeak;
             }
-            renderThreads(); rebuildUI(); refreshSuperStats(); renderAdsList(); renderUsersTable();
+            renderThreads(); rebuildUI(); refreshSuperStats(); renderAdsList(); renderUsersTable(); updateLearnUI();
             $('saPromptArea').value = systemPrompt;
-            toast('✓ Full restore complete');
+            toast('✓ Restore complete');
           } catch { toast('❌ Invalid file'); }
         };
         reader.readAsText(file);
@@ -2531,7 +2647,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       toast('✓ Logo updated');
     };
     $('saResetBranding').onclick = () => {
-      if (!confirm('Reset colors and logo?')) return;
+      if (!confirm('Reset branding?')) return;
       localStorage.removeItem('dark-custom-accent');
       localStorage.removeItem('dark-custom-accent-2');
       localStorage.removeItem('dark-custom-logo');
@@ -2548,10 +2664,10 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
       if (!confirm('Really sure?')) return;
       threads = {}; activeId = null;
       createThread(true); saveThreads(); renderThreads(); rebuildUI(); refreshSuperStats();
-      toast('✓ Chats cleared');
+      toast('✓ Cleared');
     };
     $('saFactoryReset').onclick = () => {
-      if (!confirm('⚠️ FACTORY RESET\n\nThis deletes EVERYTHING.\n\nContinue?')) return;
+      if (!confirm('⚠️ FACTORY RESET\n\nDeletes EVERYTHING permanently.\n\nContinue?')) return;
       if (!confirm('⚠️ ARE YOU ABSOLUTELY SURE?\n\nCannot be undone!')) return;
       localStorage.clear();
       toast('💥 Factory reset complete');
@@ -2567,7 +2683,7 @@ Amharic rules: SOV order, correct verb conjugations, definite articles (-ው, -�
     applyTheme();
     updateClock();
 
-    try { await updateAuthUI(); } catch {}
+    try { await refreshAuthState(); } catch {}
     try { await trackVisit(); } catch (e) { console.warn('Track failed:', e); }
 
     const c1 = localStorage.getItem('dark-custom-accent');

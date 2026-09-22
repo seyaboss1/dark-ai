@@ -588,7 +588,7 @@ let showTimestamps=localStorage.getItem('dark-timestamps')!=='false';
 let theme=localStorage.getItem('dark-theme')||'light';
 let systemPrompt=localStorage.getItem('dark-prompt')||DEFAULT_SYSTEM_PROMPT;
 let learnedRules=localStorage.getItem('dark-learned-rules')||'';
-let imageFeedback=JSON.parse(localStorage.getItem('dark-image-feedback')||'{"liked":[],"disliked":{}');
+let imageFeedback=JSON.parse(localStorage.getItem('dark-image-feedback')||'{"liked":[],"disliked":{}}');
 let bookmarks=JSON.parse(localStorage.getItem('dark-bookmarks')||'[]');
 let currentUser=null;
 let isSuperAdmin=false;

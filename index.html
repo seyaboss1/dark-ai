@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DARK AI v7 Pro</title>
+<title>DARK AI v8 Pro</title>
 <script src="https://js.puter.com/v2/"></script>
 <script src="https://unpkg.com/lightweight-charts@4.1.0/dist/lightweight-charts.standalone.production.js"></script>
 <style>
@@ -37,13 +37,6 @@ header{position:fixed;top:0;left:0;right:0;height:56px;background:linear-gradien
 .tradeAllBtn.on{background:linear-gradient(135deg,#00e676,#00d4ff);color:#000;border-color:transparent;box-shadow:0 0 15px rgba(0,230,118,.5)}
 .wl{display:flex;gap:5px;flex:1;overflow-x:auto;scrollbar-width:none;justify-content:center}
 .wl::-webkit-scrollbar{display:none}
-.wt{padding:4px 9px;border-radius:8px;background:rgba(15,20,50,.85);border:1px solid rgba(0,212,255,.2);display:flex;gap:5px;align-items:center;font-size:10px;font-weight:700;cursor:pointer;flex-shrink:0;position:relative}
-.wt:hover{border-color:#00d4ff}
-.wt.sig{border-color:#00e676;box-shadow:0 0 12px rgba(0,230,118,.6)}
-.wt.trading{border-color:#00d4ff;background:rgba(0,212,255,.15)}
-.wt b{color:#ffd54f;font-family:monospace;font-size:11px}
-.wt .dot{position:absolute;top:-3px;right:-3px;width:8px;height:8px;border-radius:50%;background:#00e676;border:2px solid #0a1230;animation:puB 1s infinite}
-.wt .tdot{position:absolute;bottom:-3px;right:-3px;width:8px;height:8px;border-radius:50%;background:#00d4ff;border:2px solid #0a1230}
 .bbal{display:flex;flex-direction:column;align-items:flex-end;font-size:9px;color:#9aa4cc;font-weight:700;flex-shrink:0}
 .bbal b{font-size:14px;font-family:monospace;background:linear-gradient(135deg,#00d4ff,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .bpl{font-size:10px;font-family:monospace;font-weight:800}
@@ -157,7 +150,7 @@ main{position:fixed;top:56px;left:0;right:0;bottom:0}
 .patRow .pdot.bull{background:#00e676}
 .patRow .pdot.bear{background:#ff3d5f}
 .patRow .pdot.neu{background:#ffb300}
-#lvlOvl{bottom:14px;right:14px;padding:10px 12px;min-width:230px}
+#lvlOvl{bottom:96px;right:14px;padding:10px 12px;min-width:230px}
 .lvlHead{font-size:9px;color:#9aa4cc;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
 .lvlRow{display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:4px 0;font-family:monospace;border-bottom:1px solid rgba(0,212,255,.08);gap:8px}
 .lvlRow:last-child{border-bottom:none}
@@ -168,9 +161,34 @@ main{position:fixed;top:56px;left:0;right:0;bottom:0}
 .lvlRow.sl .k,.lvlRow.sl .p,.lvlRow.sl .u{color:#ff3d5f}
 .lvlRow.tp1 .k,.lvlRow.tp1 .p,.lvlRow.tp1 .u{color:#00e676}
 .lvlRow.tp2 .k,.lvlRow.tp2 .p,.lvlRow.tp2 .u{color:#ffd54f}
-#zzOvl{bottom:14px;left:14px;padding:7px}
-.zzb{padding:5px 10px;background:rgba(15,20,50,.85);border:1px solid rgba(0,212,255,.25);color:#9aa4cc;border-radius:8px;font-weight:800;font-size:10px;cursor:pointer;font-family:inherit;text-transform:uppercase}
-.zzb.on{background:linear-gradient(135deg,#ffd54f,#ffb300);color:#000;border-color:transparent}
+/* ====== SYMBOL SWITCHER BAR ====== */
+#symBar{position:absolute;bottom:14px;left:14px;right:14px;display:flex;gap:6px;padding:8px;background:rgba(10,18,48,.88);backdrop-filter:blur(20px);border:1px solid rgba(0,212,255,.35);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.6);z-index:10;overflow-x:auto;scrollbar-width:none}
+#symBar::-webkit-scrollbar{display:none}
+.symTab{padding:8px 14px;background:rgba(15,20,50,.7);border:1px solid rgba(0,212,255,.2);border-radius:10px;cursor:pointer;font-family:inherit;color:#eaf0ff;display:flex;align-items:center;gap:8px;flex-shrink:0;transition:all .25s;position:relative;min-width:130px}
+.symTab:hover{border-color:#00d4ff;transform:translateY(-2px)}
+.symTab.active{background:linear-gradient(135deg,rgba(0,212,255,.25),rgba(124,58,237,.25));border-color:#00d4ff;box-shadow:0 0 20px rgba(0,212,255,.4)}
+.symTab .tb-icon{font-size:18px;flex-shrink:0}
+.symTab .tb-info{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.symTab .tb-label{font-size:11px;font-weight:900;letter-spacing:.5px;white-space:nowrap}
+.symTab .tb-price{font-size:11px;font-family:monospace;font-weight:900;color:#ffd54f;white-space:nowrap}
+.symTab .tb-chg{font-size:9px;font-weight:800;font-family:monospace}
+.symTab .tb-chg.up{color:#00e676}
+.symTab .tb-chg.dn{color:#ff3d5f}
+.symTab .tb-sig{position:absolute;top:-4px;right:-4px;width:10px;height:10px;border-radius:50%;background:#00e676;box-shadow:0 0 10px #00e676;border:2px solid #0a1230;animation:puB 1s infinite}
+.symTab .tb-trade{position:absolute;bottom:-4px;right:-4px;width:10px;height:10px;border-radius:50%;background:#00d4ff;box-shadow:0 0 10px #00d4ff;border:2px solid #0a1230}
+.symTab .tb-tf{position:absolute;top:6px;right:8px;font-size:8px;font-weight:900;color:#00d4ff;letter-spacing:1px;opacity:.7}
+/* Add symbol button */
+.addSym{padding:8px 12px;background:rgba(15,20,50,.5);border:1px dashed rgba(0,212,255,.4);border-radius:10px;color:#00d4ff;cursor:pointer;font-family:inherit;font-weight:800;font-size:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;min-width:44px}
+.addSym:hover{background:rgba(0,212,255,.15);border-color:#00d4ff}
+/* Watchlist ticker top */
+.wt{padding:4px 9px;border-radius:8px;background:rgba(15,20,50,.85);border:1px solid rgba(0,212,255,.2);display:flex;gap:5px;align-items:center;font-size:10px;font-weight:700;cursor:pointer;flex-shrink:0;position:relative}
+.wt:hover{border-color:#00d4ff}
+.wt.active{border-color:#00d4ff;background:rgba(0,212,255,.15)}
+.wt.sig{border-color:#00e676;box-shadow:0 0 12px rgba(0,230,118,.6)}
+.wt.trading{border-color:#00d4ff;background:rgba(0,212,255,.15)}
+.wt b{color:#ffd54f;font-family:monospace;font-size:11px}
+.wt .dot{position:absolute;top:-3px;right:-3px;width:8px;height:8px;border-radius:50%;background:#00e676;border:2px solid #0a1230;animation:puB 1s infinite}
+.wt .tdot{position:absolute;bottom:-3px;right:-3px;width:8px;height:8px;border-radius:50%;background:#00d4ff;border:2px solid #0a1230}
 .toast{position:absolute;top:14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,rgba(0,230,118,.95),rgba(0,212,255,.9));color:#000;padding:10px 16px;border-radius:12px;font-weight:800;font-size:12px;box-shadow:0 12px 40px rgba(0,230,118,.6);display:none;align-items:center;gap:8px;z-index:20;animation:slideD .4s;max-width:440px}
 .toast.show{display:flex}
 @keyframes slideD{from{transform:translate(-50%,-120%);opacity:0}to{transform:translate(-50%,0);opacity:1}}
@@ -229,7 +247,7 @@ main{position:fixed;top:56px;left:0;right:0;bottom:0}
 <div class="hBadge wait" id="hBadge">⏸ WAIT</div>
 <div class="symBox" id="symBox"><div class="nm" id="symNm">GOLD/USD</div><b id="symPr">—</b></div>
 <div class="priceBox" id="chg">+0.00%</div>
-<button class="tradeAllBtn" id="tradeAllBtn" title="Trade ALL watchlist symbols simultaneously">🌐 Trade All: OFF</button>
+<button class="tradeAllBtn" id="tradeAllBtn">🌐 Trade All: OFF</button>
 <div class="wl" id="wl"></div>
 <div class="bbal"><div>Balance</div><b id="bal">$10,000</b><div class="bpl p" id="bpl">$0 (0%)</div></div>
 <button class="menu3" id="m3">⋮</button>
@@ -257,9 +275,7 @@ main{position:fixed;top:56px;left:0;right:0;bottom:0}
 <div class="lvlRow tp1"><span class="k">TP1</span><span class="p" id="lvTp1">—</span><span class="u" id="lvTp1U">—</span></div>
 <div class="lvlRow tp2"><span class="k">TP2</span><span class="p" id="lvTp2">—</span><span class="u" id="lvTp2U">—</span></div>
 </div>
-<div class="ovl" id="zzOvl">
-<button class="zzb" id="zzBtn">📈 ZigZag: OFF</button>
-</div>
+<div id="symBar"></div>
 <div class="toast" id="toast"></div>
 </div>
 <div class="view" id="histView">
@@ -340,20 +356,19 @@ const state={
   decisions:{},multiTfDecisions:{},signals:[],trades:[],
   bal:10000,autoTrade:false,autoSwitch:false,tradeAll:false,
   watchlist:['BTCUSDT','ETHUSDT','EURUSDT'],
+  tabs:['XAUUSD','BTCUSDT','ETHUSDT','EURUSDT'],
   tf:'5m',
   lastSignalTs:{},learned:{},wins:0,losses:0,streak:0,bestStreak:0,
-  tpWarned:{},voice:{on:false},activeLevels:{},histFilter:'all',activeView:'chart',
-  zigzag:false,zigSeries:null
+  tpWarned:{},voice:{on:false},activeLevels:{},histFilter:'all',activeView:'chart'
 };
 const POSITION=1000;
 const MIN_HOLD=5*60*1000;
-try{const l=localStorage.getItem('darkai_v7');if(l){const d=JSON.parse(l);Object.assign(state,{learned:d.learned||{},wins:d.wins||0,losses:d.losses||0,streak:d.streak||0,bestStreak:d.bestStreak||0,watchlist:d.watchlist||state.watchlist,voice:d.voice||state.voice,trades:d.trades||[],tradeAll:d.tradeAll||false,zigzag:d.zigzag||false});}}catch(e){}
-function saveS(){try{localStorage.setItem('darkai_v7',JSON.stringify({learned:state.learned,wins:state.wins,losses:state.losses,streak:state.streak,bestStreak:state.bestStreak,watchlist:state.watchlist,voice:state.voice,trades:state.trades.slice(0,200),tradeAll:state.tradeAll,zigzag:state.zigzag}));}catch(e){}}
+try{const l=localStorage.getItem('darkai_v8');if(l){const d=JSON.parse(l);Object.assign(state,{learned:d.learned||{},wins:d.wins||0,losses:d.losses||0,streak:d.streak||0,bestStreak:d.bestStreak||0,watchlist:d.watchlist||state.watchlist,tabs:d.tabs||state.tabs,voice:d.voice||state.voice,trades:d.trades||[],tradeAll:d.tradeAll||false});}}catch(e){}
+function saveS(){try{localStorage.setItem('darkai_v8',JSON.stringify({learned:state.learned,wins:state.wins,losses:state.losses,streak:state.streak,bestStreak:state.bestStreak,watchlist:state.watchlist,tabs:state.tabs,voice:state.voice,trades:state.trades.slice(0,200),tradeAll:state.tradeAll}));}catch(e){}}
 
 function speak(t,force){if(!state.voice.on&&!force)return;try{window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.rate=1.05;u.volume=.9;window.speechSynthesis.speak(u);}catch(e){}}
 
 let chart,candleSeries,volSeries,ema9,ema21,ema50,zigLine,priceLines=[];
-let lastCandleTime={}; /* Track last time per symbol to prevent backward updates */
 function initChart(){
   const el=document.getElementById('chart');
   chart=LightweightCharts.createChart(el,{
@@ -428,10 +443,9 @@ function calcZigZag(candles,thr){
   return pivots;
 }
 function renderZigZag(){
-  if(!state.zigzag||!zigLine){zigLine.setData([]);return;}
   const arr=state.candles[state.focus];
-  if(!arr||arr.length<20){zigLine.setData([]);return;}
-  zigLine.setData(calcZigZag(arr,1.5));
+  if(!arr||arr.length<20){if(zigLine)zigLine.setData([]);return;}
+  if(zigLine)zigLine.setData(calcZigZag(arr,1.5));
 }
 
 function analyzeKey(key){
@@ -487,18 +501,15 @@ function runFullAnalysis(key){
   if(confirmed&&Date.now()-(state.lastSignalTs[key]||0)>45000){
     state.lastSignalTs[key]=Date.now();
     state.signals.unshift(d);if(state.signals.length>50)state.signals.pop();
-    /* Multi-market: open trade if (a) focused symbol + auto, OR (b) tradeAll mode */
     const shouldTrade=state.autoTrade && (state.tradeAll || key===state.focus);
     const alreadyOpen=state.trades.some(t=>t.key===key&&t.st==='open');
-    if(shouldTrade && !alreadyOpen){
-      openTrade(d);
-      speak('Entry '+d.act+' on '+d.label+' at '+d.p.toFixed(2));
-    }
+    if(shouldTrade && !alreadyOpen){openTrade(d);speak('Entry '+d.act+' on '+d.label+' at '+d.p.toFixed(2));}
     beep();
-    if(key!==state.focus){notify(d);}
+    if(key!==state.focus)notify(d);
   }
-  if(key===state.focus){renderDecision(d);renderLevels(d);renderHeaderBadge(d);drawLines();renderPatterns(d);}
+  if(key===state.focus){renderDecision(d);renderLevels(d);renderHeaderBadge(d);drawLines();renderPatterns(d);renderSymBar();}
   renderWL();
+  renderSymBar();
 }
 
 async function loadSymbol(key,tf){
@@ -515,7 +526,6 @@ async function loadSymbol(key,tf){
     state.candles[key]=state.candlesByTf[key][tf];
     state.prices[key]=+data[data.length-1][4];
     state.prev[key]=state.prices[key];
-    lastCandleTime[key]=data[data.length-1][0];
     if(key===state.focus&&tf===state.tf){
       candleSeries.setData(candles);volSeries.setData(vols);
       updateEMALines();
@@ -557,14 +567,13 @@ function renderMarkers(){
   const arr=state.trades.filter(t=>t.key===state.focus).slice(-30);
   const markers=arr.map(t=>{
     const time=Math.floor(t.ot/1000);
-    const price=t.e;
     const win=t.st==='win',loss=t.st==='loss',open=t.st==='open';
     return {
       time,
       position:t.dir==='buy'?'belowBar':'aboveBar',
       color:open?'#00d4ff':win?'#00e676':'#ff3d5f',
       shape:open?'circle':(t.dir==='buy'?'arrowUp':'arrowDown'),
-      text:(open?'● ':'')+(t.dir==='buy'?'BUY':'SELL')+' $'+price.toFixed(2)
+      text:(open?'● ':'')+(t.dir==='buy'?'BUY':'SELL')+' $'+t.e.toFixed(2)
     };
   });
   markers.sort((a,b)=>a.time-b.time);
@@ -597,27 +606,11 @@ function connectWS(key){
       if(!arr)return;
       const last=arr[arr.length-1];
       let doUpdate=false;
-      if(!last){
-        arr.push({t,o:+d.o,h:+d.h,l:+d.l,c:p});
-        if(key===state.focus)candleSeries.update({time:Math.floor(t/1000),open:+d.o,high:+d.h,low:+d.l,close:p});
-        doUpdate=true;
-      }else if(last.t===t){
-        last.h=Math.max(last.h,+d.h);
-        last.l=Math.min(last.l,+d.l);
-        last.c=p;
-        if(key===state.focus)candleSeries.update({time:Math.floor(t/1000),open:last.o,high:last.h,low:last.l,close:last.c});
-      }else if(t>last.t){
-        arr.push({t,o:+d.o,h:+d.h,l:+d.l,c:p});
-        if(arr.length>500)arr.shift();
-        if(key===state.focus)candleSeries.update({time:Math.floor(t/1000),open:+d.o,high:+d.h,low:+d.l,close:p});
-        doUpdate=true;
-      }else{
-        /* older candle - ignore to prevent chart corruption */
-      }
-      if(key===state.focus&&doUpdate){
-        volSeries.update({time:Math.floor(t/1000),value:+d.v,color:p>=+d.o?'rgba(0,230,118,.4)':'rgba(255,61,95,.4)'});
-      }
-      if(doUpdate)runFullAnalysis(key);
+      if(!last){arr.push({t,o:+d.o,h:+d.h,l:+d.l,c:p});if(key===state.focus)candleSeries.update({time:Math.floor(t/1000),open:+d.o,high:+d.h,low:+d.l,close:p});doUpdate=true;}
+      else if(last.t===t){last.h=Math.max(last.h,+d.h);last.l=Math.min(last.l,+d.l);last.c=p;if(key===state.focus)candleSeries.update({time:Math.floor(t/1000),open:last.o,high:last.h,low:last.l,close:last.c});}
+      else if(t>last.t){arr.push({t,o:+d.o,h:+d.h,l:+d.l,c:p});if(arr.length>500)arr.shift();if(key===state.focus)candleSeries.update({time:Math.floor(t/1000),open:+d.o,high:+d.h,low:+d.l,close:p});doUpdate=true;}
+      if(key===state.focus&&doUpdate)volSeries.update({time:Math.floor(t/1000),value:+d.v,color:p>=+d.o?'rgba(0,230,118,.4)':'rgba(255,61,95,.4)'});
+      if(doUpdate){runFullAnalysis(key);if(key===state.focus)renderZigZag();}
       tickers();ut();
     }catch(err){console.error('ws error',err);}
   };
@@ -675,10 +668,42 @@ function renderWL(){
     const d=state.decisions[k];
     const hasSig=d&&d.act!=='wait'&&d.str>=60;
     const trading=state.trades.some(t=>t.key===k&&t.st==='open');
-    h+='<div class="wt '+(hasSig?'sig':'')+' '+(trading?'trading':'')+'" data-w="'+k+'">'+(hasSig?'<span class="dot"></span>':'')+(trading?'<span class="tdot"></span>':'')+s.icon+' <b>'+f(p,2)+'</b><span style="color:'+(chg>=0?'#00e676':'#ff3d5f')+';font-size:9px">'+(chg>=0?'+':'')+chg.toFixed(2)+'%</span></div>';
+    const active=k===state.focus;
+    h+='<div class="wt '+(hasSig?'sig':'')+' '+(trading?'trading':'')+' '+(active?'active':'')+'" data-w="'+k+'">'+(hasSig?'<span class="dot"></span>':'')+(trading?'<span class="tdot"></span>':'')+s.icon+' <b>'+f(p,2)+'</b><span style="color:'+(chg>=0?'#00e676':'#ff3d5f')+';font-size:9px">'+(chg>=0?'+':'')+chg.toFixed(2)+'%</span></div>';
   }
   el.innerHTML=h;
   document.querySelectorAll('.wt').forEach(b=>b.addEventListener('click',()=>switchFocus(b.dataset.w)));
+}
+/* SYMBOL SWITCHER BAR */
+function renderSymBar(){
+  const el=document.getElementById('symBar');if(!el)return;
+  const tabs=state.tabs;
+  let h='';
+  for(const k of tabs){
+    if(!state.symbols[k])continue;
+    const p=state.prices[k],pv=state.prev[k],s=state.symbols[k];
+    const chg=pv?((p-pv)/pv)*100:0;
+    const d=state.decisions[k];
+    const hasSig=d&&d.act!=='wait'&&d.str>=60;
+    const trading=state.trades.some(t=>t.key===k&&t.st==='open');
+    const active=k===state.focus;
+    h+='<button class="symTab '+(active?'active':'')+'" data-sym="'+k+'">'
+      +(hasSig?'<span class="tb-sig"></span>':'')
+      +(trading?'<span class="tb-trade"></span>':'')
+      +'<span class="tb-tf">'+state.tf+'</span>'
+      +'<span class="tb-icon">'+s.icon+'</span>'
+      +'<div class="tb-info">'
+      +'<span class="tb-label">'+s.label+'</span>'
+      +'<span class="tb-price">$'+f(p,2)+'</span>'
+      +'<span class="tb-chg '+(chg>=0?'up':'dn')+'">'+(chg>=0?'+':'')+chg.toFixed(2)+'%</span>'
+      +'</div>'
+      +'</button>';
+  }
+  h+='<button class="addSym" id="addSymBtn" title="Add symbol to tabs">+</button>';
+  el.innerHTML=h;
+  el.querySelectorAll('.symTab').forEach(b=>b.addEventListener('click',()=>switchFocus(b.dataset.sym)));
+  const addBtn=document.getElementById('addSymBtn');
+  if(addBtn)addBtn.addEventListener('click',mAddTab);
 }
 function tickers(){
   const p=state.prices[state.focus],pv=state.prev[state.focus];
@@ -700,12 +725,13 @@ function switchFocus(key){
   if(!state.symbols[key])return;
   state.focus=key;
   state.prices[key]=state.prices[key]||0;
-  /* Don't close sockets for other symbols - keep auto-trade running */
-  loadSymbol(key,state.tf);
+  if(!state.candles[key]||!state.candles[key].length)loadSymbol(key,state.tf);
+  else{loadSymbol(key,state.tf);}
   loadAllTFs(key);
   connectWS(key);
   renderMarkers();
   renderZigZag();
+  renderSymBar();
 }
 function notify(d){
   const el=document.getElementById('toast');
@@ -731,7 +757,7 @@ function openTrade(d){
   saveS();
   if(state.focus===d.key)renderMarkers();
   if(state.activeView==='hist')renderLiveTrades();
-  renderWL();
+  renderWL();renderSymBar();
 }
 function ut(){
   let dirty=false;
@@ -762,7 +788,7 @@ function ut(){
     dirty=true;
   }
   if(dirty){
-    ub();renderWL();
+    ub();renderWL();renderSymBar();
     if(state.activeView==='hist'){renderLiveTrades();renderHist();}
     const m=document.getElementById('modal');if(m.classList.contains('open')){const title=document.getElementById('mtitle').textContent;if(title.includes('Auto'))mAuto();}
   }
@@ -784,7 +810,6 @@ function renderLiveTrades(){
     const pnlPct=(p-t.e)/t.e*100*(t.dir==='buy'?1:-1);
     const pos=pnl>=0;
     const elapsed=Date.now()-t.ot;
-    const remain=Math.max(0,t.maxHold-elapsed);
     const isBuy=t.dir==='buy';
     const distToTP=isBuy?((t.tp-p)/p*100):((p-t.tp)/p*100);
     const distToSL=isBuy?((p-t.sl)/p*100):((t.sl-p)/p*100);
@@ -892,9 +917,17 @@ function mSearch(){
     inp.focus();
   },100);
 }
+function mAddTab(){
+  const available=Object.keys(state.symbols).filter(k=>!state.tabs.includes(k));
+  openM('➕ Add Tab','<div class="ct">Pick symbol to add to bottom bar</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+available.map(k=>{return '<button class="tg" data-at="'+k+'">'+state.symbols[k].icon+' '+state.symbols[k].label+'</button>';}).join('')+'</div>'+(available.length?'':'<div class="ni">All symbols already added.</div>')+'<div class="ct" style="margin-top:14px">Remove Tab</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+state.tabs.map(k=>{if(k==='XAUUSD')return '';return '<button class="tg on" data-rt="'+k+'">❌ '+state.symbols[k].label+'</button>';}).join('')+'</div>');
+  setTimeout(()=>{
+    document.querySelectorAll('[data-at]').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.at;if(!state.tabs.includes(k)){state.tabs.push(k);if(!state.candles[k]){loadSymbol(k,state.tf);loadAllTFs(k);connectWS(k);}}saveS();renderSymBar();mAddTab();}));
+    document.querySelectorAll('[data-rt]').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.rt;state.tabs=state.tabs.filter(x=>x!==k);saveS();renderSymBar();mAddTab();}));
+  },100);
+}
 function mWatch(){
   const all=['XAUUSD','BTCUSDT','ETHUSDT','SOLUSDT','BNBUSDT','XRPUSDT','EURUSDT','GBPUSDT','AUDUSDT','ADAUSDT','DOGEUSDT'];
-  openM('👁 Watchlist','<div class="ct">Toggle to monitor + trade</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+all.map(k=>{const on=state.watchlist.includes(k)||k==='XAUUSD';return '<button class="tg '+(on?'on':'')+'" data-wk="'+k+'">'+state.symbols[k].icon+' '+state.symbols[k].label+'</button>';}).join('')+'</div><div class="ni" style="margin-top:14px">Trade All Mode:<br><br><button class="tg '+(state.tradeAll?'on':'')+'" id="mtall">'+(state.tradeAll?'🌐 ENABLED':'⛔ DISABLED')+'</button><br><span style="font-size:10px">When enabled, DARK AI trades all watchlist symbols simultaneously, even when not in focus.</span></div>');
+  openM('👁 Watchlist','<div class="ct">Toggle to monitor</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+all.map(k=>{const on=state.watchlist.includes(k)||k==='XAUUSD';return '<button class="tg '+(on?'on':'')+'" data-wk="'+k+'">'+state.symbols[k].icon+' '+state.symbols[k].label+'</button>';}).join('')+'</div><div class="ni" style="margin-top:14px">Trade All Mode:<br><br><button class="tg '+(state.tradeAll?'on':'')+'" id="mtall">'+(state.tradeAll?'🌐 ENABLED':'⛔ DISABLED')+'</button><br><span style="font-size:10px">When enabled, trades all watchlist symbols simultaneously, even when not in focus.</span></div>');
   setTimeout(()=>{
     document.querySelectorAll('[data-wk]').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.wk;if(k==='XAUUSD')return;if(state.watchlist.includes(k))state.watchlist=state.watchlist.filter(x=>x!==k);else{state.watchlist.push(k);if(!state.candles[k]){loadSymbol(k,state.tf);loadAllTFs(k);connectWS(k);}}saveS();mWatch();renderWL();}));
     const t=document.getElementById('mtall');if(t)t.addEventListener('click',()=>{state.tradeAll=!state.tradeAll;saveS();mWatch();updateTradeAllBtn();});
@@ -914,13 +947,11 @@ const SYS='You are DARK AI — professional trading assistant. Brief answers. Di
 async function aAI(t){const b=document.getElementById('mchb');if(!b)return;const u=document.createElement('div');u.className='msg u';u.textContent=t;b.appendChild(u);const th=document.createElement('div');th.className='msg a';th.textContent='...';b.appendChild(th);b.scrollTop=b.scrollHeight;const ctx='\nGold '+f(state.prices.XAUUSD)+' BTC '+f(state.prices.BTCUSDT);try{const r=await puter.ai.chat(SYS+ctx+'\nQ: '+t);const tx=r&&r.message&&r.message.content?r.message.content:(r&&r.text?r.text:String(r));th.innerHTML=tx.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\n/g,'<br>');}catch(e){th.textContent='Error: '+e.message;}b.scrollTop=b.scrollHeight;}
 async function mNews(){openM('📰 News','<div class="ni">Analyzing...</div>');try{const r=await puter.ai.chat('Give 5 recent news for gold and bitcoin. JSON: {"items":[{"title":"","source":"","impact":"high|med|low","gold":"","btc":""}]}');const tx=r&&r.message?r.message.content:String(r);const m=tx.match(/\{[\s\S]*\}/);if(m){const d=JSON.parse(m[0]);document.getElementById('mbody').innerHTML=d.items.map(n=>'<div class="ni"><b>'+n.title+'</b><span class="imp '+(n.impact==='high'?'high':n.impact==='med'?'med':'low')+'">'+n.impact.toUpperCase()+'</span><div>🥇 '+n.gold+'</div><div>₿ '+n.btc+'</div><div style="color:#7a86b0;font-size:10px">📰 '+n.source+'</div></div>').join('');}else{document.getElementById('mbody').innerHTML='<div class="ni">'+tx+'</div>';}}catch(e){document.getElementById('mbody').innerHTML='<div class="ni">⚠️ '+e.message+'</div>';}}
 function mLearn(){const keys=Object.keys(state.learned).sort((a,b)=>state.learned[b].tot-state.learned[a].tot);const rows=keys.length?keys.slice(0,40).map(k=>{const l=state.learned[k];const wr=Math.round(l.w/l.tot*100);return '<div class="st"><span style="font-family:monospace;font-size:10px">'+k+'</span><b style="color:'+(wr>55?'#00e676':wr<45?'#ff3d5f':'#ffb300')+'">'+wr+'% ('+l.w+'/'+l.tot+')</b></div>';}).join(''):'<div class="ni">No data.</div>';const total=state.wins+state.losses;const gwr=total?Math.round(state.wins/total*100):0;openM('🧠 AI Learning','<div class="lb"><b>Patterns:</b> '+keys.length+'<br><b>WR:</b> '+gwr+'% ('+state.wins+'/'+total+')</div>'+rows+'<div style="margin-top:14px"><button class="tg" id="mrs">🗑 Reset</button></div>');setTimeout(()=>{const r=document.getElementById('mrs');if(r)r.addEventListener('click',()=>{if(confirm('Reset?')){state.learned={};state.wins=0;state.losses=0;saveS();mLearn();}});},100);}
-function mSettings(){openM('⚙️ Settings','<div class="st"><span>Symbol</span><b>'+state.symbols[state.focus].label+'</b></div><div class="st"><span>Timeframe</span><b>'+state.tf+'</b></div><div class="st"><span>SL/TP Ratio</span><b>1:4</b></div><div class="st"><span>Position Size</span><b>$'+POSITION+'</b></div><div class="st"><span>Trade All</span><b style="color:'+(state.tradeAll?'#00e676':'#ff3d5f')+'">'+(state.tradeAll?'ON':'OFF')+'</b></div><div class="st"><span>ZigZag</span><b style="color:'+(state.zigzag?'#00e676':'#ff3d5f')+'">'+(state.zigzag?'ON':'OFF')+'</b></div><div class="st"><span>Auto Trade</span><b style="color:'+(state.autoTrade?'#00e676':'#ff3d5f')+'">'+(state.autoTrade?'ON':'OFF')+'</b></div><div style="margin-top:14px"><button class="tg" id="mst">'+(state.autoTrade?'Disable':'Enable')+' Auto</button><button class="tg" id="mzz">Toggle ZigZag</button><button class="tg" id="msf">📈 Fit</button></div><div class="ni" style="margin-top:14px">DARK AI v7 Pro<br>🔧 Fixed WS candle bug • 🎯 Entry markers • 🌐 Trade All Mode • 📈 ZigZag toggle • 💰 Live Trades panel</div>');setTimeout(()=>{const t=document.getElementById('mst');if(t)t.addEventListener('click',()=>{state.autoTrade=!state.autoTrade;mSettings();});const z=document.getElementById('mzz');if(z)z.addEventListener('click',()=>{state.zigzag=!state.zigzag;saveS();updateZzBtn();renderZigZag();mSettings();});const ft=document.getElementById('msf');if(ft)ft.addEventListener('click',()=>chart.timeScale().fitContent());},100);}
+function mSettings(){openM('⚙️ Settings','<div class="st"><span>Symbol</span><b>'+state.symbols[state.focus].label+'</b></div><div class="st"><span>Timeframe</span><b>'+state.tf+'</b></div><div class="st"><span>SL/TP Ratio</span><b>1:4</b></div><div class="st"><span>Position Size</span><b>$'+POSITION+'</b></div><div class="st"><span>Trade All</span><b style="color:'+(state.tradeAll?'#00e676':'#ff3d5f')+'">'+(state.tradeAll?'ON':'OFF')+'</b></div><div class="st"><span>Auto Trade</span><b style="color:'+(state.autoTrade?'#00e676':'#ff3d5f')+'">'+(state.autoTrade?'ON':'OFF')+'</b></div><div style="margin-top:14px"><button class="tg" id="mst">'+(state.autoTrade?'Disable':'Enable')+' Auto</button><button class="tg" id="madd">➕ Manage Tabs</button><button class="tg" id="msf">📈 Fit</button></div><div class="ni" style="margin-top:14px">DARK AI v8 Pro<br>🎯 Symbol Switcher Bar • 🔵 Entry markers • 🌐 Trade All Mode • 📈 ZigZag دائماً • 📊 Live Trades Panel</div>');setTimeout(()=>{const t=document.getElementById('mst');if(t)t.addEventListener('click',()=>{state.autoTrade=!state.autoTrade;mSettings();});const a=document.getElementById('madd');if(a)a.addEventListener('click',()=>{document.getElementById('modal').classList.remove('open');mAddTab();});const ft=document.getElementById('msf');if(ft)ft.addEventListener('click',()=>chart.timeScale().fitContent());},100);}
 
 function updateTradeAllBtn(){const b=document.getElementById('tradeAllBtn');if(!b)return;b.classList.toggle('on',state.tradeAll);b.textContent=state.tradeAll?'🌐 Trade All: ON':'🌐 Trade All: OFF';}
-function updateZzBtn(){const b=document.getElementById('zzBtn');if(!b)return;b.classList.toggle('on',state.zigzag);b.textContent=state.zigzag?'📈 ZigZag: ON':'📈 ZigZag: OFF';}
 
 document.getElementById('tradeAllBtn').addEventListener('click',()=>{state.tradeAll=!state.tradeAll;saveS();updateTradeAllBtn();});
-document.getElementById('zzBtn').addEventListener('click',()=>{state.zigzag=!state.zigzag;saveS();updateZzBtn();renderZigZag();});
 
 document.querySelectorAll('.viewBtn').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('.viewBtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');
@@ -944,6 +975,8 @@ document.querySelectorAll('.tfb').forEach(b=>b.addEventListener('click',async()=
   for(const k in sockets){try{sockets[k].close();}catch(e){}}
   await loadSymbol(state.focus,state.tf);loadAllTFs(state.focus);connectWS(state.focus);
   for(const k of state.watchlist){loadSymbol(k,state.tf);loadAllTFs(k);connectWS(k);}
+  for(const k of state.tabs){if(!state.watchlist.includes(k)&&k!==state.focus){loadSymbol(k,state.tf);loadAllTFs(k);connectWS(k);}}
+  renderSymBar();
 }));
 
 window.addEventListener('load',async()=>{
@@ -952,15 +985,17 @@ window.addEventListener('load',async()=>{
   await loadAllTFs(state.focus);
   connectWS(state.focus);
   for(const k of state.watchlist){loadSymbol(k,state.tf);loadAllTFs(k);connectWS(k);}
-  ub();tickers();renderWL();renderHist();
-  updateTradeAllBtn();updateZzBtn();
+  for(const k of state.tabs){if(k!==state.focus&&!state.watchlist.includes(k)){loadSymbol(k,state.tf);loadAllTFs(k);connectWS(k);}}
+  ub();tickers();renderWL();renderSymBar();renderHist();
+  updateTradeAllBtn();
   setInterval(tickers,500);
   setInterval(ub,1000);
   setInterval(()=>{const d=state.decisions[state.focus];if(d)renderDecision(d);},2000);
+  setInterval(renderSymBar,1500);
   setInterval(()=>{if(state.activeView==='hist')renderLiveTrades();},1000);
   setInterval(()=>{if(state.activeView==='hist')renderHist();},3000);
 });
-console.log('%c⚡ DARK AI v7 Pro ready','color:#00d4ff;font-size:16px;font-weight:bold');
+console.log('%c⚡ DARK AI v8 Pro ready','color:#00d4ff;font-size:16px;font-weight:bold');
 </script>
 </body>
 </html>
